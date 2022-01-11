@@ -1,0 +1,26 @@
+/*
+Theme Name: karyabi
+Version: 1.0.0
+Description: قالب اختصاصی کاریابی
+Author: جلیل نوری
+*/
+@font-face {
+    font-family: 'Vazir';
+    src: url('assets/fonts/vazir/eot/Vazir.eot');
+    src: url('assets/fonts/vazir/eot/Vazir.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/vazir/woff2/Vazir.woff2') format('woff2'),
+        url('assets/fonts/vazir/woff/Vazir.woff') format('woff'),
+        url('assets/fonts/vazir/ttf/Vazir.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Vazir';
+    src: url('assets/fonts/vazir/eot/Vazir-Bold.eot');
+    src: url('assets/fonts/vazir/eot/Vazir-Bold.eot?#iefix') format('embedded-opentype'),
+        url('assets/fonts/vazir/woff2/Vazir-Bold.woff2') format('woff2'),
+        url('assets/fonts/vazir/woff/Vazir-Bold.woff') format('woff'),
+        url('assets/fonts/vazir/ttf/Vazir-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+
