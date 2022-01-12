@@ -36,7 +36,7 @@
                 <div class="container clearfix">
                     <!-- website logo -->
                     <div class="logo-header mostion">
-						<a href="index.html"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" class="logo" alt=""></a>
+						<a title="<?php  echo get_bloginfo('name'); ?>" href="<?php echo site_url(); ?>"><img  src="<?php echo get_field('header','option')["logo"]; ?>" class="logo" alt="<?php  echo get_bloginfo('name'); ?>"></a>
 					</div>
                     <!-- nav toggle button -->
                     <!-- nav toggle button -->
@@ -54,6 +54,7 @@
                     </div>
                     <!-- main nav -->
                     <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+
                         <ul class="nav navbar-nav">
 							<li class="active">
 								<a href="#">صفحات اصلی <i class="fa fa-chevron-down"></i></a>

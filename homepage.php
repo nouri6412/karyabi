@@ -16,8 +16,9 @@ get_header();
 ?>
 <div class="container">
     <?php
+
     the_content();
-   // get_template_part('template-parts/homepage/homepage', 'sp');
+    // get_template_part('template-parts/homepage/homepage', 'sp');
     ?>
 </div>
 <?php

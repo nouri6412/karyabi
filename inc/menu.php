@@ -1,10 +1,17 @@
 <?php
-function bital_custom_menu()
+function get_menu_array_nav_item($main_menu)
 {
-    register_nav_menu('primary', 'منوی اصلی ');
-    register_nav_menu('footer-menu-1', ' منوی فوتر (برگزیده)');
-    register_nav_menu('footer-menu-2', ' منوی فوتر (تحلیل قیمت)');
-    register_nav_menu('footer-menu-3', ' منوی فوتر (مفاهیم پایه)');
-    register_nav_menu('footer-menu-4', ' منوی فوتر (بیتال)');
+    $menus = [];
+    foreach ($main_menu as $navItem) {
+        if (!isset($menus[$navItem->menu_item_parent])) {
+            $menus[$navItem->menu_item_parent] = [];
+        }
+        $menus[$navItem->menu_item_parent][] =$navItem;
+    }
+    return $menus;
 }
-add_action('init', 'bital_custom_menu');
+function karyabi_custom_menu()
+{
+    register_nav_menu('primary-menu', 'منوی اصلی ');
+}
+add_action('init', 'karyabi_custom_menu');
