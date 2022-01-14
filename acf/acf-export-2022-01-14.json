@@ -1,5 +1,52 @@
 [
     {
+        "key": "group_61e2072575892",
+        "title": "برگه ها",
+        "fields": [
+            {
+                "key": "field_61e2096ef0f57",
+                "label": "تصویر پس زمینه",
+                "name": "back-image",
+                "type": "image",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "return_format": "url",
+                "preview_size": "medium",
+                "library": "all",
+                "min_width": "",
+                "min_height": "",
+                "min_size": "",
+                "max_width": "",
+                "max_height": "",
+                "max_size": "",
+                "mime_types": ""
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "page_template",
+                    "operator": "==",
+                    "value": "default"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    },
+    {
         "key": "group_61dec40bc4349",
         "title": "تنظیمات عمومی",
         "fields": [
@@ -441,44 +488,63 @@
                 ]
             },
             {
-                "key": "field_61dd7ff287764",
-                "label": "کپی رایت",
-                "name": "footer-copy",
+                "key": "field_61e200126f3c2",
+                "label": "پاپ آپ ورود",
+                "name": "footer-popup-login",
                 "type": "group",
                 "instructions": "",
                 "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
-                    "width": "",
+                    "width": "50",
                     "class": "",
                     "id": ""
                 },
                 "layout": "row",
                 "sub_fields": [
                     {
-                        "key": "field_61dd800587765",
-                        "label": "متن",
-                        "name": "text",
+                        "key": "field_61e200306f3c3",
+                        "label": "عنوان",
+                        "name": "title",
                         "type": "text",
                         "instructions": "",
                         "required": 0,
                         "conditional_logic": 0,
                         "wrapper": {
-                            "width": "",
+                            "width": "50",
                             "class": "",
                             "id": ""
                         },
-                        "default_value": "",
-                        "placeholder": "",
+                        "default_value": "وارد حساب کاربری خود شوید",
+                        "placeholder": "وارد حساب کاربری خود شوید",
                         "prepend": "",
                         "append": "",
                         "maxlength": ""
                     },
                     {
-                        "key": "field_61dd853487766",
-                        "label": "لینک",
-                        "name": "link",
-                        "type": "text",
+                        "key": "field_61e2009a6f3c4",
+                        "label": "متن",
+                        "name": "text",
+                        "type": "textarea",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "50",
+                            "class": "",
+                            "id": ""
+                        },
+                        "default_value": "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است.",
+                        "placeholder": "",
+                        "maxlength": "",
+                        "rows": 3,
+                        "new_lines": ""
+                    },
+                    {
+                        "key": "field_61e2010bcdfb4",
+                        "label": "تصویر پس زمینه",
+                        "name": "image",
+                        "type": "image",
                         "instructions": "",
                         "required": 0,
                         "conditional_logic": 0,
@@ -487,11 +553,16 @@
                             "class": "",
                             "id": ""
                         },
-                        "default_value": "",
-                        "placeholder": "",
-                        "prepend": "",
-                        "append": "",
-                        "maxlength": ""
+                        "return_format": "url",
+                        "preview_size": "medium",
+                        "library": "all",
+                        "min_width": "",
+                        "min_height": "",
+                        "min_size": "",
+                        "max_width": "",
+                        "max_height": "",
+                        "max_size": "",
+                        "mime_types": ""
                     }
                 ]
             }
@@ -502,6 +573,108 @@
                     "param": "options_page",
                     "operator": "==",
                     "value": "theme-general-settings-footer"
+                }
+            ]
+        ],
+        "menu_order": 0,
+        "position": "normal",
+        "style": "default",
+        "label_placement": "top",
+        "instruction_placement": "label",
+        "hide_on_screen": "",
+        "active": true,
+        "description": ""
+    },
+    {
+        "key": "group_61e1a42ad9cee",
+        "title": "نوار کناری",
+        "fields": [
+            {
+                "key": "field_61e1a443457ce",
+                "label": "دسته ها",
+                "name": "widget-category",
+                "type": "repeater",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "collapsed": "",
+                "min": 0,
+                "max": 0,
+                "layout": "row",
+                "button_label": "",
+                "sub_fields": [
+                    {
+                        "key": "field_61e1a47b457cf",
+                        "label": "دسته",
+                        "name": "cat",
+                        "type": "group",
+                        "instructions": "",
+                        "required": 0,
+                        "conditional_logic": 0,
+                        "wrapper": {
+                            "width": "",
+                            "class": "",
+                            "id": ""
+                        },
+                        "layout": "block",
+                        "sub_fields": [
+                            {
+                                "key": "field_61e1a493457d0",
+                                "label": "عنوان",
+                                "name": "text",
+                                "type": "text",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "33",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "default_value": "",
+                                "placeholder": "",
+                                "prepend": "",
+                                "append": "",
+                                "maxlength": ""
+                            },
+                            {
+                                "key": "field_61e1a4a3457d1",
+                                "label": "لینک",
+                                "name": "link",
+                                "type": "taxonomy",
+                                "instructions": "",
+                                "required": 0,
+                                "conditional_logic": 0,
+                                "wrapper": {
+                                    "width": "",
+                                    "class": "",
+                                    "id": ""
+                                },
+                                "taxonomy": "category",
+                                "field_type": "select",
+                                "allow_null": 0,
+                                "add_term": 1,
+                                "save_terms": 0,
+                                "load_terms": 0,
+                                "return_format": "object",
+                                "multiple": 0
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "location": [
+            [
+                {
+                    "param": "options_page",
+                    "operator": "==",
+                    "value": "theme-general-settings-widget"
                 }
             ]
         ],
