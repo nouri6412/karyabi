@@ -26,7 +26,7 @@ get_template_part('template-parts/footer/footer', 'popup-login');
 <!-- JAVASCRIPT FILES ========================================= -->
 <?php wp_footer(); ?>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/combining.js"></script>
-
+<script src="<?php echo get_template_directory_uri(); ?>/assets/js/share.js"></script>
 </body>
 
 </html>

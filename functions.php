@@ -1,11 +1,30 @@
 <?php
 //************************* dynamic title *****************************
-function karyabi_theme_support(){
+function karyabi_theme_support()
+{
     add_theme_support('title-tag');
     add_theme_support('post-thumbnails');
     add_theme_support('category-thumbnails');
 }
-add_action('after_setup_theme','karyabi_theme_support');
+add_action('after_setup_theme', 'karyabi_theme_support');
+
+
+
+// add tag support to pages
+function tags_support_all()
+{
+    register_taxonomy_for_object_type('post_tag', 'page');
+}
+
+// ensure all tags are included in queries
+function tags_support_query($wp_query)
+{
+    if ($wp_query->get('tag')) $wp_query->set('post_type', 'any');
+}
+
+// tag hooks
+add_action('init', 'tags_support_all');
+add_action('pre_get_posts', 'tags_support_query');
 
 
 ///menu
@@ -21,33 +40,53 @@ require get_template_directory() . '/inc/tools.php';
 /// post type
 require get_template_directory() . '/inc/post_type.php';
 
+/// helper
+require get_template_directory() . '/inc/helper-functions.php';
+
+
+/// template tags
+require get_template_directory() . '/inc/template-tags.php';
+
+/// icon
+require get_template_directory() . '/inc/icon-functions.php';
+
+/// classes
+require get_template_directory() . '/classes/class-custom-theme-svg-icons.php';
+require get_template_directory() . '/classes/class-custom-theme-walker-comment.php';
+
 
 
 ///// setting page acf
 
-if( function_exists('acf_add_options_page') ) {
-	
-	acf_add_options_page(array(
-		'page_title' 	=> 'تنظیمات  قالب کاریابی',
-		'menu_title'	=> 'تنظیمات  قالب کاریابی',
-		'menu_slug' 	=> 'theme-general-settings',
-		'capability'	=> 'edit_posts',
-		'redirect'		=> false
-	));
-	
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'فوتر',
-		'menu_title'	=> 'فوتر',
-        'menu_slug' 	=> 'theme-general-settings-footer',
-		'parent_slug'	=> 'theme-general-settings',
-	));
-	
+if (function_exists('acf_add_options_page')) {
+
+    acf_add_options_page(array(
+        'page_title'     => 'تنظیمات  قالب کاریابی',
+        'menu_title'    => 'تنظیمات  قالب کاریابی',
+        'menu_slug'     => 'theme-general-settings',
+        'capability'    => 'edit_posts',
+        'redirect'        => false
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'     => 'فوتر',
+        'menu_title'    => 'فوتر',
+        'menu_slug'     => 'theme-general-settings-footer',
+        'parent_slug'    => 'theme-general-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'     => 'نوار کناری',
+        'menu_title'    => 'نوار کناری',
+        'menu_slug'     => 'theme-general-settings-widget',
+        'parent_slug'    => 'theme-general-settings',
+    ));
 }
 
 
 
 /// ajax
- function karyabi_theme_scripts()
+function karyabi_theme_scripts()
 {
     global $wp_query;
 
