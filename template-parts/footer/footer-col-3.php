@@ -6,10 +6,12 @@ $data = get_field("footer-col-3", 'option');
         <h5 class="m-b30 text-white"><?php echo $data["title"]; ?></h5>
         <ul class="list-2 w10 list-line">
             <?php
-            foreach ($data["links"] as $item) {
+            if (isset($data["links"]) && is_array($data["links"])) {
+                foreach ($data["links"] as $item) {
             ?>
-                <li><a title="<?php echo $item["link"]["text"]; ?>" href="<?php if (isset($item["link"]["link"]->ID))  echo  get_permalink($item["link"]["link"]->ID);  ?>"><?php echo $item["link"]["text"]; ?></a></li>
+                    <li><a title="<?php echo $item["link"]["text"]; ?>" href="<?php if (isset($item["link"]["link"]->ID))  echo  get_permalink($item["link"]["link"]->ID);  ?>"><?php echo $item["link"]["text"]; ?></a></li>
             <?php
+                }
             }
             ?>
         </ul>

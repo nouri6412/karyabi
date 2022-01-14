@@ -8,15 +8,29 @@ function custom_generate_menu_li($navItem, $menu)
         $item_class = 'active';
     }
     if (isset($menu[$navItem->ID])) {
-        $i = '<i class="fa fa-chevron-down"></i>';
+        if ($navItem->menu_item_parent == 0) {
+            $i = '<i class="fa fa-chevron-down"></i>';
+        } else {
+            $i = '<i class="fa fa-angle-right"></i>';
+        }
     }
 ?>
     <li class="<?php echo $item_class; ?>">
         <a href="#"><?php echo $navItem->title; ?><?php echo $i; ?></a>
-        <ul class="sub-menu">
-            <li><a href="index.html" class="dez-page">خانه 1</a></li>
-            <li><a href="index-2.html" class="dez-page">خانه 2</a></li>
-        </ul>
+        <?php
+        if (isset($menu[$navItem->ID])) {
+        ?>
+            <ul class="sub-menu">
+                <?php
+                foreach ($menu[$navItem->ID] as $item) {
+                    custom_generate_menu_li($item, $menu);
+                }
+                ?>
+
+            </ul>
+        <?php
+        }
+        ?>
     </li>
 <?php
 }
@@ -32,6 +46,7 @@ $menus = get_menu_array_nav_item($primaryNav);
 <ul class="nav navbar-nav">
     <?php
     foreach ($menus[0] as $navItem) {
+        custom_generate_menu_li($navItem, $menus);
     }
     ?>
 </ul>

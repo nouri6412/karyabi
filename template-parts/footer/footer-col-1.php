@@ -18,10 +18,12 @@ $data = get_field("footer-col-1", 'option');
         </div>
         <ul class="list-inline m-a0">
             <?php
-            foreach ($data["sosial"] as $item) {
+            if (isset($data["sosial"]) && is_array($data["sosial"])) {
+                foreach ($data["sosial"] as $item) {
             ?>
-                <li><a title="<?php echo $item["text"]; ?>" href="<?php echo $item["link"]; ?>" class="site-button white <?php echo $item["icon"]; ?> circle "><i class="fa fa-<?php echo $item["icon"]; ?>"></i></a></li>
+                    <li><a title="<?php echo $item["text"]; ?>" href="<?php echo $item["link"]; ?>" class="site-button white <?php echo $item["icon"]; ?> circle "><i class="fa fa-<?php echo $item["icon"]; ?>"></i></a></li>
             <?php
+                }
             }
             ?>
         </ul>
