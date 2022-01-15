@@ -85,11 +85,6 @@ get_header();
                                         }
                                     }
                                     ?>
-                                    <li><a href="javascript:void(0);" class="fa fa-facebook bg-primary"></a></li>
-                                    <li><a href="javascript:void(0);" class="fa fa-twitter bg-primary"></a></li>
-                                    <li><a href="javascript:void(0);" class="fa fa-linkedin bg-primary"></a></li>
-                                    <li><a href="javascript:void(0);" class="fa fa-pinterest-p bg-primary"></a></li>
-                                    <li><a href="javascript:void(0);" class="fa fa-google-plus bg-primary"></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -98,6 +93,7 @@ get_header();
                     <!-- Left part start -->
                     <div class="col-lg-4 col-md-6">
                         <div class="p-a30 m-b30 radius-sm bg-gray clearfix">
+
                             <h4>ارسال پیام</h4>
                             <div id="dzFormMsg-error" class="dzFormMsg error"></div>
                             <input type="hidden" value="Contact" name="dzToDo">
@@ -134,7 +130,15 @@ get_header();
                                 <div class="col-lg-12">
                                     <div class="loading-ajax"></div>
                                     <div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
-                                    <button onclick="ajax_submit_contact_form($('#dzName').val(),$('#dzEmail').val(),$('#dzMessage').val(),$('#dzFormMsg-error'),$('#dzFormMsg-doned'),$(this))" name="submit" value="submit" class="site-button "> <span>ثبت</span> </button>
+                                    <button onclick="
+                                    ajax_submit_contact_form(
+                                    $('#dzName').val()
+                                    ,$('#dzEmail').val()
+                                    ,$('#dzMessage').val()
+                                    ,$('#dzFormMsg-error')
+                                    ,$('#dzFormMsg-doned')
+                                    ,$(this))
+                                    " name="submit" value="submit" class="site-button "> <span>ثبت</span> </button>
                                 </div>
                             </div>
 
