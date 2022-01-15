@@ -1,5 +1,5 @@
         <!-- inner page banner -->
-        <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo get_field('back-image'); ?>);">
+        <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo get_field('post-back-image','option');; ?>);">
             <div class="container">
                 <div class="dez-bnr-inr-entry">
                     <h1 class="text-white"><?php echo get_the_title(); ?></h1>

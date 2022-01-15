@@ -15,6 +15,8 @@ get_header();
 
 ?>
 <div class="container">
+    	
+<a href="<?php echo get_post_type_archive_link( 'our-service' ); ?>">our-service Archive</a>
     <?php
 
     the_content();

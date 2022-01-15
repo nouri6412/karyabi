@@ -34,11 +34,11 @@ function karyabi_post_type_contact()
         'labels' => $labels,
         'public' => true,
         'query_var' => true,
-        'rewrite' => array('slug' => 'contact'),
+        'rewrite' => array('slug' => 'contact-post'),
         'has_archive' => true,
         'hierarchical' => false,
     );
-    register_post_type('contact', $args);
+    register_post_type('contact-post', $args);
 }
 add_action('init', 'karyabi_post_type_contact');
 

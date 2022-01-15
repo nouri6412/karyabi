@@ -47,6 +47,9 @@ require get_template_directory() . '/inc/helper-functions.php';
 /// template tags
 require get_template_directory() . '/inc/template-tags.php';
 
+/// template functions
+require get_template_directory() . '/inc/template-functions.php';
+
 /// icon
 require get_template_directory() . '/inc/icon-functions.php';
 
@@ -90,13 +93,13 @@ function karyabi_theme_scripts()
 {
     global $wp_query;
 
-    wp_enqueue_script(
-        'karyabi_ajax_script',
-        get_template_directory_uri() . '/assets/js/ajax.js',
-        array('jquery'),
-        1,
-        true
-    );
+    // wp_enqueue_script(
+    //     'karyabi_ajax_script',
+    //     get_template_directory_uri() . '/assets/js/ajax.js',
+    //     array('jquery'),
+    //     1,
+    //     true
+    // );
 
     wp_localize_script('karyabi_ajax_script', 'karyabi_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),

@@ -7,26 +7,28 @@
  *
  * @package WordPress
  * @subpackage Karyabi
+ *  * Template Name: آخرین مطالب
  */
-
+$args = array(
+    'post_type' => 'post'
+);
+$the_query = new WP_Query($args);
 get_header();
 ?>
 
 <!-- Content -->
 <div class="page-content bg-white">
 
-
-
 	<!-- inner page banner -->
 	<div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo get_field('archive-back-image','option'); ?>);">
 		<div class="container">
 			<div class="dez-bnr-inr-entry">
-				<h1 class="text-white"><?php echo the_archive_title(); ?></h1>
+				<h1 class="text-white"><?php echo 'آخرین مطالب'; ?></h1>
 				<!-- Breadcrumb row -->
 				<div class="breadcrumb-row">
 					<ul class="list-inline">
 						<li><a title="<?php echo get_bloginfo("name"); ?>" href="<?php echo home_url(); ?>">خانه</a></li>
-						<li><?php echo the_archive_title(); ?></li>
+						<li><?php echo 'آخرین مطالب'; ?></li>
 					</ul>
 				</div>
 				<!-- Breadcrumb row END -->
@@ -39,11 +41,11 @@ get_header();
 			<div class="row">
 				<!-- Left part start -->
 				<div class="col-lg-8 col-md-7 m-b10">
-					<?php if (have_posts()) { ?>
+					<?php if ($the_query->have_posts()) { ?>
 					<?php
 						// Start the Loop.
-						while (have_posts()) :
-							the_post();
+						while ($the_query->have_posts()) :
+							$the_query->the_post();
 							get_template_part('template-parts/content/content', 'excerpt');
 
 						// End the loop.
