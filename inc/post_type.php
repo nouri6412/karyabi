@@ -34,11 +34,14 @@ function karyabi_post_type_contact()
         'labels' => $labels,
         'public' => true,
         'query_var' => true,
-        'rewrite' => array('slug' => 'contact-post'),
+        'rewrite' => array('slug' => 'contact_form'),
         'has_archive' => true,
         'hierarchical' => false,
+        // 'capabilities' => array(
+        //     'create_posts' => 'do_not_allow'
+        // )
     );
-    register_post_type('contact-post', $args);
+    register_post_type('contact_form', $args);
 }
 add_action('init', 'karyabi_post_type_contact');
 

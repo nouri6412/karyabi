@@ -59,6 +59,15 @@ require get_template_directory() . '/classes/class-custom-theme-walker-comment.p
 
 
 
+////save-post
+
+foreach (glob(get_template_directory()."/inc/save-post/*.php") as $filename)
+{
+    require $filename;
+}
+
+
+
 ///// setting page acf
 
 if (function_exists('acf_add_options_page')) {
@@ -93,15 +102,15 @@ function karyabi_theme_scripts()
 {
     global $wp_query;
 
-    // wp_enqueue_script(
-    //     'karyabi_ajax_script',
-    //     get_template_directory_uri() . '/assets/js/ajax.js',
-    //     array('jquery'),
-    //     1,
-    //     true
-    // );
+    wp_enqueue_script(
+        'karyabi_ajax_script',
+        get_template_directory_uri() . '/assets/js/ajax.js',
+        array('jquery'),
+        1,
+        false
+    );
 
-    wp_localize_script('karyabi_ajax_script', 'karyabi_object', array(
+    wp_localize_script('karyabi_ajax_script', 'custom_theme_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
         'max_page' => $wp_query->max_num_pages
@@ -110,4 +119,10 @@ function karyabi_theme_scripts()
 
 add_action('wp_enqueue_scripts', 'karyabi_theme_scripts');
 
-require get_template_directory() . '/inc/ajax.php';
+
+////ajax
+
+foreach (glob(get_template_directory()."/inc/ajax/*.php") as $filename)
+{
+    require $filename;
+}
