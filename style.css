@@ -23,7 +23,11 @@ Author: جلیل نوری
         url('assets/fonts/vazir/ttf/Vazir-Bold.ttf') format('truetype');
     font-weight: bold;
 }
-
+.box-loading{
+    position: relative;
+    height: 32px;
+    width: 100%;
+}
 .loading-ajax{
     display: none;
     width: 30px;
@@ -31,12 +35,14 @@ Author: جلیل نوری
     height: 30px;
     background-repeat: no-repeat;
     position: absolute;
-    top: -37px;
+    top: -10px;
 }
 .dzFormMsg.error{
 color: red;
+margin-top: 10px;
 }
 
 .dzFormMsg.doned{
     color: green;
+    margin-top: 10px;
 }

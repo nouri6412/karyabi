@@ -32,7 +32,7 @@ class Karyabi_Contact_Ajax
             'post_author'   => 1,
             'post_type'     => 'contact_form',
             'meta_input'    => array(
-            'email'         => $email
+                'email'         => $email
             ),
         );
 
@@ -58,7 +58,52 @@ class Karyabi_Contact_Ajax
         ]);
         die();
     }
+
+    function register_action($user_id)
+    {
+        
+        if(isset($_SESSION["pass"]))
+        {
+            wp_set_password( $_SESSION["pass"], $user_id );
+        }
+
+        if(isset($_SESSION["first_name"]))
+        {
+            update_user_meta($user_id, 'first_name', $_SESSION["first_name"]);
+        }
+
+        if(isset($_SESSION["last_name"]))
+        {
+            update_user_meta($user_id, 'last_name', $_SESSION["last_name"]);
+        }
+
+        update_user_meta($user_id, 'active_state', '0');
+    }
+
+   function session()
+    {
+
+        if(isset($_POST["pass"]))
+        {
+            $_SESSION['pass'] = $_POST["pass"]; 
+        }
+
+        if(isset($_POST["first_name"]))
+        {
+            $_SESSION['first_name'] = $_POST["first_name"]; 
+        }
+
+        if(isset($_POST["last_name"]))
+        {
+            $_SESSION['last_name'] = $_POST["last_name"]; 
+        }
+    }
 }
 $Karyabi_Contact_Ajax = new Karyabi_Contact_Ajax;
-add_action('wp_ajax_contact_form', array($Karyabi_Contact_Ajax, 'submit'));
-add_action('wp_ajax_nopriv_contact_form', array($Karyabi_Contact_Ajax, 'submit'));
+add_action('wp_ajax_mbm_contact_form', array($Karyabi_Contact_Ajax, 'submit'));
+add_action('wp_ajax_nopriv_mbm_contact_form', array($Karyabi_Contact_Ajax, 'submit'));
+
+add_action('wp_ajax_mbm_set_session', array($Karyabi_Contact_Ajax, 'session'));
+add_action('wp_ajax_nopriv_mbm_set_session', array($Karyabi_Contact_Ajax, 'session'));
+
+add_action('user_register', array($Karyabi_Contact_Ajax, 'register_action'));

@@ -8,13 +8,21 @@ function karyabi_theme_support()
 }
 add_action('after_setup_theme', 'karyabi_theme_support');
 
-
+add_filter( 'show_admin_bar', '__return_false' );
 
 // add tag support to pages
 function tags_support_all()
 {
     register_taxonomy_for_object_type('post_tag', 'page');
 }
+
+function register_session_new(){
+    if( ! session_id() ) {
+       session_start();
+     }
+ }
+
+add_action('init', 'register_session_new');
 
 // ensure all tags are included in queries
 function tags_support_query($wp_query)
@@ -109,9 +117,17 @@ function karyabi_theme_scripts()
         1,
         false
     );
-
-    wp_localize_script('karyabi_ajax_script', 'custom_theme_object', array(
+    wp_enqueue_script(
+        'karyabi_ajax_user_script',
+        get_template_directory_uri() . '/assets/js/user.js',
+        array('jquery'),
+        1,
+        false
+    );
+    wp_localize_script('karyabi_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
+        'siteurl' => site_url(),
+        'loginurl' => site_url().'/'. get_field('login_url','option'),
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
         'max_page' => $wp_query->max_num_pages
     ));

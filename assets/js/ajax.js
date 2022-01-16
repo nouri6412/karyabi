@@ -1,8 +1,8 @@
-function custom_theme_base_ajax(data, callback) {
+function custom_theme_mbm_base_ajax(data, callback) {
     // console.log(bital_object);
     console.log(data);
     jQuery.ajax({
-        url: custom_theme_object.ajaxurl,
+        url: custom_theme_mbm_object.ajaxurl,
         data: data,
         dataType: 'json',
         type: 'POST',
@@ -16,7 +16,7 @@ function custom_theme_base_ajax(data, callback) {
     });
 }
 
-function ajax_submit_contact_form(name, email, message,element_error,element_done,button) {
+function ajax_submit_mbm_contact_form(name, email, message,element_error,element_done,button) {
 
     var error='';
     element_error.html('');
@@ -42,8 +42,8 @@ function ajax_submit_contact_form(name, email, message,element_error,element_don
         return;
     }
 
-    custom_theme_base_ajax({
-        'action': 'contact_form',
+    custom_theme_mbm_base_ajax({
+        'action': 'mbm_contact_form',
         'name': name,
         'email': email,
         'message': message

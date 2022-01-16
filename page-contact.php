@@ -131,7 +131,7 @@ get_header();
                                     <div class="loading-ajax"></div>
                                     <div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
                                     <button onclick="
-                                    ajax_submit_contact_form(
+                                    ajax_submit_mbm_contact_form(
                                     $('#dzName').val()
                                     ,$('#dzEmail').val()
                                     ,$('#dzMessage').val()
