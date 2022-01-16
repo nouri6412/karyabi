@@ -26,7 +26,7 @@ get_header();
 					<div class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
 						<div class="tab-content">
 							<h4 class="font-weight-700 m-b5">اطلاعات خود را وارد کنید</h4>
-							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url().'/'. get_field('login_url','option') ?>">لطفا وارد شوید</a></p>
+							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url().'?login=user' ?>">لطفا وارد شوید</a></p>
 							<div class="form-group">
 								<label class="font-weight-700">نام</label>
 								<input name="first_name" id="first_name" required="" class="form-control" placeholder="نام" type="text">

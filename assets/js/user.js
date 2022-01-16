@@ -62,3 +62,35 @@ function ajax_submit_mbm_register(username, email, first_name, last_name, pass, 
 
 
 }
+
+function ajax_submit_mbm_login(username, pass, element_error, element_done)
+{
+    var error = '';
+    element_error.html('');
+    element_done.html('');
+
+    jQuery.ajax({
+        url: custom_theme_mbm_object.siteurl + '/wp-login.php',
+        data: {
+            'log': username,
+            'pwd': pass
+        },
+        type: 'POST',
+        success: function (result) {
+          //   console.log(result);
+            var found = $(result).find("#login_error");
+            if (found.length > 0) {
+                element_error.html('نام کاربری یا رمز عبور اشتباه است');
+            }
+            else {
+               window.location.href=custom_theme_mbm_object.siteurl+'/my-account';
+            }
+        },
+        beforeSend: function () {
+            jQuery('.loading-ajax').show();
+        },
+        complete: function () {
+            jQuery('.loading-ajax').hide();
+        }
+    });
+}

@@ -127,7 +127,7 @@ function karyabi_theme_scripts()
     wp_localize_script('karyabi_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'siteurl' => site_url(),
-        'loginurl' => site_url().'/'. get_field('login_url','option'),
+        'loginurl' => site_url().'?login=user',
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
         'max_page' => $wp_query->max_num_pages
     ));

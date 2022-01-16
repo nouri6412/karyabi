@@ -29,18 +29,27 @@ $data_sosial = get_field("footer-col-1", 'option');
                 </div>
                 <div class="col-lg-6 col-md-6 p-a0">
                     <div class="lead-form browse-job text-left">
-                        <form>
-                            <h3 class="m-t0">ورود</h3>
-                            <div class="form-group">
-                                <input value="" class="form-control" placeholder="نام">
+
+                        <h3 class="m-t0">ورود</h3>
+                        <div class="form-group">
+                            <input id="user_login" value="" class="form-control" placeholder="نام کاربری یا ایمیل">
+                        </div>
+                        <div class="form-group">
+                            <input id="user_pass" value="" class="form-control" type="password" placeholder="رمز عبور">
+                        </div>
+                        <div class="clearfix">
+                            <div class="box-loading">
+                                <div class="loading-ajax"></div>
                             </div>
-                            <div class="form-group">
-                                <input value="" class="form-control" placeholder="شماره موبایل">
-                            </div>
-                            <div class="clearfix">
-                                <button type="button" class="btn-primary site-button btn-block">ثبت </button>
-                            </div>
-                        </form>
+                            <button onclick="ajax_submit_mbm_login(
+										$('#user_login').val()
+										,$('#user_pass').val()
+										,$('#dzFormMsg-error')
+                                        ,$('#dzFormMsg-doned'))" type="button" class="btn-primary site-button btn-block">ورود </button>
+                        </div>
+                        <div id="dzFormMsg-error" class="dzFormMsg error"></div>
+                        <div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
+
                     </div>
                 </div>
             </div>

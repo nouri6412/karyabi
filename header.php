@@ -9,7 +9,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png">
 
 	<!-- PAGE TITLE HERE -->
-	
+
 
 	<!-- MOBILE SPECIFIC -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,8 +52,15 @@
 						<!-- extra nav -->
 						<div class="extra-nav">
 							<div class="extra-cell">
-								<a href="register-2.html" class="site-button"><i class="fa fa-user"></i> ثبت نام</a>
-								<a href="#" title="اطلاعات بیشتر" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود </a>
+								<?php if (!is_user_logged_in()) { ?>
+									<a href="<?php echo site_url('register'); ?>" class="site-button"><i class="fa fa-user"></i> ثبت نام</a>
+									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود </a>
+								<?php } else {
+								?>
+									<a href="<?php echo site_url('my-account'); ?>" class="site-button"><i class="fa fa-user"></i>پروفایل من</a>
+									<a href="<?php echo wp_logout_url(site_url()); ?>" class="site-button exit"><i class="fa fa-sign-out"></i> خروج</a>
+								<?php
+								} ?>
 							</div>
 						</div>
 						<!-- main nav -->
