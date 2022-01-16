@@ -77,6 +77,11 @@ class Karyabi_Contact_Ajax
             update_user_meta($user_id, 'last_name', $_SESSION["last_name"]);
         }
 
+        if(isset($_SESSION["user_type"]))
+        {
+            update_user_meta($user_id, 'user_type', $_SESSION["user_type"]);
+        }
+
         update_user_meta($user_id, 'active_state', '0');
     }
 
@@ -96,6 +101,11 @@ class Karyabi_Contact_Ajax
         if(isset($_POST["last_name"]))
         {
             $_SESSION['last_name'] = $_POST["last_name"]; 
+        }
+
+        if(isset($_POST["user_type"]))
+        {
+            $_SESSION['user_type'] = $_POST["user_type"]; 
         }
     }
 }

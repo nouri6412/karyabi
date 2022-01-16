@@ -26,7 +26,7 @@ get_header();
 					<div class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
 						<div class="tab-content">
 							<h4 class="font-weight-700 m-b5">اطلاعات خود را وارد کنید</h4>
-							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url().'?login=user' ?>">لطفا وارد شوید</a></p>
+							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url() . '?login=user' ?>">لطفا وارد شوید</a></p>
 							<div class="form-group">
 								<label class="font-weight-700">نام</label>
 								<input name="first_name" id="first_name" required="" class="form-control" placeholder="نام" type="text">
@@ -34,6 +34,13 @@ get_header();
 							<div class="form-group">
 								<label class="font-weight-700">نام خانوادگی</label>
 								<input name="last_name" id="last_name" required="" class="form-control" placeholder="نام خانوادگی" type="text">
+							</div>
+							<div class="form-group">
+								<label class="font-weight-700">نوع ثبت نام</label>
+								<select id="user_type" name="user_type">
+									<option value="user">کارجو</option>
+									<option value="manager">کارفرما</option>
+								</select>
 							</div>
 							<div class="form-group">
 								<label class="font-weight-700">نام کاربری</label>
@@ -63,6 +70,7 @@ get_header();
 										,$('#last_name').val()
 										,$('#pass').val()
 										,$('#re_pass').val()
+										,$('#user_type').val()
 										,$('#dzFormMsg-error')
                                         ,$('#dzFormMsg-doned'))
 										" name="wp-submit" id="wp-submit" class="site-button button-lg outline outline-2">ایجاد حساب</button>

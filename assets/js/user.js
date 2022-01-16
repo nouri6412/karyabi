@@ -1,4 +1,4 @@
-function ajax_submit_mbm_register(username, email, first_name, last_name, pass, re_pas, element_error, element_done) {
+function ajax_submit_mbm_register(username, email, first_name, last_name, pass, re_pas,user_type, element_error, element_done) {
 
     var error = '';
     element_error.html('');
@@ -33,6 +33,7 @@ function ajax_submit_mbm_register(username, email, first_name, last_name, pass, 
         'first_name': first_name,
         'last_name': last_name,
         'pass': pass,
+        'user_type': user_type
     }, function (result) {
         jQuery.ajax({
             url: custom_theme_mbm_object.siteurl + '/wp-login.php?action=register',
