@@ -67,16 +67,6 @@ class Karyabi_Contact_Ajax
             wp_set_password( $_SESSION["pass"], $user_id );
         }
 
-        if(isset($_SESSION["first_name"]))
-        {
-            update_user_meta($user_id, 'first_name', $_SESSION["first_name"]);
-        }
-
-        if(isset($_SESSION["last_name"]))
-        {
-            update_user_meta($user_id, 'last_name', $_SESSION["last_name"]);
-        }
-
         if(isset($_SESSION["user_type"]))
         {
             update_user_meta($user_id, 'user_type', $_SESSION["user_type"]);
@@ -91,16 +81,6 @@ class Karyabi_Contact_Ajax
         if(isset($_POST["pass"]))
         {
             $_SESSION['pass'] = $_POST["pass"]; 
-        }
-
-        if(isset($_POST["first_name"]))
-        {
-            $_SESSION['first_name'] = $_POST["first_name"]; 
-        }
-
-        if(isset($_POST["last_name"]))
-        {
-            $_SESSION['last_name'] = $_POST["last_name"]; 
         }
 
         if(isset($_POST["user_type"]))

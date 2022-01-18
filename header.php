@@ -57,7 +57,7 @@
 									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود </a>
 								<?php } else {
 								?>
-									<a href="<?php echo site_url('my-account'); ?>" class="site-button"><i class="fa fa-user"></i>پروفایل من</a>
+									<a href="<?php echo site_url('profile'); ?>" class="site-button"><i class="fa fa-user"></i>پروفایل من</a>
 									<a href="<?php echo wp_logout_url(site_url()); ?>" class="site-button exit"><i class="fa fa-sign-out"></i> خروج</a>
 								<?php
 								} ?>

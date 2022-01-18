@@ -117,6 +117,15 @@ function karyabi_theme_scripts()
         1,
         false
     );
+
+    wp_enqueue_script(
+        'karyabi_ajax_state_city_script',
+        get_template_directory_uri() . '/assets/js/state-city.js',
+        array('jquery'),
+        1,
+        false
+    );
+
     wp_enqueue_script(
         'karyabi_ajax_user_script',
         get_template_directory_uri() . '/assets/js/user.js',
@@ -124,6 +133,24 @@ function karyabi_theme_scripts()
         1,
         false
     );
+
+    wp_enqueue_script(
+        'karyabi_ajax_profile_company_script',
+        get_template_directory_uri() . '/assets/js/profile-company.js',
+        array('jquery'),
+        1,
+        false
+    );
+
+    wp_enqueue_script(
+        'karyabi_ajax_profile_user_script',
+        get_template_directory_uri() . '/assets/js/profile-user.js',
+        array('jquery'),
+        1,
+        false
+    );
+
+
     wp_localize_script('karyabi_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
         'siteurl' => site_url(),

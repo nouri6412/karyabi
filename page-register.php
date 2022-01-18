@@ -28,23 +28,15 @@ get_header();
 							<h4 class="font-weight-700 m-b5">اطلاعات خود را وارد کنید</h4>
 							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url() . '?login=user' ?>">لطفا وارد شوید</a></p>
 							<div class="form-group">
-								<label class="font-weight-700">نام</label>
-								<input name="first_name" id="first_name" required="" class="form-control" placeholder="نام" type="text">
-							</div>
-							<div class="form-group">
-								<label class="font-weight-700">نام خانوادگی</label>
-								<input name="last_name" id="last_name" required="" class="form-control" placeholder="نام خانوادگی" type="text">
-							</div>
-							<div class="form-group">
 								<label class="font-weight-700">نوع ثبت نام</label>
 								<select id="user_type" name="user_type">
 									<option value="user">کارجو</option>
-									<option value="manager">کارفرما</option>
+									<option value="company">کارفرما</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label class="font-weight-700">نام کاربری</label>
-								<input name="user_login" id="user_login" required="" class="form-control" placeholder="نام خانوادگی" type="text">
+								<input name="user_login" id="user_login" required="" class="form-control" placeholder="نام کاربری" type="text">
 							</div>
 							<div class="form-group">
 								<label class="font-weight-700">ایمیل</label>
@@ -66,8 +58,6 @@ get_header();
 								<button onclick="ajax_submit_mbm_register(
 										$('#user_login').val()
 										,$('#user_email').val()
-										,$('#first_name').val()
-										,$('#last_name').val()
 										,$('#pass').val()
 										,$('#re_pass').val()
 										,$('#user_type').val()

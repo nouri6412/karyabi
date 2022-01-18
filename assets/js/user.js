@@ -1,4 +1,4 @@
-function ajax_submit_mbm_register(username, email, first_name, last_name, pass, re_pas,user_type, element_error, element_done) {
+function ajax_submit_mbm_register(username, email, pass, re_pas,user_type, element_error, element_done) {
 
     var error = '';
     element_error.html('');
@@ -30,8 +30,6 @@ function ajax_submit_mbm_register(username, email, first_name, last_name, pass, 
 
     custom_theme_mbm_base_ajax({
         'action': 'mbm_set_session',
-        'first_name': first_name,
-        'last_name': last_name,
         'pass': pass,
         'user_type': user_type
     }, function (result) {
@@ -84,7 +82,7 @@ function ajax_submit_mbm_login(username, pass, element_error, element_done)
                 element_error.html('نام کاربری یا رمز عبور اشتباه است');
             }
             else {
-               window.location.href=custom_theme_mbm_object.siteurl+'/my-account';
+               window.location.href=custom_theme_mbm_object.siteurl+'/profile';
             }
         },
         beforeSend: function () {
