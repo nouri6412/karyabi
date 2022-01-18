@@ -1,11 +1,12 @@
-function ajax_submit_mbm_get_city_list(state_id, element_box_city,city_id="city-id", default_value = 0) {
+function ajax_submit_mbm_get_city_list(state_id, element_box_city, city_id = "city-id", default_value = 0) {
 
     custom_theme_mbm_base_ajax({
         'action': 'mbm_common_city_list',
         'state_id': state_id
     }, function (result) {
+        console.log(result);
         var i = 0;
-        var html = '<select class="form-control" id="'+city_id+'" >';
+        var html = '<select class="form-control" id="' + city_id + '" >';
         html += '<option value="0"></option>';
         for (i = 0; i < result.length; i++) {
             var selected = '';

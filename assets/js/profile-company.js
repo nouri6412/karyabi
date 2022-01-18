@@ -1,4 +1,4 @@
-function ajax_submit_mbm_profile_company_profile(data, element_error, element_done) {
+function ajax_submit_mbm_post_data(data,element_error, element_done) {
 
     var error = '';
     element_error.html('');
@@ -9,10 +9,7 @@ function ajax_submit_mbm_profile_company_profile(data, element_error, element_do
         return;
     }
 
-    custom_theme_mbm_base_ajax({
-        'action': 'mbm_profile_company_profile',
-        'company_name': data.company_name
-    }, function (result) {
+    custom_theme_mbm_base_ajax(data, function (result) {
         if (result.state == 0) {
             element_error.html('<p>'+result.message+'</p>');
         }

@@ -217,3 +217,47 @@ function karyabi_post_type_city()
     register_post_type('city', $args);
 }
 add_action('init', 'karyabi_post_type_city');
+
+
+///post type category company
+
+function karyabi_post_type_company_cat()
+{
+
+    $supports = array(
+        'title', // post title
+        'thumbnail', // featured images
+		'editor',
+		'excerpt',
+        'custom-fields', // custom fields
+        'post-formats', // post formats
+		
+    );
+
+    $labels = array(
+        'name' => _x('دسته شرکت ها', 'plural'),
+        'singular_name' => _x('دسته شرکت ها', 'singular'),
+        'menu_name' => _x('دسته شرکت ها', 'admin menu'),
+        'name_admin_bar' => _x('دسته شرکت ها', 'admin bar'),
+        'add_new' => _x('ثبت  دسته شرکت ها', 'add new'),
+        'add_new_item' => "ثبت  دسته شرکت ها جدید",
+        'new_item' => " دسته شرکت ها  جدید",
+        'edit_item' => "ویرایش  دسته شرکت ها ",
+        'view_item' => "مشاهده  دسته شرکت ها",
+        'all_items' => "همه  دسته شرکت ها ها",
+        'search_items' => "جستجوی   دسته شرکت ها",
+        'not_found' => "یافت نشد"
+    );
+
+    $args = array(
+        'supports' => $supports,
+        'labels' => $labels,
+        'public' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'company-cat'),
+        'has_archive' => true,
+        'hierarchical' => false,
+    );
+    register_post_type('company-cat', $args);
+}
+add_action('init', 'karyabi_post_type_company_cat');

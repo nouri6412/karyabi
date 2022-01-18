@@ -25,16 +25,33 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>وبسایت</label>
-                <input type="text" class="form-control" placeholder="لینک وبسایت">
+                <input value="<?php echo isset($user_meta['web']) ? $user_meta['web'][0] : '';  ?>" id="company-website" type="text" class="form-control" placeholder="لینک وبسایت">
             </div>
         </div>
 
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
-                <label>تاریخ تاسیس </label>
-                <input type="email" class="form-control" placeholder="17/12/1400">
+                <label>دسته</label>
+                <select id="company-cat">
+                    <?php
+                    $Karyabi_Category = new Karyabi_Category;
+                    $cats = $Karyabi_Category->get_company_cat_list();
+                    $cat_id = isset($user_meta['cat_id']) ? $user_meta['cat_id'][0] : 0;
+                    ?>
+
+                    <option value="0">هیچ کدام</option>
+                    <?php foreach ($cats as $item) {
+                        $selected = "";
+                        if ($cat_id == $item["id"]) {
+                            $selected = "selected";
+                        }
+                    ?>
+                        <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                    <?php } ?>
+                </select>
             </div>
         </div>
+
 
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
@@ -43,11 +60,18 @@ $user_meta = get_query_var('user_meta');
                 $Common_State_City = new Common_State_City;
 
                 $states = $Common_State_City->get_state_list();
+                $state_id = isset($user_meta['state_id']) ? $user_meta['state_id'][0] : 0;
+
                 ?>
-                <select onchange="ajax_submit_mbm_get_city_list($(this).val(),$('#box-city-id'),0)" id="state-id">
+                <select onchange="ajax_submit_mbm_get_city_list($(this).val(),$('#box-city-id'),'city-id',<?php echo $state_id; ?>)" id="state-id">
                     <option value="0">هیچ کدام</option>
-                    <?php foreach ($states as $item) { ?>
-                        <option value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                    <?php foreach ($states as $item) {
+                        $selected = "";
+                        if ($state_id == $item["id"]) {
+                            $selected = "selected";
+                        }
+                    ?>
+                        <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -59,25 +83,26 @@ $user_meta = get_query_var('user_meta');
                 <div id="box-city-id">
                     <select id="city-id">
                         <option value="0">هیچ کدام</option>
+                        <?php
+                        $citis = $Common_State_City->get_city_list($state_id);
+                        $city_id = isset($user_meta['city_id']) ? $user_meta['city_id'][0] : 0;
+                        foreach ($citis as $item) {
+                            $selected = "";
+                            if ($city_id == $item["id"]) {
+                                $selected = "selected";
+                            }
+                        ?>
+                            <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                        <?php } ?>
                     </select>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 col-md-6">
-            <div class="form-group">
-                <label>دسته</label>
-                <select>
-                    <option>طراح وب</option>
-                    <option>توسعه دهنده وب</option>
-                </select>
             </div>
         </div>
 
         <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label>توضیحات:</label>
-                <textarea class="form-control">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است</textarea>
+                <textarea id="company-desc" class="form-control"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></textarea>
             </div>
         </div>
     </div>
@@ -89,42 +114,42 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>تلفن</label>
-                <input type="text" class="form-control" placeholder="123 456 7890">
+                <input id="company-tel" value="<?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?>" type="text" class="form-control" placeholder="123 456 7890">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>ایمیل</label>
-                <input type="email" class="form-control" placeholder="exemple@gmail.com">
+                <input id="company-email" value="<?php echo isset($user_meta['email']) ? $user_meta['email'][0] : '';  ?>" type="email" class="form-control" placeholder="exemple@gmail.com">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
-                <label>Contry</label>
-                <input type="text" class="form-control" placeholder="India">
+                <label>کشور</label>
+                <input id="company-country" value="<?php echo isset($user_meta['country']) ? $user_meta['country'][0] : '';  ?>" type="text" class="form-control" placeholder="India">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>شهر</label>
-                <input type="email" class="form-control" placeholder="تبریز">
+                <input id="company-city" value="<?php echo isset($user_meta['city']) ? $user_meta['city'][0] : '';  ?>" type="text" class="form-control" placeholder="تبریز">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>کد پستی</label>
-                <input type="email" class="form-control" placeholder="504030">
+                <input id="company-pcode" value="<?php echo isset($user_meta['pcode']) ? $user_meta['pcode'][0] : '';  ?>" type="text" class="form-control" placeholder="504030">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>آدرس</label>
-                <input type="email" class="form-control" placeholder="New york city">
+                <input id="company-address" value="<?php echo isset($user_meta['address']) ? $user_meta['address'][0] : '';  ?>" type="text" class="form-control" placeholder="آدرس ...">
             </div>
         </div>
-        <div class="col-lg-12">
+        <!-- <div class="col-lg-12">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d221879.7790715879!2d52.39293090388858!3d29.665501601054203!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3fb20d0c8c85f2e3%3A0x6d0c5b8aef6b4cf6!2sShiraz%2C%20Fars%20Province!5e0!3m2!1sen!2s!4v1631015185296!5m2!1sen!2s" style="border:0; width: 100%; height:300px;" allowfullscreen=""></iframe>
-        </div>
+        </div> -->
     </div>
     <!-- Social Link -->
     <div class="job-bx-title clearfix">
@@ -134,25 +159,25 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>فیسبوک</label>
-                <input type="text" class="form-control" placeholder="https://www.facebook.com/">
+                <input id="company-fa-facebook" value="<?php echo isset($user_meta['fa-facebook']) ? $user_meta['fa-facebook'][0] : '';  ?>" type="text" class="form-control" placeholder="https://www.facebook.com/">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>تویتتر</label>
-                <input type="email" class="form-control" placeholder="https://www.twitter.com/">
+                <input id="company-fa-twitter" value="<?php echo isset($user_meta['fa-twitter']) ? $user_meta['fa-twitter'][0] : '';  ?>" type="text" class="form-control" placeholder="https://www.twitter.com/">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>گوگل</label>
-                <input type="text" class="form-control" placeholder="https://www.google.com/">
+                <input id="company-fa-google" value="<?php echo isset($user_meta['fa-google']) ? $user_meta['fa-google'][0] : '';  ?>" type="text" class="form-control" placeholder="https://www.google.com/">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>لینکیدن</label>
-                <input type="email" class="form-control" placeholder="https://www.linkedin.com/">
+                <input id="company-fa-link" value="<?php echo isset($user_meta['fa-link']) ? $user_meta['fa-link'][0] : '';  ?>" type="text" class="form-control" placeholder="https://www.linkedin.com/">
             </div>
         </div>
     </div>
@@ -160,8 +185,26 @@ $user_meta = get_query_var('user_meta');
         <div class="loading-ajax"></div>
     </div>
 
-    <button onclick="ajax_submit_mbm_profile_company_profile(
-            {'company_name':$('#company-name').val()}
+    <button onclick="ajax_submit_mbm_post_data(
+            {
+                'action': 'mbm_profile_company_profile',
+                'company_name':$('#company-name').val(),
+                'web':$('#company-website').val(),
+                'cat_id':$('#company-cat').val(),
+                'state_id':$('#state-id').val(),
+                'city_id':$('#city-id').val(),
+                'desc':$('#company-desc').val(),
+                'tel':$('#company-tel').val(),
+                'email':$('#company-email').val(),
+                'country':$('#company-country').val(),
+                'city':$('#company-city').val(),
+                'pcode':$('#company-pcode').val(),
+                'address':$('#company-address').val(),
+                'fa-facebook':$('#company-fa-facebook').val(),
+                'fa-twitter':$('#company-fa-twitter').val(),
+                'fa-google':$('#company-fa-google').val(),
+                'fa-link':$('#company-fa-link').val()
+            }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')
         )" type="ثبت" class="site-button m-b30">ذخیره تغییرات</button>
