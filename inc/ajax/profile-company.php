@@ -12,14 +12,12 @@ class Karyabi_Company
 
         foreach ($_POST as $key => $post) {
             if ($key != "action") {
-                $meta[$key] = sanitize_text_field($post);
+                update_user_meta($user_id, $key, sanitize_text_field($post));
             }
         }
 
+        wp_update_user( array( 'ID' => $user_id, 'user_email' => $_POST["user_email"] ) );
 
-        foreach ($meta as $key => $item) {
-            update_user_meta($user_id, $key, $item);
-        }
 
         $result["state"] = 1;
         $result["message"] = 'با موفقیت ذخیره شد';

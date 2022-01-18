@@ -19,7 +19,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>ایمیل</label>
-                <input type="email" class="form-control" value="<?php echo $user_info->user_email; ?>" placeholder="info@gmail.com">
+                <input id="user-email" type="email" class="form-control" value="<?php echo $user_info->user_email; ?>" placeholder="info@gmail.com">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -203,7 +203,8 @@ $user_meta = get_query_var('user_meta');
                 'fa-facebook':$('#company-fa-facebook').val(),
                 'fa-twitter':$('#company-fa-twitter').val(),
                 'fa-google':$('#company-fa-google').val(),
-                'fa-link':$('#company-fa-link').val()
+                'fa-link':$('#company-fa-link').val(),
+                'user_email':$('#user-email').val()
             }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')
