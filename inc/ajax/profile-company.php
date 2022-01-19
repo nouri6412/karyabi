@@ -32,9 +32,32 @@ class Karyabi_Company
         echo json_encode($result);
         die();
     }
+
+    function change_pass()
+    {
+        global $wpdb;
+        $user_id = get_current_user_id();
+        
+        if($user_id==0)
+        {
+            echo json_encode([]);
+            die();
+        }
+
+        wp_set_password( sanitize_text_field($_POST["new_pass"]), $user_id );
+
+        $result["state"] = 1;
+        $result["message"] = 'با موفقیت ذخیره شد';
+
+        echo json_encode($result);
+        die();
+    }
 }
 
 $Karyabi_Company = new Karyabi_Company;
 add_action('wp_ajax_mbm_profile_company_profile', array($Karyabi_Company, 'save_profile'));
 add_action('wp_ajax_nopriv_mbm_profile_company_profile', array($Karyabi_Company, 'save_profile'));
+
+add_action('wp_ajax_mbm_profile_company_profile_change_pass', array($Karyabi_Company, 'change_pass'));
+add_action('wp_ajax_nopriv_mbm_profile_company_profile_change_pass', array($Karyabi_Company, 'change_pass'));
 
