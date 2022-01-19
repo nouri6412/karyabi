@@ -85,8 +85,8 @@ class Common_State_City
 
 $Common_State_City = new Common_State_City;
 add_action('wp_ajax_mbm_common_state_list', array($Common_State_City, 'ajax_get_state_list'));
-add_action('wp_ajax_nopriv_mbm_common_state_list', array($Common_State_City, 'submit'));
+add_action('wp_ajax_nopriv_mbm_common_state_list', array($Common_State_City, 'ajax_get_state_list'));
 
 add_action('wp_ajax_mbm_common_city_list', array($Common_State_City, 'ajax_get_city_list'));
-add_action('wp_ajax_nopriv_mbm_common_city_list', array($Common_State_City, 'submit'));
+add_action('wp_ajax_nopriv_mbm_common_city_list', array($Common_State_City, 'ajax_get_city_list'));
 

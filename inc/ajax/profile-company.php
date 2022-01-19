@@ -29,5 +29,5 @@ class Karyabi_Company
 
 $Karyabi_Company = new Karyabi_Company;
 add_action('wp_ajax_mbm_profile_company_profile', array($Karyabi_Company, 'save_profile'));
-add_action('wp_ajax_nopriv_mbm_profile_company_profile', array($Karyabi_Company, 'submit'));
+add_action('wp_ajax_nopriv_mbm_profile_company_profile', array($Karyabi_Company, 'save_profile'));
 

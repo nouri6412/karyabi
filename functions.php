@@ -119,6 +119,14 @@ function karyabi_theme_scripts()
     );
 
     wp_enqueue_script(
+        'karyabi_ajax_file_script',
+        get_template_directory_uri() . '/assets/js/file.js',
+        array('jquery'),
+        1,
+        false
+    );
+
+    wp_enqueue_script(
         'karyabi_ajax_state_city_script',
         get_template_directory_uri() . '/assets/js/state-city.js',
         array('jquery'),
@@ -153,6 +161,7 @@ function karyabi_theme_scripts()
 
     wp_localize_script('karyabi_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
+        'security' => wp_create_nonce( 'file_upload' ),
         'siteurl' => site_url(),
         'loginurl' => site_url().'?login=user',
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
