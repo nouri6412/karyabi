@@ -1,7 +1,6 @@
 <?php
 $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
-
 ?>
 <div class="job-bx submit-resume">
     <div class="job-bx-title clearfix">

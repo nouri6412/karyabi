@@ -25,10 +25,10 @@ $user_meta = get_query_var('user_meta');
 			</div>
 		</div>
 		<ul>
-			<li><a href="company-profile.html" class="active">
+			<li><a href="<?php  echo home_url('profile') ?>" class="active">
 					<i class="fa fa-user-o" aria-hidden="true"></i>
 					<span>پروفایل</span></a></li>
-			<li><a href="company-post-jobs.html">
+			<li><a href="<?php  echo home_url('profile?action=create-job') ?>">
 					<i class="fa fa-file-text-o" aria-hidden="true"></i>
 					<span>ارسال شغل</span></a></li>
 			<li><a href="company-transactions.html">

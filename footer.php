@@ -36,6 +36,9 @@ get_template_part('template-parts/footer/footer', 'popup-login');
     }
     ?>
 </script>
+<?php  
+  get_template_part('template-parts/custom-js/custom-js', 'create-job');
+?>
 </body>
 
 </html>

@@ -20,13 +20,15 @@ $user_id = get_current_user_id();
 
 
 $user_info = get_userdata($user_id);
-$user_meta=get_user_meta($user_id);
+$user_meta = get_user_meta($user_id);
 
-set_query_var( 'user_info', $user_info );
-set_query_var( 'user_meta', $user_meta );
+set_query_var('user_info', $user_info);
+set_query_var('user_meta', $user_meta);
 
-global $wp;
-$request = $wp->request;
+$action = "profile";
+if (isset($_GET["action"])) {
+    $action = $_GET["action"];
+}
 ?>
 <!-- Content -->
 <div class="page-content bg-white">
@@ -48,7 +50,7 @@ $request = $wp->request;
                     <div class="col-xl-9 col-lg-8 m-b30">
                         <?php
                         if ($user_id > 0) {
-                            get_template_part('template-parts/profile-company/profile-company', $request);
+                            get_template_part('template-parts/profile-company/profile-company', $action);
                         } else {
                         ?>
                             <a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
