@@ -44,6 +44,7 @@ class Karyabi_Job
                 'coop-type' => $coop_type,
                 'email' => $email,
                 'exp' => $exp,
+                'tag' => $tag,
                 'min-salary' => $min_salary,
                 'max-salary' => $max_salary,
                 'state_id' => $state_id,
