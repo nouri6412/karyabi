@@ -25,6 +25,11 @@ $user_meta = get_user_meta($user_id);
 set_query_var('user_info', $user_info);
 set_query_var('user_meta', $user_meta);
 
+$user_type = "";
+if (isset($user_meta['user_type'])) {
+    $user_type = $user_meta['user_type'][0];
+}
+
 $action = "profile";
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
@@ -43,14 +48,18 @@ if (isset($_GET["action"])) {
                     <div class="col-xl-3 col-lg-4 m-b30">
                         <?php
                         if ($user_id > 0) {
-                            get_template_part('template-parts/profile-company/profile-company', 'aside');
+                            if ($user_type == "company") {
+                                get_template_part('template-parts/profile-company/profile-company', 'aside');
+                            } else if ($user_type == "user") {
+                                get_template_part('template-parts/profile-user/profile-user', 'aside');
+                            }
                         }
                         ?>
                     </div>
                     <div class="col-xl-9 col-lg-8 m-b30">
                         <?php
                         if ($user_id > 0) {
-                            get_template_part('template-parts/profile-company/profile-company', $action);
+                            get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
                         } else {
                         ?>
                             <a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
