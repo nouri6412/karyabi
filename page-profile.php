@@ -53,7 +53,7 @@ if (isset($_GET["action"])) {
                             } else if ($user_type == "user") {
                                 get_template_part('template-parts/profile-user/profile-user', 'aside');
                             }
-                        }
+                        } 
                         ?>
                     </div>
                     <div class="col-xl-9 col-lg-8 m-b30">
