@@ -18,7 +18,7 @@ $user_meta = get_query_var('user_meta');
 
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
-                <label>عنوان شغل</label>
+                <label>عنوان شغلی</label>
                 <input value="<?php echo isset($user_meta['user_exp']) ? $user_meta['user_exp'][0] : '';  ?>" id="user-exp" type="text" class="form-control" placeholder="عنوان شغل : مهندس نرم افزار و برنامه نویس">
             </div>
         </div>

@@ -1,4 +1,4 @@
-<?php if (is_page('profile') && isset($_GET["action"]) && $_GET["action"] == "create-job") : ?>
+<?php if (is_page('profile') && isset($_GET["action"]) && ($_GET["action"] == "create-job" || $_GET["action"] == "resume")) : ?>
     <!--profile page custom JS-->
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/tagcomplete/tagcomplete.css">
     <script src="<?php echo get_template_directory_uri(); ?>/assets/plugins/tagcomplete/tagcomplete.js"></script>
