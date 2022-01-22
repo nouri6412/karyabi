@@ -22,9 +22,6 @@ $user_id = get_current_user_id();
 $user_info = get_userdata($user_id);
 $user_meta = get_user_meta($user_id);
 
-set_query_var('user_info', $user_info);
-set_query_var('user_meta', $user_meta);
-
 $user_type = "";
 if (isset($user_meta['user_type'])) {
     $user_type = $user_meta['user_type'][0];
@@ -34,6 +31,15 @@ $action = "profile";
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
 }
+
+set_query_var('page_action', $action);
+set_query_var('user_type', $user_type);
+set_query_var('user_info', $user_info);
+set_query_var('user_meta', $user_meta);
+
+
+
+
 ?>
 <!-- Content -->
 <div class="page-content bg-white">

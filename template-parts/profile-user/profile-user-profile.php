@@ -30,6 +30,12 @@ $user_meta = get_query_var('user_meta');
             </div>
         </div>
 
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <label> سال تولد</label>
+                <input value="<?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?>" id="user-date-year" type="number" class="form-control" placeholder="1368">
+            </div>
+        </div>
 
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
@@ -82,7 +88,25 @@ $user_meta = get_query_var('user_meta');
                 <input id="user-tel" value="<?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?>" type="text" class="form-control" placeholder="123 456 7890">
             </div>
         </div>
-
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+            <label>جنسیت</label>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div class="custom-control custom-radio">
+                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="male") ? 'checked="checked"' : '';  ?> type="radio" class="custom-control-input" id="user-sex-male" name="user-sex" value="male" >
+                            <label class="custom-control-label" for="user-sex-male">مرد</label>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-6">
+                        <div class="custom-control custom-radio">
+                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="fmale") ? 'checked="checked"' : '';  ?> type="radio" class="custom-control-input" id="user-sex-fmale" name="user-sex" value="fmale">
+                            <label class="custom-control-label" for="user-sex-fmale">زن</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label>توضیحات:</label>
@@ -129,10 +153,12 @@ $user_meta = get_query_var('user_meta');
                 'action': 'mbm_profile_user_profile',
                 'user_name':$('#user-name').val(),
                 'user_exp':$('#user-exp').val(),
+                'user_date_year':$('#user-date-year').val(),
                 'state_id':$('#state-id').val(),
                 'city_id':$('#city-id').val(),
                 'desc':$('#user-desc').val(),
                 'tel':$('#user-tel').val(),
+                'user-sex':$('input[name=\'user-sex\']:checked').val(),
                 'email':$('#user-email').val(),
                 'fa-facebook':$('#user-fa-facebook').val(),
                 'fa-twitter':$('#user-fa-twitter').val(),
