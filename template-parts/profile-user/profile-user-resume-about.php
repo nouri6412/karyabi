@@ -26,7 +26,6 @@ if (isset($user_meta["resume-about"])) {
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
-                                <label>خلاصه کارکرد</label>
                                 <textarea id="post-about" class="form-control" placeholder="توضیحات"><?php echo isset($data->about) ? $data->about : '';  ?></textarea>
                             </div>
                         </div>
