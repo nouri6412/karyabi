@@ -127,6 +127,14 @@ function karyabi_theme_scripts()
     );
 
     wp_enqueue_script(
+        'karyabi_ajax_resume_script',
+        get_template_directory_uri() . '/assets/js/resume.js',
+        array('jquery'),
+        1,
+        false
+    );
+
+    wp_enqueue_script(
         'karyabi_ajax_state_city_script',
         get_template_directory_uri() . '/assets/js/state-city.js',
         array('jquery'),

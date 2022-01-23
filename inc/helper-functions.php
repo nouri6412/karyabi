@@ -43,17 +43,25 @@ function custome_theme_get_avatar_size()
 	return 60;
 }
 
-function get_the_job_status($active,$btn=false)
+function get_the_job_status($active, $btn = false)
 {
 	$ret = "منتشر نشده";
-	$type_btn="danger";
+	$type_btn = "danger";
 	if ($active == 1) {
 		$ret = "منتشر شده";
-		$type_btn="success";
+		$type_btn = "success";
 	}
-	if($btn)
-	{
-         $ret='<span class="btn btn-'.$type_btn.'">'.$ret.'</span>';
+	if ($btn) {
+		$ret = '<span class="btn btn-' . $type_btn . '">' . $ret . '</span>';
 	}
 	return $ret;
+}
+
+function custom_render_php($path)
+{
+	ob_start();
+	include($path);
+	$var = ob_get_contents();
+	ob_end_clean();
+	return $var;
 }

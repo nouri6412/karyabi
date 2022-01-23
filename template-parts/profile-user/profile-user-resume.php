@@ -1,3 +1,8 @@
+<div id="profile_summary_bx" class="job-bx bg-white m-b30">
+    <?php
+    get_template_part('template-parts/profile-user/profile-user', 'resume-about');
+    ?>
+</div>
 <?php
 get_template_part('template-parts/profile-user/profile-user', 'resume-skills');
 ?>
@@ -547,44 +552,6 @@ get_template_part('template-parts/profile-user/profile-user', 'resume-skills');
                             <div class="col-lg-12 col-md-12">
                                 <div class="form-group">
                                     <label>جزئیات پروژه</label>
-                                    <textarea class="form-control" placeholder="توضیحات"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="site-button" data-dismiss="modal">لغو</button>
-                    <button type="button" class="site-button">ذخیره</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal End -->
-</div>
-<div id="profile_summary_bx" class="job-bx bg-white m-b30">
-    <div class="d-flex">
-        <h5 class="m-b15">خلاصه کارکرد</h5>
-        <a href="javascript:void(0);" data-toggle="modal" data-target="#profilesummary" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
-    </div>
-    <p class="m-b0">در خلاصه مشخصات شما باید نکات برجسته شغلی و تحصیلی شما ، علایق حرفه ای شما و نوع شغلی که به دنبال آن هستید ذکر شود. یک خلاصه معنی دار با بیش از 50 نویسه بنویسید.</p>
-    <!-- Modal -->
-    <div class="modal fade modal-bx-info editor" id="profilesummary" tabindex="-1" role="dialog" aria-labelledby="ProfilesummaryModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="ProfilesummaryModalLongTitle">خلاصه کارکرد</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>در خلاصه مشخصات شما باید نکات برجسته شغلی و تحصیلی شما ، علایق حرفه ای شما و نوع شغلی که به دنبال آن هستید ذکر شود. یک خلاصه معنی دار با بیش از 50 نویسه بنویسید.</p>
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>خلاصه کارکرد</label>
                                     <textarea class="form-control" placeholder="توضیحات"></textarea>
                                 </div>
                             </div>

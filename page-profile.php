@@ -37,9 +37,6 @@ set_query_var('user_type', $user_type);
 set_query_var('user_info', $user_info);
 set_query_var('user_meta', $user_meta);
 
-
-
-
 ?>
 <!-- Content -->
 <div class="page-content bg-white">
