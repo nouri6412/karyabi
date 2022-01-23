@@ -21,8 +21,7 @@ if (isset($user_meta["resume-about"])) {
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <div class="modal-body">        
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="form-group">
@@ -30,7 +29,6 @@ if (isset($user_meta["resume-about"])) {
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
             <div class="modal-footer">
                 <div class="box-loading">

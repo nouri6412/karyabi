@@ -47,14 +47,14 @@ class Karyabi_User
 
         $meta_key = sanitize_text_field($_POST["meta_key"]);
 
-        
+
         foreach ($_POST as $key => $post) {
             if ($key != "action" && $key != "meta_key" && $key != "meta_action") {
-                $meta[$key]=sanitize_text_field($post);
+                $meta[$key] = sanitize_text_field($post);
             }
         }
-        
-        $meta_value = json_encode($meta,JSON_UNESCAPED_UNICODE);
+
+        $meta_value = json_encode($meta, JSON_UNESCAPED_UNICODE);
 
         $action = sanitize_text_field($_POST["meta_action"]);
 
@@ -71,7 +71,17 @@ class Karyabi_User
         set_query_var('user_meta', $user_meta);
 
         $result["html"] =  custom_render_php(get_template_directory() . "/template-parts/profile-user/profile-user-" . $action . ".php");
-  
+
+        echo json_encode($result);
+        die();
+    }
+
+    function get_form()
+    {
+        $action = sanitize_text_field($_POST["meta_action"]);
+
+        $result["html"] =  custom_render_php(get_template_directory() . "/template-parts/profile-user/profile-user-" . $action . ".php");
+
         echo json_encode($result);
         die();
     }
@@ -83,3 +93,6 @@ add_action('wp_ajax_nopriv_mbm_profile_user_profile', array($Karyabi_User, 'save
 
 add_action('wp_ajax_mbm_profile_user_save_resume', array($Karyabi_User, 'save_resume'));
 add_action('wp_ajax_nopriv_mbm_profile_user_save_resume', array($Karyabi_User, 'save_resume'));
+
+add_action('wp_ajax_mbm_profile_user_get_form', array($Karyabi_User, 'get_form'));
+add_action('wp_ajax_nopriv_mbm_profile_user_get_form', array($Karyabi_User, 'get_form'));

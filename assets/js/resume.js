@@ -9,7 +9,7 @@ function ajax_submit_mbm_post_data_resume(data, element_load, modal, element_err
     }
 
     custom_theme_mbm_base_ajax(data, function (result) {
-        console.log(result);
+
         if (result.state == 0) {
             element_error.html('<p>' + result.message + '</p>');
         }
@@ -20,3 +20,49 @@ function ajax_submit_mbm_post_data_resume(data, element_load, modal, element_err
         }
     });
 }
+
+function ajax_submit_mbm_post_data_resume_save_form(data_in, element_load,element_load_in, modal, element_error) {
+    var data = [];
+    var forms = $("#" + element_load + ' .form-loop');
+
+    var i = 0;
+    var j = 0;
+    forms.each(function (i, form) {
+        var data_form = {};
+        var inputs = $('input', form);
+        inputs.each(function (j, input) {
+            data_form[$(input).attr("data-id")] = $(input).val();
+        });
+
+        var inputs = $('select', form);
+        inputs.each(function (j, input) {
+            data_form[$(input).attr("data-id")] = $(input).val();
+        });
+
+        var inputs = $('textarea', form);
+        inputs.each(function (j, input) {
+            data_form[$(input).attr("data-id")] = $(input).val();
+        });
+
+        data[i] = data_form;
+    });
+    var exp_data = JSON.stringify(data);
+    data_in["exp"]=exp_data;
+    ajax_submit_mbm_post_data_resume(data_in, element_load_in, modal, element_error)
+}
+
+
+function ajax_submit_mbm_post_data_resume_get_form(data, element_load) {
+
+
+    custom_theme_mbm_base_ajax(data, function (result) {
+
+        element_load.append(result.html);
+
+    });
+}
+
+function ajax_submit_mbm_post_data_resume_get_form_delete(element) {
+    element.parent().remove();
+}
+
