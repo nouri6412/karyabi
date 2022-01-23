@@ -13,74 +13,12 @@
     get_template_part('template-parts/profile-user/profile-user', 'resume-exp');
     ?>
 </div>
-<div id="education_bx" class="job-bx bg-white m-b30">
-    <div class="d-flex">
-        <h5 class="m-b15">تحصیلات</h5>
-        <a href="javascript:void(0);" data-toggle="modal" data-target="#education" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
-    </div>
-    <p>جزئیات اشتغال خود را از جمله تجربه کاری فعلی و قبلی شرکت خود ذکر کنید</p>
-    <!-- Modal -->
-    <div class="modal fade modal-bx-info editor" id="education" tabindex="-1" role="dialog" aria-labelledby="EducationModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="EducationModalLongTitle">تحصیلات</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>تحصیلات</label>
-                                    <select>
-                                        <option>دکترا</option>
-                                        <option>کارشناسی ارشد/فارغ التحصیلی</option>
-                                        <option>فارغ التحصیلی/دیپلم</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>دوره های آموزشی</label>
-                                    <input type="email" class="form-control" placeholder="دوره های آموزشی خود را وارد کنید">
-                                </div>
-                            </div>
-                            <div class="col-lg-12 col-md-12">
-                                <div class="form-group">
-                                    <label>دانشگاه / موسسه</label>
-                                    <input type="email" class="form-control" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="site-button" data-dismiss="modal">لغو</button>
-                    <button type="button" class="site-button">ذخیره</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Modal End -->
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="clearfix m-b20">
-                <label class="m-b0">تهران - 12هم</label>
-                <span class="clearfix font-13">1397</span>
-            </div>
-            <div class="clearfix m-b20">
-                <label class="m-b0">شیراز - 10هم</label>
-                <span class="clearfix font-13">1395</span>
-            </div>
-        </div>
-    </div>
-    <a href="javascript:void(0);" class="clearfix">اضافه کردن دکترا</a>
-    <a href="javascript:void(0);" class="clearfix">اضافه کردن کارشناسی ارشد/فارغ التحصیلی</a>
-    <a href="javascript:void(0);" class="clearfix">اضافه کردن فارغ التحصیلی/دیپلم</a>
+<div id="education_bx" class="job-bx bg-white m-b30 ">
+    <?php
+    get_template_part('template-parts/profile-user/profile-user', 'resume-edu');
+    ?>
 </div>
+
 <div id="it_skills_bx" class="job-bx table-job-bx bg-white m-b30">
     <div class="d-flex">
         <h5 class="m-b15">مهارت های IT</h5>
