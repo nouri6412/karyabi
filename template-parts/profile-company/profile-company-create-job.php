@@ -44,7 +44,7 @@ $user_meta = get_query_var('user_meta');
                 <div class="form-group">
                     <label>تجربیات</label>
                     <select id="job_exp">
-                        <option>مهم نیست </option>
+                        <option value="0">مهم نیست </option>
                         <option value="1">1 سال</option>
                         <option value="2">2 سال</option>
                         <option value="3">3 سال</option>
