@@ -24,7 +24,8 @@ class Karyabi_Job
         $title = sanitize_text_field($_POST["job_title"]);
         $email = sanitize_text_field($_POST["job_email"]);
         $tag = sanitize_text_field($_POST["job_tag"]);
-        $desc = sanitize_text_field($_POST["job_desc"]);
+        $desc = sanitize_text_field($_POST["desc_job"]);
+        $sex = sanitize_text_field($_POST["job_sex"]);
         $coop_type = sanitize_text_field($_POST["job_coop_type"]);
         $exp = sanitize_text_field($_POST["job_exp"]);
         $min_salary = sanitize_text_field($_POST["job_min_salary"]);
@@ -38,7 +39,7 @@ class Karyabi_Job
             'post_type'    => 'job',
             'post_author'  => $user_id,
             'post_status'  => 'publish',
-            'content'      => $desc,
+            'post_content'      => $desc,
             'meta_input'   => array(
                 'active' => 0,
                 'coop-type' => $coop_type,
@@ -49,12 +50,13 @@ class Karyabi_Job
                 'max-salary' => $max_salary,
                 'state_id' => $state_id,
                 'city_id' => $city_id,
-                'address' => $address
+                'address' => $address,
+                'sex' => $sex,
             )
         );
 
 
-        $max_job_option = 10;
+        $max_job_option = 100;
 
         $get_option = get_field('job_max_job', 'option');
 

@@ -108,7 +108,7 @@ $user_meta = get_query_var('user_meta');
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>آدرس</label>
-                    <input id="address" type="text" class="form-control" placeholder="">
+                    <input id="job_address" type="text" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -138,7 +138,6 @@ $user_meta = get_query_var('user_meta');
                 'job_title':$('#job_title').val(),
                 'job_email':$('#job_email').val(),
                 'job_tag':$('#job_tag').val(),
-                'job_desc':$('#job_desc').val(),
                 'job_coop_type':$('#job_coop_type').val(),
                 'job_exp':$('#job_exp').val(),
                 'job_min_salary':$('#job_min_salary').val(),
