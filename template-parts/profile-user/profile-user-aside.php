@@ -31,17 +31,17 @@ $page_action = get_query_var('page_action');
 					<span>پروفایل</span></a></li>
 			<?php if ($page_action == "resume") { ?>
 				<li><a class="scroll-bar nav-link" href="#profile_summary_bx">
-											<span>درباره من</span></a></li>
+						<span>درباره من</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#key_skills_bx">
-											<span>مهارت های حرفه ای</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#employment_bx">
-											<span>سوابق شغلی</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#education_bx">
-											<span>سوابق تحصیلی</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#language_bx">
-											<span>زبان ها</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#prefer_job_bx">
-											<span>ترجیحات شغلی</span></a></li>
+						<span>مهارت های حرفه ای</span></a></li>
+				<li><a class="scroll-bar nav-link" href="#employment_bx">
+						<span>سوابق شغلی</span></a></li>
+				<li><a class="scroll-bar nav-link" href="#education_bx">
+						<span>سوابق تحصیلی</span></a></li>
+				<li><a class="scroll-bar nav-link" href="#language_bx">
+						<span>زبان ها</span></a></li>
+				<li><a class="scroll-bar nav-link" href="#prefer_job_bx">
+						<span>ترجیحات شغلی</span></a></li>
 
 			<?php } else { ?>
 				<li><a href="<?php echo home_url('profile?action=resume') ?>">
@@ -50,7 +50,7 @@ $page_action = get_query_var('page_action');
 				<li><a href="jobs-saved-jobs.html">
 						<i class="fa fa-heart-o" aria-hidden="true"></i>
 						<span>شغل های ذخیره شده</span></a></li>
-				<li><a href="jobs-applied-job.html">
+				<li><a href="<?php echo home_url('profile?action=jobs') ?>">
 						<i class="fa fa-briefcase" aria-hidden="true"></i>
 						<span>شغل های ثبت شده</span></a></li>
 				<li><a href="jobs-alerts.html">

@@ -278,17 +278,17 @@ function karyabi_post_type_job_tag()
     );
 
     $labels = array(
-        'name' => _x('تگ شغل', 'plural'),
-        'singular_name' => _x('تگ شغل', 'singular'),
-        'menu_name' => _x('تگ شغل', 'admin menu'),
-        'name_admin_bar' => _x('تگ شغل', 'admin bar'),
-        'add_new' => _x('ثبت تگ شغل جدید', 'add new'),
-        'add_new_item' => "ثبت  تگ شغل جدید",
-        'new_item' => " تگ شغل  جدید",
-        'edit_item' => "ویرایش  تگ شغل ",
-        'view_item' => "مشاهده  تگ شغل",
-        'all_items' => "همه  تگ شغل ها",
-        'search_items' => "جستجوی   تگ شغل",
+        'name' => _x('برچسب شغل', 'plural'),
+        'singular_name' => _x('برچسب شغل', 'singular'),
+        'menu_name' => _x('برچسب شغل', 'admin menu'),
+        'name_admin_bar' => _x('برچسب شغل', 'admin bar'),
+        'add_new' => _x('ثبت برچسب شغل جدید', 'add new'),
+        'add_new_item' => "ثبت  برچسب شغل جدید",
+        'new_item' => " برچسب شغل  جدید",
+        'edit_item' => "ویرایش  برچسب شغل ",
+        'view_item' => "مشاهده  برچسب شغل",
+        'all_items' => "همه  برچسب شغل ها",
+        'search_items' => "جستجوی   برچسب شغل",
         'not_found' => "یافت نشد"
     );
 

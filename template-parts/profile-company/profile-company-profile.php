@@ -100,7 +100,7 @@ $user_meta = get_query_var('user_meta');
 
         <div class="col-lg-12 col-md-12">
             <div class="form-group">
-                <label>توضیحات:</label>
+                <label>درباره شرکت:</label>
                 <textarea id="company-desc" class="form-control"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></textarea>
             </div>
         </div>

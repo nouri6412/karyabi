@@ -23,7 +23,7 @@ $user_meta = get_query_var('user_meta');
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
-                    <label>تگ</label>
+                    <label>مهارت های موردنیاز</label>
                     <input id="job_tag" type="text" class="form-control tags_input" value="">
                 </div>
             </div>
@@ -61,13 +61,13 @@ $user_meta = get_query_var('user_meta');
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>حداقل حقوق (ریال):</label>
-                    <input id="job_min_salary" type="email" class="form-control" placeholder="مثال: 10000">
+                    <input id="job_min_salary" type="number" class="form-control" placeholder="مثال: 10000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>حداکثر حقوق (ریال):</label>
-                    <input id="job_max_salary" type="text" class="form-control" placeholder="مثال: 20000">
+                    <input id="job_max_salary" type="number" class="form-control" placeholder="مثال: 20000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -77,7 +77,7 @@ $user_meta = get_query_var('user_meta');
                     $Common_State_City = new Common_State_City;
 
                     $states = $Common_State_City->get_state_list();
-
+                    $state_id = isset($user_meta['state_id']) ? $user_meta['state_id'][0] : 0;
                     ?>
                     <select onchange="ajax_submit_mbm_get_city_list($(this).val(),$('#box-city-id'),'job_city_id',<?php echo $state_id; ?>)" id="job_state_id">
                         <option value="0">هیچ کدام</option>
@@ -111,6 +111,22 @@ $user_meta = get_query_var('user_meta');
                     <input id="address" type="text" class="form-control" placeholder="">
                 </div>
             </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>جنسیت</label>
+                    <select id="job_sex">
+                    <option value="<?php echo 'مهم نیست'; ?>"><?php echo 'مهم نیست'; ?></option>
+                        <option value="<?php echo 'مرد'; ?>"><?php echo 'مرد'; ?></option>
+                        <option value="<?php echo 'زن'; ?>"><?php echo 'زن'; ?></option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="form-group">
+                    <label>شرح موقعیت شغلی</label>
+                    <input id="desc_job" type="text" class="form-control" placeholder="">
+                </div>
+            </div>
 
         </div>
         <div class="box-loading">
@@ -129,7 +145,9 @@ $user_meta = get_query_var('user_meta');
                 'job_max_salary':$('#job_max_salary').val(),
                 'job_state_id':$('#job_state_id').val(),
                 'job_city_id':$('#job_city_id').val(),
-                'job_address':$('#job_address').val()
+                'job_address':$('#job_address').val(),
+                'job_sex':$('#job_sex').val(),
+                'job_address':$('#desc_job').val()
             }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')

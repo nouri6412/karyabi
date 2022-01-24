@@ -54,7 +54,7 @@ class Karyabi_Job
         );
 
 
-        $max_job_option = 5;
+        $max_job_option = 10;
 
         $get_option = get_field('job_max_job', 'option');
 

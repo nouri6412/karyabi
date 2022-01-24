@@ -2,7 +2,7 @@
 $user_id = get_current_user_id();
 $args = array(
     'post_type' => 'job',
-    'post_author'  => $user_id
+    'author'  => $user_id
 );
 $the_query = new WP_Query($args);
 ?>
