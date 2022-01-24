@@ -147,7 +147,7 @@ $user_meta = get_query_var('user_meta');
                 'job_city_id':$('#job_city_id').val(),
                 'job_address':$('#job_address').val(),
                 'job_sex':$('#job_sex').val(),
-                'job_address':$('#desc_job').val()
+                'desc_job':$('#desc_job').val()
             }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')

@@ -32,7 +32,7 @@
 										<div class="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
 											<h4 class="text-black font-weight-700 p-t10 m-b15">توضیحات تکمیلی</h4>
 											<ul>
-												<li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">آدرس</strong><span class="text-black-light"> شیراز - خیابان اسلام - ساختمان - جمهوری - طبقه پنجم </span></li>
+												<li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">آدرس</strong><span class="text-black-light"> <?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)).'  '.get_the_title(get_post_meta(get_the_ID(), 'city_id', true)) .' '.get_post_meta(get_the_ID(), 'address', true); ?> </span></li>
 												<li><i class="ti-money"></i><strong class="font-weight-700 text-black">حقوق</strong> 800,000 ماهیانه</li>
 												<li><i class="ti-shield"></i><strong class="font-weight-700 text-black">تجربه</strong>6 سال</li>
 											</ul>
