@@ -30,43 +30,11 @@
                             </div>
                             <div class="col-lg-12 col-md-6">
                                 <div class="widget bg-white p-lr20 p-t20  widget_getintuch radius-sm">
-                                    <h4 class="text-black font-weight-700 p-t10 m-b15">توضیحات تکمیلی</h4>
+                                    <h4 class="text-black font-weight-700 p-t10 m-b15"><?php echo get_the_author_meta('company_name'); ?></h4>
                                     <ul>
                                         <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">موقعیت مکانی</strong><span class="text-black-light"> <?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)) . ' ' . get_post_meta(get_the_ID(), 'address', true); ?> </span></li>
-                                        <li><i class="ti-money"></i><strong class="font-weight-700 text-black">حقوق</strong><?php
-                                                                                                                            $min = 0;
-                                                                                                                            $max = 0;
 
-                                                                                                                            if (is_numeric(get_post_meta(get_the_ID(), 'min-salary', true))) {
-                                                                                                                                $min = get_post_meta(get_the_ID(), 'min-salary', true);
-                                                                                                                            }
 
-                                                                                                                            if (is_numeric(get_post_meta(get_the_ID(), 'max-salary', true))) {
-                                                                                                                                $max = get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                                                                            }
-
-                                                                                                                            if ($min > 0 && $max > 0) {
-                                                                                                                                echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                                                                            } else  if ($min > 0) {
-                                                                                                                                echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true);
-                                                                                                                            } else  if ($max > 0) {
-                                                                                                                                echo 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                                                                            } else {
-                                                                                                                                echo 'توافقی';
-                                                                                                                            }
-
-                                                                                                                            ?></li>
-                                        <li><i class="ti-shield"></i><strong class="font-weight-700 text-black">حداقل سابقه کار</strong><?php
-
-                                                                                                                                        $exp = get_post_meta(get_the_ID(), 'exp', true);
-                                                                                                                                        if ($exp > 0) {
-                                                                                                                                            echo $exp . ' ' . 'سال';
-                                                                                                                                        } else {
-                                                                                                                                            echo 'مهم نیست';
-                                                                                                                                        }
-
-                                                                                                                                        ?> </li>
-                                        <li><i class="ti-shield"></i><strong class="font-weight-700 text-black">نوع همکاری</strong><?php echo get_post_meta(get_the_ID(), 'coop-type', true); ?> </li>
                                     </ul>
                                 </div>
                             </div>
@@ -98,6 +66,55 @@
                                 <h6>جنسیت</h6>
                                 <div class="job-time m-t15 m-b10">
                                     <a href="javascript:void(0);"><span><?php echo get_post_meta(get_the_ID(), 'sex', true); ?></span></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>حداقل سابقه کار</h6>
+                                <div class="job-time m-t15 m-b10">
+                                    <a href="javascript:void(0);"><span><?php
+
+                                                                        $exp = get_post_meta(get_the_ID(), 'exp', true);
+                                                                        if ($exp > 0) {
+                                                                            echo $exp . ' ' . 'سال';
+                                                                        } else {
+                                                                            echo 'مهم نیست';
+                                                                        }
+
+                                                                        ?></span></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>نوع همکاری</h6>
+                                <div class="job-time m-t15 m-b10">
+                                    <a href="javascript:void(0);"><span><?php echo get_post_meta(get_the_ID(), 'coop-type', true); ?></span></a>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>حقوق</h6>
+                                <div class="job-time m-t15 m-b10">
+                                    <a href="javascript:void(0);"><span><?php
+                                                                        $min = 0;
+                                                                        $max = 0;
+
+                                                                        if (is_numeric(get_post_meta(get_the_ID(), 'min-salary', true))) {
+                                                                            $min = get_post_meta(get_the_ID(), 'min-salary', true);
+                                                                        }
+
+                                                                        if (is_numeric(get_post_meta(get_the_ID(), 'max-salary', true))) {
+                                                                            $max = get_post_meta(get_the_ID(), 'max-salary', true);
+                                                                        }
+
+                                                                        if ($min > 0 && $max > 0) {
+                                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
+                                                                        } else  if ($min > 0) {
+                                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true);
+                                                                        } else  if ($max > 0) {
+                                                                            echo 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
+                                                                        } else {
+                                                                            echo 'توافقی';
+                                                                        }
+
+                                                                        ?></span></a>
                                 </div>
                             </div>
                         </div>
