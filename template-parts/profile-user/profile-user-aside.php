@@ -30,26 +30,18 @@ $page_action = get_query_var('page_action');
 					<i class="fa fa-user-o" aria-hidden="true"></i>
 					<span>پروفایل</span></a></li>
 			<?php if ($page_action == "resume") { ?>
+				<li><a class="scroll-bar nav-link" href="#profile_summary_bx">
+											<span>درباره من</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#key_skills_bx">
-											<span>مهارت ها</span></a></li>
+											<span>مهارت های حرفه ای</span></a></li>
 										<li><a class="scroll-bar nav-link" href="#employment_bx">
-											<span>استخدامی</span></a></li>
+											<span>سوابق شغلی</span></a></li>
 										<li><a class="scroll-bar nav-link" href="#education_bx">
-											<span>تحصیلات</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#it_skills_bx">
-											<span>مهارت های IT</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#projects_bx">
-											<span>پروژه ها</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#profile_summary_bx"> 
-											<span>خلاصه پروفایل</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#accomplishments_bx">
-											<span>دستاوردهای</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#desired_career_profile_bx">
-											<span>پروفایل مشاغل مورد نظر</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#personal_details_bx">
-											<span>اطلاعات شخصی</span></a></li>
-										<li><a class="scroll-bar nav-link" href="#attach_resume_bx">
-											<span>آپلود رزومه</span></a></li>	
+											<span>سوابق تحصیلی</span></a></li>
+										<li><a class="scroll-bar nav-link" href="#language_bx">
+											<span>زبان ها</span></a></li>
+										<li><a class="scroll-bar nav-link" href="#prefer_job_bx">
+											<span>ترجیحات شغلی</span></a></li>
 
 			<?php } else { ?>
 				<li><a href="<?php echo home_url('profile?action=resume') ?>">

@@ -39,7 +39,7 @@ $date_to = isset($form_data->date_to) ? $form_data->date_to : 0;
                 <label>از سال</label>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                        <select data-id="date_from">
+                        <select data-id="date_from" class="form-control">
                             <?php
                             for ($x = 2000; $x < date("Y"); $x++) {
                                 $selected = "";
@@ -61,7 +61,7 @@ $date_to = isset($form_data->date_to) ? $form_data->date_to : 0;
                 <label>تا سال</label>
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                        <select data-id="date_to">
+                        <select data-id="date_to" class="form-control">
                             <?php
                             for ($x = 2000; $x < date("Y"); $x++) {
                                 $selected = "";
