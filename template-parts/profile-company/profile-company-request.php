@@ -48,6 +48,20 @@ $count = $the_query->post_count;
                     <i class="fa fa-download"></i>
                 </a>
                 <h6><a href="<?php echo get_the_permalink(get_post_meta(get_the_ID(), 'job_id', true)); ?>"><?php echo 'آگهی' . ' ' . get_the_title(get_post_meta(get_the_ID(), 'job_id', true)) ?></a></h6>
+                <div class="accept-box row">
+                    <label class="col-md-4"> وضعیت</label>
+                    <select onchange="ajax_submit_mbm_change_status_request({
+                                        'action': 'mbm_change_status_request',
+                'job_id':<?php echo get_the_ID(); ?>,
+                'status':$(this).val(),
+                    })" class="col-md-8">
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==0) ? 'selected="selected"':'' ?> value="0">در انتظار وضعیت</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==1) ? 'selected="selected"':'' ?> value="1">بررسی شده</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==2) ? 'selected="selected"':'' ?> value="2">تایید برای مصاحبه</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==3) ? 'selected="selected"':'' ?> value="3">رد درخواست</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==4) ? 'selected="selected"':'' ?> value="4">استخدام شده</option>
+                    </select>
+                </div>
             </div>
         </li>
     <?php

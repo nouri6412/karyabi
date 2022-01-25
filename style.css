@@ -81,3 +81,18 @@ margin-top: 10px;
 .form-check-label{
     margin-right: 20px;
 }
+
+.accept-box{
+
+}
+
+.accept-box label{
+
+}
+
+.accept-box select{
+
+}
+.bootstrap-select.show.btn-group .dropdown-menu.inner{
+    border: 1px solid #b3b3b3;
+}

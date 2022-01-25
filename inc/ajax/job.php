@@ -126,6 +126,26 @@ class Karyabi_Job
         echo json_encode($result);
         die();
     }
+
+    function status()
+    {
+        $user_id = get_current_user_id();
+
+        if($user_id==0)
+        {
+            echo json_encode([]);
+            die();
+        }
+        $job_id = sanitize_text_field($_POST["job_id"]);
+        $status = sanitize_text_field($_POST["status"]);
+
+        update_post_meta( $job_id, 'status', $status );
+
+        $result["state"] = 1;
+        $result["message"] = 'با موفقیت ذخیره شد';
+        echo json_encode($result);
+        die();
+    }
 }
 
 $Karyabi_Job = new Karyabi_Job;
@@ -134,3 +154,7 @@ add_action('wp_ajax_nopriv_mbm_profile_company_insert_job', array($Karyabi_Job, 
 
 add_action('wp_ajax_mbm_profile_company_remove_job', array($Karyabi_Job, 'remove_job'));
 add_action('wp_ajax_nopriv_mbm_profile_company_remove_job', array($Karyabi_Job, 'remove_job'));
+
+add_action('wp_ajax_mbm_change_status_request', array($Karyabi_Job, 'status'));
+add_action('wp_ajax_nopriv_mbm_change_status_request', array($Karyabi_Job, 'status'));
+
