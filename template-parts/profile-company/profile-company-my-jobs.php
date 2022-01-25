@@ -23,7 +23,7 @@ $the_query = new WP_Query($args);
                     <div>
                         <div class="d-flex">
                             <i class="fal fa-bookmark"></i>
-                            <h4 style="margin-left: 15px;"><?php echo get_the_title(); ?></h4>
+                            <h4 style="margin-left: 15px;"><?php echo get_the_title().' / '. get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></h4>
                             <?php
                             $active = get_post_meta(get_the_ID(), 'active', true);
                             ?>

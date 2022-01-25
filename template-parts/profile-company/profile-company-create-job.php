@@ -29,6 +29,28 @@ $user_meta = get_query_var('user_meta');
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
+                    <label>دسته بندی</label>
+                    <select id="cat_id">
+                        <?php
+                        $args = array(
+                            'post_type' => 'job-cat'
+                        );
+                        $the_query1 = new WP_Query($args);
+                        ?>
+                        <?php
+                        while ($the_query1->have_posts()) :
+                            $the_query1->the_post();
+                        ?>
+                            <option value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
+                        <?php
+                        endwhile;
+                        wp_reset_query();
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
                     <label>نوع همکاری</label>
                     <select id="job_coop_type">
                         <option value="تمام وقت">تمام وقت</option>
@@ -83,7 +105,7 @@ $user_meta = get_query_var('user_meta');
                         <option value="0">هیچ کدام</option>
                         <?php foreach ($states as $item) {
                         ?>
-                            <option  value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                            <option value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -99,7 +121,7 @@ $user_meta = get_query_var('user_meta');
                             $citis = $Common_State_City->get_city_list($state_id);
                             foreach ($citis as $item) {
                             ?>
-                                <option  value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                                <option value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -115,7 +137,7 @@ $user_meta = get_query_var('user_meta');
                 <div class="form-group">
                     <label>جنسیت</label>
                     <select id="job_sex">
-                    <option value="<?php echo 'مهم نیست'; ?>"><?php echo 'مهم نیست'; ?></option>
+                        <option value="<?php echo 'مهم نیست'; ?>"><?php echo 'مهم نیست'; ?></option>
                         <option value="<?php echo 'مرد'; ?>"><?php echo 'مرد'; ?></option>
                         <option value="<?php echo 'زن'; ?>"><?php echo 'زن'; ?></option>
                     </select>
@@ -146,7 +168,8 @@ $user_meta = get_query_var('user_meta');
                 'job_city_id':$('#job_city_id').val(),
                 'job_address':$('#job_address').val(),
                 'job_sex':$('#job_sex').val(),
-                'desc_job':$('#desc_job').val()
+                'desc_job':$('#desc_job').val(),
+                'cat_id':$('#cat_id').val()
             }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')

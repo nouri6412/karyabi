@@ -15,12 +15,12 @@
 
 .tag_complete .tag_input{
 	all:unset;
-	min-height:45px !important;
+
 	background:none;
 	display:inline;
 	margin:unset;
 	padding: unset;
-	border:0 !important;
+
 	width:unset;
 	box-shadow: none !important;
 }

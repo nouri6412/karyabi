@@ -16,7 +16,7 @@ function custom_generate_menu_li($navItem, $menu)
     }
 ?>
     <li class="<?php echo $item_class; ?>">
-        <a href="#"><?php echo $navItem->title; ?><?php echo $i; ?></a>
+        <a href="<?php echo $navItem->url; ?>"><?php echo $navItem->title; ?><?php echo $i; ?></a>
         <?php
         if (isset($menu[$navItem->ID])) {
         ?>

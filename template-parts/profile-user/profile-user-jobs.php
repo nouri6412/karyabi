@@ -42,7 +42,7 @@ $count = $the_query->post_count;
         <li>
             <div class="post-bx">
                 <div class="job-post-info m-a0">
-                    <h4><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h4>
+                    <h4><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title().' / '. get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></a></h4>
                     <ul>
                         <li><a href="#"><?php echo  get_the_author_meta('company_name') ?></a></li>
                         <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)); ?></li>

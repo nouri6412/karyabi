@@ -99,3 +99,7 @@ margin-top: 10px;
 .status-box div{
     width: 20%;
 }
+.tag_complete .tag_input{
+    min-height: 25px !important;
+    border: 1px solid #c3bdbd !important;
+}

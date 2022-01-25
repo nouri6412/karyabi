@@ -20,7 +20,7 @@ $count = $the_query->post_count;
         <li id="<?php echo 'job-' . get_the_ID(); ?>">
             <div class="post-bx">
                 <div class="job-post-info m-a0">
-                    <h4><a href="<?php echo get_the_permalink($job_id); ?>"><?php echo get_the_title($job_id); ?></a></h4>
+                    <h4><a href="<?php echo get_the_permalink($job_id); ?>"><?php echo get_the_title($job_id).' / '. get_the_title(get_post_meta($job_id, 'cat_id', true)); ?></a></h4>
                     <ul>
                         <li><a href="#"><?php echo  get_the_author_meta('company_name',$author_id) ?></a></li>
                         <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta($job_id, 'state_id', true)).'  '.get_the_title(get_post_meta($job_id, 'city_id', true)); ?></li>

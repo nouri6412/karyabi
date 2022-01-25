@@ -262,6 +262,49 @@ function karyabi_post_type_company_cat()
 }
 add_action('init', 'karyabi_post_type_company_cat');
 
+///post type category company
+
+function karyabi_post_type_job_cat()
+{
+
+    $supports = array(
+        'title', // post title
+        'thumbnail', // featured images
+		'editor',
+		'excerpt',
+        'custom-fields', // custom fields
+        'post-formats', // post formats
+		
+    );
+
+    $labels = array(
+        'name' => _x('دسته شغل ها', 'plural'),
+        'singular_name' => _x('دسته شغل ها', 'singular'),
+        'menu_name' => _x('دسته شغل ها', 'admin menu'),
+        'name_admin_bar' => _x('دسته شغل ها', 'admin bar'),
+        'add_new' => _x('ثبت  دسته شغل ها', 'add new'),
+        'add_new_item' => "ثبت  دسته شغل ها جدید",
+        'new_item' => " دسته شغل ها  جدید",
+        'edit_item' => "ویرایش  دسته شغل ها ",
+        'view_item' => "مشاهده  دسته شغل ها",
+        'all_items' => "همه  دسته شغل ها ها",
+        'search_items' => "جستجوی   دسته شغل ها",
+        'not_found' => "یافت نشد"
+    );
+
+    $args = array(
+        'supports' => $supports,
+        'labels' => $labels,
+        'public' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'job-cat'),
+        'has_archive' => true,
+        'hierarchical' => false,
+    );
+    register_post_type('job-cat', $args);
+}
+add_action('init', 'karyabi_post_type_job_cat');
+
 ///post type tag
 
 function karyabi_post_type_job_tag()

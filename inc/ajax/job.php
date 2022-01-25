@@ -33,6 +33,7 @@ class Karyabi_Job
         $state_id = sanitize_text_field($_POST["job_state_id"]);
         $city_id = sanitize_text_field($_POST["job_city_id"]);
         $address = sanitize_text_field($_POST["job_address"]);
+        $cat_id = sanitize_text_field($_POST["cat_id"]);
 
         $args_post = array(
             'post_title'   => $title,
@@ -52,6 +53,7 @@ class Karyabi_Job
                 'city_id' => $city_id,
                 'address' => $address,
                 'sex' => $sex,
+                'cat_id' => $cat_id
             )
         );
 
