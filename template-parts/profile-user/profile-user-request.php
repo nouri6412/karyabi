@@ -14,16 +14,16 @@ $count = $the_query->post_count;
     <?php
     while ($the_query->have_posts()) :
         $the_query->the_post();
-        $job_id=get_post_meta(get_the_ID(), 'job_id', true);
-        $author_id=get_post_field( 'post_author', $job_id );
+        $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+        $author_id = get_post_field('post_author', $job_id);
     ?>
         <li id="<?php echo 'job-' . get_the_ID(); ?>">
             <div class="post-bx">
                 <div class="job-post-info m-a0">
                     <h4><a href="<?php echo get_the_permalink($job_id); ?>"><?php echo get_the_title($job_id); ?></a></h4>
                     <ul>
-                        <li><a href="#"><?php echo  get_the_author_meta('company_name',$author_id) ?></a></li>
-                        <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta($job_id, 'state_id', true)).'  '.get_the_title(get_post_meta($job_id, 'city_id', true)); ?></li>
+                        <li><a href="#"><?php echo  get_the_author_meta('company_name', $author_id) ?></a></li>
+                        <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta($job_id, 'state_id', true)) . '  ' . get_the_title(get_post_meta($job_id, 'city_id', true)); ?></li>
                         <li><i class="fa fa-money"></i><?php
                                                         $min = 0;
                                                         $max = 0;
@@ -59,9 +59,26 @@ $count = $the_query->post_count;
                         <?php } ?>
                     </div>
                     <div class="posted-info clearfix">
-                        <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo get_the_date('',$job_id); ?></p>
+                        <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo get_the_date('', $job_id); ?></p>
                         <p class="m-tb0 text-primary float-right"><span class="text-black m-r10">ارسال رزومه:</span> <?php echo get_the_date(); ?></p>
-
+                        <br>
+                        <div>
+                            <label>وضعیت درخواست</label>
+                            <?php
+                            $status = get_post_meta($job_id, 'status', true);
+                            if ($status == 1) {
+                                echo 'بررسی شده';
+                            } else if ($status == 2) {
+                                echo 'تایید برای مصاحبه';
+                            } else if ($status == 2) {
+                                echo 'رد درخواست';
+                            } else if ($status == 2) {
+                                echo 'استخدام شده';
+                            } else {
+                                echo 'در انتظار وضعیت';
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
