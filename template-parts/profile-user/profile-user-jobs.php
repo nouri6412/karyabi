@@ -44,8 +44,8 @@ $count = $the_query->post_count;
                 <div class="job-post-info m-a0">
                     <h4><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title(); ?></a></h4>
                     <ul>
-                        <li><a href="company-profile.html"><?php echo  get_the_author_meta('company_name') ?></a></li>
-                        <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)).'  '.get_the_title(get_post_meta(get_the_ID(), 'city_id', true)); ?></li>
+                        <li><a href="#"><?php echo  get_the_author_meta('company_name') ?></a></li>
+                        <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)); ?></li>
                         <li><i class="fa fa-money"></i><?php
                                                         $min = 0;
                                                         $max = 0;
@@ -82,7 +82,27 @@ $count = $the_query->post_count;
                     </div>
                     <div class="posted-info clearfix">
                         <p class="m-tb0 text-primary float-left"><span class="text-black m-r10">ارسال شده:</span> <?php echo get_the_date(); ?></p>
-                        <a href="jobs-my-resume.html" class="site-button button-sm float-right">درخواست</a>
+                        <?php
+                        $user_id = get_current_user_id();
+                        $args = array(
+                            'post_type' => 'request',
+                            'post_author'  => $user_id,
+                            'meta_key'        => 'job_id',
+                            'meta_value'    => get_the_ID()
+                        );
+                        $the_query1 = new WP_Query($args);
+
+                        $count = $the_query1->post_count;
+                       // wp_reset_query();
+                        ?>
+                        <?php
+                        if ($count == 0 && $user_id > 0) {
+                        ?>
+                            <a href="<?php echo get_the_permalink(); ?>" class="site-button button-sm float-right">درخواست</a>
+                        <?php } else if ($user_id > 0) { ?>
+                            <div id="request-result" class="before-message">رزومه قبلا ارسال شده است</div>
+                        <?php } ?>
+
                     </div>
                 </div>
             </div>

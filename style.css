@@ -42,6 +42,13 @@ color: red;
 margin-top: 10px;
 }
 
+.before-message{
+    color: red;
+    float: left;
+    font-size: 13px;
+    line-height: 34px;
+}
+
 .dzFormMsg.doned{
     color: green;
     margin-top: 10px;

@@ -47,16 +47,13 @@ $page_action = get_query_var('page_action');
 				<li><a href="<?php echo home_url('profile?action=resume') ?>">
 						<i class="fa fa-file-text-o" aria-hidden="true"></i>
 						<span>رزومه ساز</span></a></li>
-				<li><a href="jobs-saved-jobs.html">
+				<li><a href="<?php echo home_url('profile?action=favorite') ?>">
 						<i class="fa fa-heart-o" aria-hidden="true"></i>
 						<span>شغل های ذخیره شده</span></a></li>
 				<li><a href="<?php echo home_url('profile?action=jobs') ?>">
 						<i class="fa fa-briefcase" aria-hidden="true"></i>
 						<span>شغل های ثبت شده</span></a></li>
-				<li><a href="jobs-alerts.html">
-						<i class="fa fa-bell-o" aria-hidden="true"></i>
-						<span>هشدارها</span></a></li>
-				<li><a href="jobs-cv-manager.html">
+				<li><a href="<?php echo home_url('profile?action=request') ?>">
 						<i class="fa fa-id-card-o" aria-hidden="true"></i>
 						<span>درخواست های من</span></a></li>
 				<li><a href="<?php echo home_url('profile?action=change-pass') ?>">
