@@ -5,6 +5,15 @@ $args = array(
     'meta_key'  => 'owner_id',
     'meta_value' => $user_id
 );
+
+if (isset($_GET["job_id"]) && isset($_GET["status"])) {
+    $meta_arg = [];
+    $meta_arg["relation"] = "AND";
+    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+    $meta_arg[] = ["key" => "status", "value" => $_GET["status"], "compare" => "="];
+    $args["meta_query"] = $meta_arg;
+}
+
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 ?>
@@ -55,11 +64,11 @@ $count = $the_query->post_count;
                 'job_id':<?php echo get_the_ID(); ?>,
                 'status':$(this).val(),
                     })" class="col-md-8">
-                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==0) ? 'selected="selected"':'' ?> value="0">در انتظار وضعیت</option>
-                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==1) ? 'selected="selected"':'' ?> value="1">بررسی شده</option>
-                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==2) ? 'selected="selected"':'' ?> value="2">تایید برای مصاحبه</option>
-                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==3) ? 'selected="selected"':'' ?> value="3">رد درخواست</option>
-                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true)==4) ? 'selected="selected"':'' ?> value="4">استخدام شده</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true) == 0) ? 'selected="selected"' : '' ?> value="0">در انتظار وضعیت</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true) == 1) ? 'selected="selected"' : '' ?> value="1">بررسی شده</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true) == 2) ? 'selected="selected"' : '' ?> value="2">تایید برای مصاحبه</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true) == 3) ? 'selected="selected"' : '' ?> value="3">رد درخواست</option>
+                        <option <?php echo (get_post_meta(get_the_ID(), 'status', true) == 4) ? 'selected="selected"' : '' ?> value="4">استخدام شده</option>
                     </select>
                 </div>
             </div>

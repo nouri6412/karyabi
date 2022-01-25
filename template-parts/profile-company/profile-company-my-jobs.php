@@ -106,19 +106,19 @@ $the_query = new WP_Query($args);
 
                         ?>
                         <div>
-                            <span><?php echo $count_0; ?></span><span>در انتظار وضعیت</span>
+                            <span><?php echo $count_0; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=0") ?>">در انتظار وضعیت</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_1; ?></span><span>بررسی شده</span>
+                            <span><?php echo $count_1; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=1") ?>"> بررسی شده</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_2; ?></span><span>تایید برای مصاحبه</span>
+                            <span><?php echo $count_2; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=2") ?>"> تایید برای مصاحبه</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_3; ?></span><span>رد شده</span>
+                            <span><?php echo $count_3; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=3") ?>">رد شده </a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_4; ?></span><span>استخدام شده</span>
+                            <span><?php echo $count_4; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=4") ?>"> استخدام شده</a></span>
                         </div>
                     </div>
                 </div>
