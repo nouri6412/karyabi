@@ -49,6 +49,10 @@ margin-top: 10px;
 .site-button.exit{
     background-color: #ef4a4a;
 }
+.site-button.request-btn{
+   width: 100%;;
+}
+
 .candidate-info img{
     height: 100%;
     object-fit: cover;

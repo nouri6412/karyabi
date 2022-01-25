@@ -33,7 +33,71 @@
                                     <h4 class="text-black font-weight-700 p-t10 m-b15"><?php echo get_the_author_meta('company_name'); ?></h4>
                                     <ul>
                                         <li><i class="ti-location-pin"></i><strong class="font-weight-700 text-black">موقعیت مکانی</strong><span class="text-black-light"> <?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)) . ' ' . get_post_meta(get_the_ID(), 'address', true); ?> </span></li>
+                                        <li>
+                                            <?php
+                                            $user_id = get_current_user_id();
+                                            $args = array(
+                                                'post_type' => 'request',
+                                                'post_author'  => $user_id,
+                                                'meta_key'        => 'job_id',
+                                                'meta_value'    => get_the_ID()
+                                            );
+                                            $the_query = new WP_Query($args);
 
+                                            $count = $the_query->post_count;
+                                            wp_reset_query();
+                                            ?>
+                                            <?php
+                                            if ($count == 0 && $user_id > 0) {
+                                            ?>
+                                                <div id="request-result" style="display: none;" class="dzFormMsg error">رزومه ارسال شد</div>
+                                                <div class="box-loading">
+                                                    <div class="loading-ajax"></div>
+                                                </div>
+                                                <button onclick="ajax_submit_mbm_job_request(
+            {
+                'action': 'mbm_job_request',
+                'job_id':'<?php echo get_the_ID(); ?>'
+            }
+            ,$(this)
+            ,$('#request-result')
+        )" class="site-button request-btn">درخواست و ارسال رزومه</button>
+                                            <?php } else if ($user_id > 0) { ?>
+                                                <div id="request-result" class="dzFormMsg error">رزومه قبلا ارسال شده است</div>
+
+                                            <?php } ?>
+                                        </li>
+                                        <li>
+                                            <?php
+                                            $user_id = get_current_user_id();
+                                            $args = array(
+                                                'post_type' => 'favorite',
+                                                'post_author'  => $user_id,
+                                                'meta_key'        => 'job_id',
+                                                'meta_value'    => get_the_ID()
+                                            );
+                                            $the_query = new WP_Query($args);
+
+                                            $count = $the_query->post_count;
+                                            wp_reset_query();
+                                            ?>
+                                            <?php
+                                            if ($count == 0 && $user_id > 0) {
+                                            ?>
+                                                <div id="favorite-result" style="display: none;" class="dzFormMsg error">شغل ذخیده شد</div>
+                                                <button onclick="ajax_submit_mbm_job_request(
+            {
+                'action': 'mbm_job_favorite',
+                'job_id':'<?php echo get_the_ID(); ?>'
+            }
+            ,$(this)
+            ,$('#favorite-result')
+        )" class="site-button request-btn"> ذخیره شغل <i class="fa fa-bookmark"></i></button>
+                                            <?php } else if ($user_id > 0) { ?>
+                                                <div id="favorite-result" class="dzFormMsg error">شغل قبلا ذخیره شده است</div>
+
+                                            <?php } ?>
+                                        </li>
 
                                     </ul>
                                 </div>
@@ -122,7 +186,7 @@
                         <h5 class="font-weight-600">درباره شرکت</h5>
                         <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
                         <p><?php echo get_the_author_meta('desc'); ?></p>
-                        <a href="jobs-applied-job.html" class="site-button">درخواست</a>
+
                         <hr>
                     </div>
                 </div>

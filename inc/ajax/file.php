@@ -3,7 +3,6 @@ class Common_Manage_File
 {
     function upload_image()
     {
-
         $result = [];
         check_ajax_referer('file_upload', 'security');
         $arr_img_ext = array('image/png', 'image/jpeg', 'image/jpg', 'image/gif');
@@ -16,6 +15,14 @@ class Common_Manage_File
 
     function upload_avatar()
     {
+        $user_id = get_current_user_id();
+
+        if($user_id==0)
+        {
+            echo json_encode([]);
+            die();
+        }
+
         $user_id = get_current_user_id();
         $result = $this->upload_image();
         if ($result["url"]) {

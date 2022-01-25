@@ -73,6 +73,7 @@ class Karyabi_Job
         $the_query = new WP_Query($args);
 
         $count_max = $the_query->post_count;
+        wp_reset_query();
 
         $args = array(
             'post_type' => 'job',
@@ -82,6 +83,7 @@ class Karyabi_Job
         $the_query = new WP_Query($args);
 
         $count = $the_query->post_count;
+        wp_reset_query();
 
         if ($count > 0) {
             $result["state"] = 0;
