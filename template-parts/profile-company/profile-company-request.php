@@ -78,7 +78,7 @@ $count = $the_query->post_count;
     wp_reset_query();
     ?>
 </ul>
-<div class="pagination-bx float-left">
+<!-- <div class="pagination-bx float-left">
     <ul class="pagination">
         <li class="next"><a href="javascript:void(0);"><i class="ti-arrow-left"></i> بعدی</a></li>
         <li><a href="javascript:void(0);">3</a></li>
@@ -86,4 +86,4 @@ $count = $the_query->post_count;
         <li class="active"><a href="javascript:void(0);">1</a></li>
         <li class="previous"><a href="javascript:void(0);">قبلی <i class="ti-arrow-right"></i></a></li>
     </ul>
-</div>
+</div> -->

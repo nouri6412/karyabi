@@ -113,7 +113,7 @@ $count = $the_query->post_count;
     wp_reset_query();
     ?>
 </ul>
-<div class="pagination-bx m-t30">
+<!-- <div class="pagination-bx m-t30">
     <ul class="pagination">
         <li class="next"><a href="javascript:void(0);"><i class="ti-arrow-left"></i> قبلی</a></li>
         <li class="active"><a href="javascript:void(0);">1</a></li>
@@ -121,4 +121,4 @@ $count = $the_query->post_count;
         <li><a href="#">3</a></li>
         <li class="previous"><a href="javascript:void(0);">بعدی <i class="ti-arrow-right"></i></a></li>
     </ul>
-</div>
+</div> -->
