@@ -1,5 +1,9 @@
 <?php
 $cats = get_field("cats");
+if(!is_array($cats))
+{
+    $cats=[];
+}
 ?>
 <div class="row sp20">
     <?php

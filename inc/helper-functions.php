@@ -65,3 +65,30 @@ function custom_render_php($path)
 	ob_end_clean();
 	return $var;
 }
+
+function custom_get_salary($ID)
+{
+	$min = 0;
+	$max = 0;
+	$ret='';
+
+	if (is_numeric(get_post_meta($ID, 'min-salary', true))) {
+		$min = get_post_meta($ID, 'min-salary', true);
+	}
+
+	if (is_numeric(get_post_meta($ID, 'max-salary', true))) {
+		$max = get_post_meta($ID, 'max-salary', true);
+	}
+
+	$ret= 'حقوق' . ' ';
+	if ($min > 0 && $max > 0) {
+		$ret .= 'از' . ' ' . get_post_meta($ID, 'min-salary', true) . ' ' . 'تا' . get_post_meta($ID, 'max-salary', true);
+	} else  if ($min > 0) {
+		$ret .= 'از' . ' ' . get_post_meta($ID, 'min-salary', true);
+	} else  if ($max > 0) {
+		$ret .= 'تا' . get_post_meta($ID, 'max-salary', true);
+	} else {
+		$ret .= 'توافقی';
+	}
+	return $ret;
+}

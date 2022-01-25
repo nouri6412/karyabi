@@ -157,26 +157,7 @@
                                 <h6>حقوق</h6>
                                 <div class="job-time m-t15 m-b10">
                                     <a href="javascript:void(0);"><span><?php
-                                                                        $min = 0;
-                                                                        $max = 0;
-
-                                                                        if (is_numeric(get_post_meta(get_the_ID(), 'min-salary', true))) {
-                                                                            $min = get_post_meta(get_the_ID(), 'min-salary', true);
-                                                                        }
-
-                                                                        if (is_numeric(get_post_meta(get_the_ID(), 'max-salary', true))) {
-                                                                            $max = get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                        }
-
-                                                                        if ($min > 0 && $max > 0) {
-                                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                        } else  if ($min > 0) {
-                                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true);
-                                                                        } else  if ($max > 0) {
-                                                                            echo 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                                        } else {
-                                                                            echo 'توافقی';
-                                                                        }
+                                                                        echo custom_get_salary(get_the_ID())
 
                                                                         ?></span></a>
                                 </div>

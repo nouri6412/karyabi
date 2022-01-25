@@ -19,7 +19,7 @@ foreach ($skills as $item) {
         'value' => $item,
         'compare' => 'LIKE'
     );
-} 
+}
 
 $args = array(
     'post_type' => 'job',
@@ -42,33 +42,12 @@ $count = $the_query->post_count;
         <li>
             <div class="post-bx">
                 <div class="job-post-info m-a0">
-                    <h4><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title().' / '. get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></a></h4>
+                    <h4><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></a></h4>
                     <ul>
                         <li><a href="#"><?php echo  get_the_author_meta('company_name') ?></a></li>
                         <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta(get_the_ID(), 'state_id', true)) . '  ' . get_the_title(get_post_meta(get_the_ID(), 'city_id', true)); ?></li>
                         <li><i class="fa fa-money"></i><?php
-                                                        $min = 0;
-                                                        $max = 0;
-
-                                                        if (is_numeric(get_post_meta(get_the_ID(), 'min-salary', true))) {
-                                                            $min = get_post_meta(get_the_ID(), 'min-salary', true);
-                                                        }
-
-                                                        if (is_numeric(get_post_meta(get_the_ID(), 'max-salary', true))) {
-                                                            $max = get_post_meta(get_the_ID(), 'max-salary', true);
-                                                        }
-
-                                                        echo 'حقوق' . ' ';
-                                                        if ($min > 0 && $max > 0) {
-                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                        } else  if ($min > 0) {
-                                                            echo 'از' . ' ' . get_post_meta(get_the_ID(), 'min-salary', true);
-                                                        } else  if ($max > 0) {
-                                                            echo 'تا' . get_post_meta(get_the_ID(), 'max-salary', true);
-                                                        } else {
-                                                            echo 'توافقی';
-                                                        }
-
+                                                        echo custom_get_salary(get_the_ID())
                                                         ?></li>
                     </ul>
                     <div class="job-time m-t15 m-b10">
@@ -93,7 +72,7 @@ $count = $the_query->post_count;
                         $the_query1 = new WP_Query($args);
 
                         $count = $the_query1->post_count;
-                       // wp_reset_query();
+                        // wp_reset_query();
                         ?>
                         <?php
                         if ($count == 0 && $user_id > 0) {

@@ -25,27 +25,7 @@ $count = $the_query->post_count;
                         <li><a href="#"><?php echo  get_the_author_meta('company_name', $author_id) ?></a></li>
                         <li><i class="fa fa-map-marker"></i><?php echo  get_the_title(get_post_meta($job_id, 'state_id', true)) . '  ' . get_the_title(get_post_meta($job_id, 'city_id', true)); ?></li>
                         <li><i class="fa fa-money"></i><?php
-                                                        $min = 0;
-                                                        $max = 0;
-
-                                                        if (is_numeric(get_post_meta($job_id, 'min-salary', true))) {
-                                                            $min = get_post_meta($job_id, 'min-salary', true);
-                                                        }
-
-                                                        if (is_numeric(get_post_meta($job_id, 'max-salary', true))) {
-                                                            $max = get_post_meta($job_id, 'max-salary', true);
-                                                        }
-
-                                                        echo 'حقوق' . ' ';
-                                                        if ($min > 0 && $max > 0) {
-                                                            echo 'از' . ' ' . get_post_meta($job_id, 'min-salary', true) . ' ' . 'تا' . get_post_meta($job_id, 'max-salary', true);
-                                                        } else  if ($min > 0) {
-                                                            echo 'از' . ' ' . get_post_meta($job_id, 'min-salary', true);
-                                                        } else  if ($max > 0) {
-                                                            echo 'تا' . get_post_meta($job_id, 'max-salary', true);
-                                                        } else {
-                                                            echo 'توافقی';
-                                                        }
+                                                       echo custom_get_salary($job_id)
 
                                                         ?></li>
                     </ul>

@@ -1,5 +1,9 @@
 <?php
 $cats = get_field("city");
+if(!is_array($cats))
+{
+    $cats=[];
+}
 ?>
 <!-- Call To Action -->
 <div class="section-full content-inner bg-gray">
