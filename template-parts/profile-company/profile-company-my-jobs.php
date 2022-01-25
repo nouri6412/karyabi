@@ -46,7 +46,7 @@ $the_query = new WP_Query($args);
                         $meta_arg["relation"]="AND";
                         $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
                         $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                       // $meta_arg[] = ["key" => "status", "value" => '0',"compare"=>"="];
+                        $meta_arg[] = ["key" => "status", "value" => '0',"compare"=>"="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -54,43 +54,55 @@ $the_query = new WP_Query($args);
                         $the_query0 = new WP_Query($args);
                         $count_0 = $the_query0->post_count;
 
+                        $meta_arg = [];
+                        $meta_arg["relation"]="AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
+                        $meta_arg[] = ["key" => "status", "value" => '1',"compare"=>"="];
                         $args = array(
                             'post_type' => 'request',
-                            'meta_key'  => 'owner_id',
-                            'meta_value' => $user_id,
-                            'status' => 1
+                            'meta_query' => $meta_arg
                         );
                         $the_query1 = new WP_Query($args);
                         $count_1 = $the_query1->post_count;
 
+                        $meta_arg = [];
+                        $meta_arg["relation"]="AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
+                        $meta_arg[] = ["key" => "status", "value" => '2',"compare"=>"="];
                         $args = array(
                             'post_type' => 'request',
-                            'meta_key'  => 'owner_id',
-                            'meta_value' => $user_id,
-                            'status' => 2
+                            'meta_query' => $meta_arg
                         );
                         $the_query2 = new WP_Query($args);
                         $count_2 = $the_query2->post_count;
 
 
+                        $meta_arg = [];
+                        $meta_arg["relation"]="AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
+                        $meta_arg[] = ["key" => "status", "value" => '3',"compare"=>"="];
                         $args = array(
                             'post_type' => 'request',
-                            'meta_key'  => 'owner_id',
-                            'meta_value' => $user_id,
-                            'status' => 3
+                            'meta_query' => $meta_arg
                         );
                         $the_query3 = new WP_Query($args);
                         $count_3 = $the_query3->post_count;
 
 
+                        $meta_arg = [];
+                        $meta_arg["relation"]="AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
+                        $meta_arg[] = ["key" => "status", "value" => '4',"compare"=>"="];
                         $args = array(
                             'post_type' => 'request',
-                            'meta_key'  => 'owner_id',
-                            'meta_value' => $user_id,
-                            'status' => 4
+                            'meta_query' => $meta_arg
                         );
                         $the_query4 = new WP_Query($args);
-                        $count_4 = $the_query2->post_count;
+                        $count_4 = $the_query4->post_count;
 
                         ?>
                         <div>
