@@ -17,7 +17,17 @@ get_header();
 
 $user_id = get_current_user_id();
 
+$profile_user_id = 0;
 
+if (isset($_GET["user_id"])) {
+    $profile_user_id = $_GET["user_id"];
+}
+
+
+
+if ($profile_user_id > 0) {
+    $user_id = $profile_user_id;
+}
 
 $user_info = get_userdata($user_id);
 $user_meta = get_user_meta($user_id);
@@ -30,6 +40,13 @@ if (isset($user_meta['user_type'])) {
 $action = "profile";
 if (isset($_GET["action"])) {
     $action = $_GET["action"];
+}
+
+
+$user_meta["profile_user_id"] = $profile_user_id;
+
+if ($profile_user_id > 0) {
+    $user_type = "user";
 }
 
 set_query_var('page_action', $action);
@@ -51,12 +68,12 @@ set_query_var('user_meta', $user_meta);
                     <div class="col-xl-3 col-lg-4 m-b30">
                         <?php
                         if ($user_id > 0) {
-                            if ($user_type == "company") {
-                                get_template_part('template-parts/profile-company/profile-company', 'aside');
-                            } else if ($user_type == "user") {
+                            if ($user_type == "user") {
                                 get_template_part('template-parts/profile-user/profile-user', 'aside');
+                            } else if ($user_type == "company") {
+                                get_template_part('template-parts/profile-company/profile-company', 'aside');
                             }
-                        } 
+                        }
                         ?>
                     </div>
                     <div class="col-xl-9 col-lg-8 m-b30">

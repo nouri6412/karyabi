@@ -10,7 +10,9 @@ if (isset($user_meta["resume-exp"])) {
 ?>
 <div class="d-flex">
     <h5 class="m-b15">سوابق شغلی</h5>
+    <?php if($user_meta["profile_user_id"]==0){ ?>
     <a href="javascript:void(0);" data-toggle="modal" data-target="#employment" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
+    <?php } ?>
 </div>
 <?php
 foreach ($data as $item) {

@@ -19,7 +19,7 @@ foreach ($skills as $item) {
         'value' => $item,
         'compare' => 'LIKE'
     );
-}
+} 
 
 $args = array(
     'post_type' => 'job',

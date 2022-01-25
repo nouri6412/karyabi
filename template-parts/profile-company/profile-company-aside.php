@@ -34,7 +34,7 @@ $user_meta = get_query_var('user_meta');
 			<li><a href="<?php  echo home_url('profile?action=my-jobs') ?>">
 					<i class="fa fa-briefcase" aria-hidden="true"></i>
 					<span>آگهی های من</span></a></li>
-			<li><a href="company-resume.html">
+			<li><a href="<?php  echo home_url('profile?action=request') ?>">
 					<i class="fa fa-id-card-o" aria-hidden="true"></i>
 					<span>رزومه های ارسالی</span></a></li>
 			<li><a href="<?php  echo home_url('profile?action=change-pass') ?>">

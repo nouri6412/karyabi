@@ -26,9 +26,14 @@ $page_action = get_query_var('page_action');
 			</div>
 		</div>
 		<ul>
-			<li><a href="<?php echo home_url('profile') ?>" class="active">
-					<i class="fa fa-user-o" aria-hidden="true"></i>
-					<span>پروفایل</span></a></li>
+			<?php if ($user_meta["profile_user_id"] == 0) { ?>
+				<li><a href="<?php echo home_url('profile') ?>" class="active">
+						<i class="fa fa-user-o" aria-hidden="true"></i>
+						<span>پروفایل</span></a></li>
+			<?php  } else {?>
+				<li><a class="scroll-bar nav-link" href="#profile_bx">
+						<span> مشخصات کاربر</span></a></li>
+				<?php  }?>
 			<?php if ($page_action == "resume") { ?>
 				<li><a class="scroll-bar nav-link" href="#profile_summary_bx">
 						<span>درباره من</span></a></li>

@@ -11,6 +11,7 @@ class Common_Request_Post
         }
 
         $job_id = sanitize_text_field($_POST["job_id"]);
+        $owner_id=get_post_field( 'post_author', $job_id );
 
         $args_post = array(
             'post_title'   => get_the_author_meta('user_name', $user_id),
@@ -19,7 +20,8 @@ class Common_Request_Post
             'post_status'  => 'publish',
             'meta_input'   => array(
                 'status' => 0,
-                'job_id' => $job_id
+                'job_id' => $job_id,
+                'owner_id' => $owner_id
             )
         );
 

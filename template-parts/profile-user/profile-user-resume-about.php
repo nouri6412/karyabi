@@ -8,7 +8,9 @@ if (isset($user_meta["resume-about"])) {
 ?>
 <div class="d-flex">
     <h5 class="m-b15">در باره من</h5>
+    <?php if($user_meta["profile_user_id"]==0){ ?>
     <a href="javascript:void(0);" data-toggle="modal" data-target="#profilesummary" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
+    <?php } ?>
 </div>
 <p class="m-b0"><?php echo isset($data->about) ? $data->about : '';  ?></p>
 <!-- Modal -->
