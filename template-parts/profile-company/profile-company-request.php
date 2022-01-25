@@ -2,7 +2,7 @@
 $user_id = get_current_user_id();
 $args = array(
     'post_type' => 'request',
-    'meta_key'  => '',
+    'meta_key'  => 'owner_id',
     'meta_value' => $user_id
 );
 $the_query = new WP_Query($args);

@@ -40,17 +40,73 @@ $the_query = new WP_Query($args);
                         </div>
                     </div>
                     <div class="status-box">
+                        <?php
+
+                        $meta_arg = [];
+                        $meta_arg["relation"]="AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
+                       // $meta_arg[] = ["key" => "status", "value" => '0',"compare"=>"="];
+                        $args = array(
+                            'post_type' => 'request',
+                            'meta_query' => $meta_arg
+                        );
+                        $the_query0 = new WP_Query($args);
+                        $count_0 = $the_query0->post_count;
+
+                        $args = array(
+                            'post_type' => 'request',
+                            'meta_key'  => 'owner_id',
+                            'meta_value' => $user_id,
+                            'status' => 1
+                        );
+                        $the_query1 = new WP_Query($args);
+                        $count_1 = $the_query1->post_count;
+
+                        $args = array(
+                            'post_type' => 'request',
+                            'meta_key'  => 'owner_id',
+                            'meta_value' => $user_id,
+                            'status' => 2
+                        );
+                        $the_query2 = new WP_Query($args);
+                        $count_2 = $the_query2->post_count;
+
+
+                        $args = array(
+                            'post_type' => 'request',
+                            'meta_key'  => 'owner_id',
+                            'meta_value' => $user_id,
+                            'status' => 3
+                        );
+                        $the_query3 = new WP_Query($args);
+                        $count_3 = $the_query3->post_count;
+
+
+                        $args = array(
+                            'post_type' => 'request',
+                            'meta_key'  => 'owner_id',
+                            'meta_value' => $user_id,
+                            'status' => 4
+                        );
+                        $the_query4 = new WP_Query($args);
+                        $count_4 = $the_query2->post_count;
+
+                        ?>
                         <div>
-                            <span>4</span><span>بررسی شده</span>
+                            <span><?php echo $count_0; ?></span><span>در انتظار وضعیت</span>
                         </div>
                         <div>
-                            <span>1</span><span>در انتظار وضعیت</span>
+                            <span><?php echo $count_1; ?></span><span>بررسی شده</span>
                         </div>
                         <div>
-                            <span>0</span><span>تایید برای مصاحبه</span>
+                            <span><?php echo $count_2; ?></span><span>تایید برای مصاحبه</span>
                         </div>
                         <div>
-                            <span>0</span><span>استخدام شده</span>
+                            <span><?php echo $count_3; ?></span><span>رد شده</span>
+                        </div>
+                        <div>
+                            <span><?php echo $count_4; ?></span><span>استخدام شده</span>
                         </div>
                     </div>
                 </div>

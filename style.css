@@ -96,3 +96,6 @@ margin-top: 10px;
 .bootstrap-select.show.btn-group .dropdown-menu.inner{
     border: 1px solid #b3b3b3;
 }
+.status-box div{
+    width: 20%;
+}

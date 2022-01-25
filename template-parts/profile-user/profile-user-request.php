@@ -15,7 +15,7 @@ $count = $the_query->post_count;
     while ($the_query->have_posts()) :
         $the_query->the_post();
         $job_id=get_post_meta(get_the_ID(), 'job_id', true);
-        $author_id=get_the_author_meta('ID',$job_id);
+        $author_id=get_post_field( 'post_author', $job_id );
     ?>
         <li id="<?php echo 'job-' . get_the_ID(); ?>">
             <div class="post-bx">
