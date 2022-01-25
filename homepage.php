@@ -51,24 +51,9 @@ get_header();
                     ?>
                 </div>
                 <div class="col-lg-3">
-                    <div class="sticky-top">
-                        <div class="candidates-are-sys m-b30">
-                            <div class="candidates-bx">
-                                <div class="testimonial-pic radius"><img src="images/testimonials/pic3.jpg" alt="" width="100" height="100"></div>
-                                <div class="testimonial-text">
-                                    <p>من به تازگی شغلی را پیدا کرده ام که از طریق جاب بورد درخواست آن را داده ام! من در طول شغل خود از سایت همیشه استفاده می کردم.</p>
-                                </div>
-                                <div class="testimonial-detail"> <strong class="testimonial-name">ریحانه بیوت</strong> <span class="testimonial-position">یزد</span> </div>
-                            </div>
-                        </div>
-                        <div class="quote-bx">
-                            <div class="quote-info">
-                                <h4>با رزومه ساز انلاین ما متفاوت باشید</h4>
-                                <p>با رزومه ساز جاب بورد کارفرمای خود را تحت تاثیر قرار دهید</p>
-                                <a href="register.html" class="site-button">ایجاد حساب کاربری</a>
-                            </div>
-                        </div>
-                    </div>
+                <?php
+                    get_template_part('template-parts/homepage/homepage', 'aside');
+                    ?>
                 </div>
             </div>
         </div>
