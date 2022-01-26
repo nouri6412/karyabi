@@ -17,7 +17,7 @@ class Karyabi_Job
 
         $author = $job->post_author;
 
-        if($user_id!=$author)
+        if($user_id!=$author && $job_id>0)
         {
             echo json_encode([]);
             die();

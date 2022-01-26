@@ -65,6 +65,7 @@ function ajax_submit_mbm_post_job(data, element_error, element_done) {
     }
 
     custom_theme_mbm_base_ajax(data, function (result) {
+        console.log(result);
         if (result.state == 0) {
             element_error.html('<p>' + result.message + '</p>');
         }
