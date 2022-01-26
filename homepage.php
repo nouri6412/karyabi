@@ -16,9 +16,20 @@ get_header();
 ?>
 <!-- Content -->
 <div class="page-content">
-    <?php
-    get_template_part('template-parts/homepage/homepage', 'search');
-    ?>
+    <!-- Section Banner -->
+    <div class="dez-bnr-inr dez-bnr-inr-md" style="background-image:url(<?php echo get_field("image_back"); ?>);">
+        <div class="container">
+            <div class="dez-bnr-inr-entry align-m">
+                <div class="find-job-bx">
+                    <a href="browse-job-list.html" class="site-button button-sm">مشاغل، فرصت های شغلی و استخدامی</a>
+                    <h2>شغل خود را بین <br> <span class="text-primary">50,000</span> شغل انتخاب کنید.</h2>
+                    <?php
+                    get_template_part('template-parts/homepage/homepage', 'search');
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- About Us -->
     <div class="section-full job-categories content-inner-2 bg-white">
         <div class="container">
