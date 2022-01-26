@@ -32,7 +32,7 @@ get_header();
 					<ul class="list-inline">
 						<li><a title="<?php echo get_bloginfo("name"); ?>" href="<?php echo home_url(); ?>">خانه</a></li>
 						<li><?php echo 'آخرین مطالب'; ?></li>
-					</ul>
+					</ul> 
 				</div>
 				<!-- Breadcrumb row END -->
 			</div>
