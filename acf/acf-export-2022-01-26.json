@@ -414,6 +414,25 @@
                 "mime_types": ""
             },
             {
+                "key": "field_61f119b623e1a",
+                "label": "عنوان جستجو",
+                "name": "search_title",
+                "type": "text",
+                "instructions": "",
+                "required": 0,
+                "conditional_logic": 0,
+                "wrapper": {
+                    "width": "",
+                    "class": "",
+                    "id": ""
+                },
+                "default_value": "",
+                "placeholder": "",
+                "prepend": "",
+                "append": "",
+                "maxlength": ""
+            },
+            {
                 "key": "field_61eff41ee72a3",
                 "label": "دسته بندی ها",
                 "name": "cats",
