@@ -52,7 +52,7 @@ get_header();
                     <h6 class="fw4 m-b0">ضغل مورد نظر خود را بیابید</h6>
                 </div>
                 <div class="align-self-end">
-                    <a href="<?php home_url("search-job") ?>" class="site-button button-sm">همه مشاغل <i class="fa fa-long-arrow-right"></i></a>
+                    <a href="<?php echo home_url("search-job") ?>" class="site-button button-sm">همه مشاغل <i class="fa fa-long-arrow-right"></i></a>
                 </div>
             </div>
             <div class="row">
