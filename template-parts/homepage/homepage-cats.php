@@ -13,7 +13,7 @@ if(!is_array($cats))
             <div class="icon-bx-wraper">
                 <div class="icon-content">
                     <div class="icon-md text-primary m-b20"><i class="<?php echo $cat["group"]["icon"] ?>"></i></div>
-                    <a href="<?php echo home_url('search-job?cat='.$cat["group"]["link"]->ID) ?>" class="dez-tilte"><?php echo $cat["group"]["title"] ?></a>
+                    <a href="<?php echo home_url('search-job?cat_id='.$cat["group"]["link"]->ID) ?>" class="dez-tilte"><?php echo $cat["group"]["title"] ?></a>
                     <p class="m-a0">
                         <?php
                         $args = array(

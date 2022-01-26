@@ -13,11 +13,70 @@
 
 get_header();
 
+$search = array();
+
+$search["relation"] = "AND";
+
+$state_id = 0;
+$city_id = 0;
+$cat_id = 0;
+$search_word = "";
+
+if (isset($_GET["search_word"])) {
+    $search_word = $_GET["search_word"];
+}
+
+if (isset($_GET["job_state_id"])) {
+    $state_id = $_GET["job_state_id"];
+}
+
+if (isset($_GET["job_city_id"])) {
+    $city_id = $_GET["job_city_id"];
+}
+
+if (isset($_GET["cat_id"])) {
+    $cat_id = $_GET["cat_id"];
+}
+
+// if (strlen($search_word) > 0) {
+//     $search[] =           array(
+//         'key' => 'title',
+//         'value' => $search_word,
+//         'compare' => 'LIKE'
+//     );
+// }
+
+if ($state_id > 0) {
+    $search[] =           array(
+        'key' => 'state_id',
+        'value' => $state_id,
+        'compare' => '='
+    );
+}
+
+if ($city_id > 0) {
+    $search[] =           array(
+        'key' => 'city_id',
+        'value' => $city_id,
+        'compare' => '='
+    );
+}
+
+if ($cat_id > 0) {
+    $search[] =           array(
+        'key' => 'cat_id',
+        'value' => $cat_id,
+        'compare' => '='
+    );
+}
+
+
 $args = array(
     'post_type' => 'job',
     'post_status' => 'publish',
     'meta_key' => 'active',
     'meta_value' => '1',
+    'meta_query' => $search,
     'posts_per_page' => 10
 );
 $the_query = new WP_Query($args);
@@ -65,11 +124,19 @@ $count = $the_query->post_count;
                             <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'شغل پیدا شد';  ?></h5>
                         </div>
                         <ul class="post-job-bx">
-                            <li>
-                                <?php
-                                get_template_part('template-parts/job/job', 'item');
-                                ?>
-                            </li>
+                            <?php
+                            while ($the_query->have_posts()) :
+                                $the_query->the_post();
+                            ?>
+                                <li>
+                                    <?php
+                                    get_template_part('template-parts/job/job', 'item');
+                                    ?>
+                                </li>
+                            <?php
+                            endwhile;
+                            wp_reset_query();
+                            ?>
                         </ul>
                         <!-- <div class="pagination-bx m-t30">
                             <ul class="pagination">

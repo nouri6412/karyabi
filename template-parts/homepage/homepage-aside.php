@@ -1,6 +1,6 @@
 <?php
-$box1=get_field("aside")["box1"];
-$box2=get_field("aside")["box2"];
+$box1=get_field("aside",'option')["box1"];
+$box2=get_field("aside",'option')["box2"];
 ?>
 <div class="sticky-top">
     <div class="candidates-are-sys m-b30">

@@ -19,7 +19,7 @@ if(!is_array($cats))
             foreach ($cats as $cat) {
             ?>
                 <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                    <a href="<?php echo home_url('search-job?city=' . $cat["group"]["link"]->ID) ?>">
+                    <a href="<?php echo home_url('search-job?job_city_id=' . $cat["group"]["link"]->ID) ?>">
                         <div class="city-bx align-items-end  d-flex" style="background-image:url(<?php echo $cat["group"]["image"] ?>)">
                             <div class="city-info">
                                 <h5><?php echo $cat["group"]["title"] ?></h5>
