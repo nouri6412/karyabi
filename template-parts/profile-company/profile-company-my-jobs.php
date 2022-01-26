@@ -23,7 +23,7 @@ $the_query = new WP_Query($args);
                     <div>
                         <div class="d-flex">
                             <i class="fal fa-bookmark"></i>
-                            <h4 style="margin-left: 15px;"><?php echo get_the_title().' / '. get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></h4>
+                            <h4 style="margin-left: 15px;"><?php echo get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></h4>
                             <?php
                             $active = get_post_meta(get_the_ID(), 'active', true);
                             ?>
@@ -36,17 +36,19 @@ $the_query = new WP_Query($args);
                 'job_id':<?php echo get_the_ID() ?>
             }
             ,'<?php echo 'ads-' . get_the_ID(); ?>'
-        )" class="edit ads-btn"><i class="fa fa-remove m-r5"></i> حذف</button></div>
+        )" class="edit ads-btn"><i class="fa fa-remove m-r5"></i> حذف</button>
+                                <a class="btn btn-default" href="<?php echo home_url('profile?action=create-job&job_id=' . get_the_ID()); ?>">ویرایش <i class="fa fa-edit"></i></a>
+                            </div>
                         </div>
                     </div>
                     <div class="status-box">
                         <?php
 
                         $meta_arg = [];
-                        $meta_arg["relation"]="AND";
-                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
-                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                        $meta_arg[] = ["key" => "status", "value" => '0',"compare"=>"="];
+                        $meta_arg["relation"] = "AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id, "compare" => "="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(), "compare" => "="];
+                        $meta_arg[] = ["key" => "status", "value" => '0', "compare" => "="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -55,10 +57,10 @@ $the_query = new WP_Query($args);
                         $count_0 = $the_query0->post_count;
 
                         $meta_arg = [];
-                        $meta_arg["relation"]="AND";
-                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
-                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                        $meta_arg[] = ["key" => "status", "value" => '1',"compare"=>"="];
+                        $meta_arg["relation"] = "AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id, "compare" => "="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(), "compare" => "="];
+                        $meta_arg[] = ["key" => "status", "value" => '1', "compare" => "="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -67,10 +69,10 @@ $the_query = new WP_Query($args);
                         $count_1 = $the_query1->post_count;
 
                         $meta_arg = [];
-                        $meta_arg["relation"]="AND";
-                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
-                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                        $meta_arg[] = ["key" => "status", "value" => '2',"compare"=>"="];
+                        $meta_arg["relation"] = "AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id, "compare" => "="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(), "compare" => "="];
+                        $meta_arg[] = ["key" => "status", "value" => '2', "compare" => "="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -80,10 +82,10 @@ $the_query = new WP_Query($args);
 
 
                         $meta_arg = [];
-                        $meta_arg["relation"]="AND";
-                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
-                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                        $meta_arg[] = ["key" => "status", "value" => '3',"compare"=>"="];
+                        $meta_arg["relation"] = "AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id, "compare" => "="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(), "compare" => "="];
+                        $meta_arg[] = ["key" => "status", "value" => '3', "compare" => "="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -93,10 +95,10 @@ $the_query = new WP_Query($args);
 
 
                         $meta_arg = [];
-                        $meta_arg["relation"]="AND";
-                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id,"compare"=>"="];
-                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(),"compare"=>"="];
-                        $meta_arg[] = ["key" => "status", "value" => '4',"compare"=>"="];
+                        $meta_arg["relation"] = "AND";
+                        $meta_arg[] = ["key" => "owner_id", "value" => $user_id, "compare" => "="];
+                        $meta_arg[] = ["key" => "job_id", "value" => get_the_ID(), "compare" => "="];
+                        $meta_arg[] = ["key" => "status", "value" => '4', "compare" => "="];
                         $args = array(
                             'post_type' => 'request',
                             'meta_query' => $meta_arg
@@ -106,19 +108,19 @@ $the_query = new WP_Query($args);
 
                         ?>
                         <div>
-                            <span><?php echo $count_0; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=0") ?>">در انتظار وضعیت</a></span>
+                            <span><?php echo $count_0; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=" . get_the_ID() . "&status=0") ?>">در انتظار وضعیت</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_1; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=1") ?>"> بررسی شده</a></span>
+                            <span><?php echo $count_1; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=" . get_the_ID() . "&status=1") ?>"> بررسی شده</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_2; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=2") ?>"> تایید برای مصاحبه</a></span>
+                            <span><?php echo $count_2; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=" . get_the_ID() . "&status=2") ?>"> تایید برای مصاحبه</a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_3; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=3") ?>">رد شده </a></span>
+                            <span><?php echo $count_3; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=" . get_the_ID() . "&status=3") ?>">رد شده </a></span>
                         </div>
                         <div>
-                            <span><?php echo $count_4; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=".get_the_ID()."&status=4") ?>"> استخدام شده</a></span>
+                            <span><?php echo $count_4; ?></span><span><a href="<?php echo home_url("profile/?action=request&job_id=" . get_the_ID() . "&status=4") ?>"> استخدام شده</a></span>
                         </div>
                     </div>
                 </div>

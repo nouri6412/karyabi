@@ -1,6 +1,12 @@
 <?php
 $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
+
+$job_id = 0;
+if (isset($_GET["job_id"])) {
+    $job_id = $_GET["job_id"];
+}
+
 ?>
 <div class="job-bx submit-resume">
     <div class="job-bx-title clearfix">
@@ -8,23 +14,24 @@ $user_meta = get_query_var('user_meta');
         <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
     </div>
     <form>
+        <input id="job_id" name="job_id" type="hidden" value="<?php echo $job_id; ?>" />
         <div class="row">
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>نام شغل</label>
-                    <input id="job_title" type="text" class="form-control" placeholder="عنوان کسب خود را وارد کنید">
+                    <input value="<?php echo get_post_meta($job_id, 'title', true) ?>" id="job_title" type="text" class="form-control" placeholder="عنوان کسب خود را وارد کنید">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>ایمیل</label>
-                    <input id="job_email" type="email" class="form-control" placeholder="info@gmail.com">
+                    <input value="<?php echo get_post_meta($job_id, 'email', true) ?>" id="job_email" type="email" class="form-control" placeholder="info@gmail.com">
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                     <label>مهارت های موردنیاز</label>
-                    <input id="job_tag" type="text" class="form-control tags_input" value="">
+                    <input id="job_tag" type="text" class="form-control tags_input" value="<?php echo get_post_meta($job_id, 'tag', true) ?>">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -40,8 +47,12 @@ $user_meta = get_query_var('user_meta');
                         <?php
                         while ($the_query1->have_posts()) :
                             $the_query1->the_post();
+                            $selected = "";
+                            if (get_post_meta($job_id, 'cat_id', true) == get_the_ID()) {
+                                $selected = "selected";
+                            }
                         ?>
-                            <option value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
+                            <option <?php echo $selected ?> value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
                         <?php
                         endwhile;
                         wp_reset_query();
@@ -53,12 +64,11 @@ $user_meta = get_query_var('user_meta');
                 <div class="form-group">
                     <label>نوع همکاری</label>
                     <select id="job_coop_type">
-                        <option value="تمام وقت">تمام وقت</option>
-                        <option value="پاره وقت">پاره وقت</option>
-                        <option value="کارآموز">کارآموز</option>
-                        <option value="دورکاری">دورکاری</option>
-                        <option value="پروژه ای">پروژه ای</option>
-                        <option value="فریلنسر">فریلنسر</option>
+                        <option <?php echo (get_post_meta($job_id, 'coop-type', true) == 'تمام وقت') ? 'selected' : ''; ?> value="<?php echo 'تمام وقت'; ?>"><?php echo 'تمام وقت'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'coop-type', true) == 'کارآموز') ? 'selected' : ''; ?> value="<?php echo 'کارآموز'; ?>"><?php echo 'کارآموز'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'coop-type', true) == 'دورکاری') ? 'selected' : ''; ?> value="<?php echo 'دورکاری'; ?>"><?php echo 'دورکاری'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'coop-type', true) == 'پروژه ای') ? 'selected' : ''; ?> value="<?php echo 'پروژه ای'; ?>"><?php echo 'پروژه ای'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'coop-type', true) == 'فریلنسر') ? 'selected' : ''; ?> value="<?php echo 'فریلنسر'; ?>"><?php echo 'فریلنسر'; ?></option>
                     </select>
                 </div>
             </div>
@@ -67,29 +77,40 @@ $user_meta = get_query_var('user_meta');
                     <label>تجربیات</label>
                     <select id="job_exp">
                         <option value="0">مهم نیست </option>
-                        <option value="1">1 سال</option>
-                        <option value="2">2 سال</option>
-                        <option value="3">3 سال</option>
-                        <option value="4">4 سال</option>
-                        <option value="5">5 سال</option>
-                        <option value="6">6 سال</option>
-                        <option value="7">7 سال</option>
-                        <option value="8">8 سال</option>
-                        <option value="9">9 سال</option>
-                        <option value="10">10 سال</option>
+                        <?php
+                        for ($i = 1; $i < 11; $i++) {
+                            $selected = "";
+                            if (get_post_meta($job_id, 'exp', true) == $i) {
+                                $selected = "selected";
+                            }
+                        ?>
+                            <option <?php echo $selected; ?> value="<?php echo $i; ?>"><?php echo $i . ' ' . 'سال'; ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                    <label>جنسیت</label>
+                    <select id="job_sex">
+                        <option <?php echo (get_post_meta($job_id, 'sex', true) == 'مهم نیست') ? 'selected' : ''; ?> value="<?php echo 'مهم نیست'; ?>"><?php echo 'مهم نیست'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'sex', true) == 'مرد') ? 'selected' : ''; ?> value="<?php echo 'مرد'; ?>"><?php echo 'مرد'; ?></option>
+                        <option <?php echo (get_post_meta($job_id, 'sex', true) == 'زن') ? 'selected' : ''; ?> value="<?php echo 'زن'; ?>"><?php echo 'زن'; ?></option>
                     </select>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>حداقل حقوق (ریال):</label>
-                    <input id="job_min_salary" type="number" class="form-control" placeholder="مثال: 10000">
+                    <input value="<?php echo get_post_meta($job_id, 'min-salary', true) ?>" id="job_min_salary" type="number" class="form-control" placeholder="مثال: 10000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>حداکثر حقوق (ریال):</label>
-                    <input id="job_max_salary" type="number" class="form-control" placeholder="مثال: 20000">
+                    <input value="<?php echo get_post_meta($job_id, 'max-salary', true) ?>" id="job_max_salary" type="number" class="form-control" placeholder="مثال: 20000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
@@ -99,13 +120,17 @@ $user_meta = get_query_var('user_meta');
                     $Common_State_City = new Common_State_City;
 
                     $states = $Common_State_City->get_state_list();
-                    $state_id = isset($user_meta['state_id']) ? $user_meta['state_id'][0] : 0;
+                    $state_id = get_post_meta($job_id, 'state_id', true);
                     ?>
                     <select onchange="ajax_submit_mbm_get_city_list($(this).val(),$('#box-city-id'),'job_city_id',<?php echo $state_id; ?>)" id="job_state_id">
                         <option value="0">هیچ کدام</option>
                         <?php foreach ($states as $item) {
+                            $selected = "";
+                            if ($state_id == $item["id"]) {
+                                $selected = "selected";
+                            }
                         ?>
-                            <option value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                            <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
                         <?php } ?>
                     </select>
                 </div>
@@ -119,9 +144,14 @@ $user_meta = get_query_var('user_meta');
                             <option value="0">هیچ کدام</option>
                             <?php
                             $citis = $Common_State_City->get_city_list($state_id);
+                            $city_id = get_post_meta($job_id, 'city_id', true);
                             foreach ($citis as $item) {
+                                $selected = "";
+                                if ($city_id == $item["id"]) {
+                                    $selected = "selected";
+                                }
                             ?>
-                                <option value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
+                                <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -130,23 +160,13 @@ $user_meta = get_query_var('user_meta');
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>آدرس</label>
-                    <input id="job_address" type="text" class="form-control" placeholder="">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="form-group">
-                    <label>جنسیت</label>
-                    <select id="job_sex">
-                        <option value="<?php echo 'مهم نیست'; ?>"><?php echo 'مهم نیست'; ?></option>
-                        <option value="<?php echo 'مرد'; ?>"><?php echo 'مرد'; ?></option>
-                        <option value="<?php echo 'زن'; ?>"><?php echo 'زن'; ?></option>
-                    </select>
+                    <input value="<?php echo get_post_meta($job_id, 'address', true) ?>" id="job_address" type="text" class="form-control" placeholder="">
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                     <label>شرح موقعیت شغلی</label>
-                    <input id="desc_job" type="text" class="form-control" placeholder="">
+                    <input value="<?php echo get_the_content($job_id) ?>" id="desc_job" type="text" class="form-control" placeholder="">
                 </div>
             </div>
 
@@ -157,6 +177,7 @@ $user_meta = get_query_var('user_meta');
         <button onclick="ajax_submit_mbm_post_job(
             {
                 'action': 'mbm_profile_company_insert_job',
+                'job_id':$('#job_id').val(),
                 'job_title':$('#job_title').val(),
                 'job_email':$('#job_email').val(),
                 'job_tag':$('#job_tag').val(),

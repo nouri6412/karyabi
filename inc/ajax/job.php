@@ -11,6 +11,18 @@ class Karyabi_Job
             die();
         }
 
+        $job_id = sanitize_text_field($_POST["job_id"]);
+
+        $job = get_post( $job_id );
+
+        $author = $job->post_author;
+
+        if($user_id!=$author)
+        {
+            echo json_encode([]);
+            die();
+        }
+
         $title = "";
         $desc = "";
         $coop_type = '';
@@ -34,6 +46,7 @@ class Karyabi_Job
         $city_id = sanitize_text_field($_POST["job_city_id"]);
         $address = sanitize_text_field($_POST["job_address"]);
         $cat_id = sanitize_text_field($_POST["cat_id"]);
+       
 
         $args_post = array(
             'post_title'   => $title,
@@ -59,7 +72,7 @@ class Karyabi_Job
         );
 
 
-        $max_job_option = 100;
+        $max_job_option = 5;
 
         $get_option = get_field('job_max_job', 'option');
 
@@ -88,16 +101,43 @@ class Karyabi_Job
         $count = $the_query->post_count;
         wp_reset_query();
 
-        if ($count > 0) {
-            $result["state"] = 0;
-            $result["message"] = 'عنوان آگهی تکراری می باشد';
-        } else if ($count_max < $max_job_option) {
-            $id = wp_insert_post($args_post);
-            $result["state"] = 1;
-            $result["message"] = 'با موفقیت ذخیره شد';
-        } else {
-            $result["state"] = 0;
-            $result["message"] = 'تعداد آگهی های فعال نباید بیش از 5 باشد';
+        $result["state"] = 1;
+        $result["message"] = 'با موفقیت ذخیره شد';
+
+        if($job_id==0)
+        {
+            if ($count > 0) {
+                $result["state"] = 0;
+                $result["message"] = 'عنوان آگهی تکراری می باشد';
+            } else if ($count_max < $max_job_option) {
+                $id = wp_insert_post($args_post);
+                $result["state"] = 1;
+                $result["message"] = 'با موفقیت ذخیره شد';
+            } else {
+                $result["state"] = 0;
+                $result["message"] = 'تعداد آگهی های فعال نباید بیش از 5 باشد';
+            }
+        }
+        else
+        {
+            $my_post = array(
+                'ID'            => $job_id,
+                'post_title'   => $title
+            );
+            wp_update_post( $my_post );
+            update_post_meta( $job_id, 'title', $title );
+            update_post_meta( $job_id, 'active', 0 );
+            update_post_meta( $job_id, 'coop-type', $coop_type );
+            update_post_meta( $job_id, 'email', $email );
+            update_post_meta( $job_id, 'exp', $exp );
+            update_post_meta( $job_id, 'tag', $tag );
+            update_post_meta( $job_id, 'min-salary', $min_salary );
+            update_post_meta( $job_id, 'max-salary', $max_salary );
+            update_post_meta( $job_id, 'state_id', $state_id );
+            update_post_meta( $job_id, 'city_id', $city_id );
+            update_post_meta( $job_id, 'address', $address );
+            update_post_meta( $job_id, 'sex', $sex );
+            update_post_meta( $job_id, 'cat_id', $cat_id );
         }
 
         echo json_encode($result);
