@@ -42,6 +42,7 @@ class Karyabi_Job
             'post_status'  => 'publish',
             'post_content'      => $desc,
             'meta_input'   => array(
+                'title' =>$title,
                 'active' => 0,
                 'coop-type' => $coop_type,
                 'email' => $email,

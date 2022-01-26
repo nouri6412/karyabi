@@ -38,13 +38,13 @@ if (isset($_GET["cat_id"])) {
     $cat_id = $_GET["cat_id"];
 }
 
-// if (strlen($search_word) > 0) {
-//     $search[] =           array(
-//         'key' => 'title',
-//         'value' => $search_word,
-//         'compare' => 'LIKE'
-//     );
-// }
+if (strlen($search_word) > 0) {
+    $search[] =           array(
+        'key' => 'title',
+        'value' => $search_word,
+        'compare' => 'LIKE'
+    );
+}
 
 if ($state_id > 0) {
     $search[] =           array(
