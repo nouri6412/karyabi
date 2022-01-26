@@ -22,7 +22,7 @@ get_header();
             <div class="dez-bnr-inr-entry align-m">
                 <div class="find-job-bx">
                     <a href="browse-job-list.html" class="site-button button-sm">مشاغل، فرصت های شغلی و استخدامی</a>
-                    <h2><?php get_field("search_title") ?></h2>
+                    <h2><?php echo  get_field("search_title") ?></h2>
                     <?php
                     get_template_part('template-parts/homepage/homepage', 'search');
                     ?>

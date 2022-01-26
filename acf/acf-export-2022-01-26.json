@@ -426,7 +426,7 @@
                     "class": "",
                     "id": ""
                 },
-                "default_value": "",
+                "default_value": "<h2>شغل خود را بین <br> <span class=\"text-primary\">50,000<\/span> شغل انتخاب کنید.<\/h2>",
                 "placeholder": "",
                 "prepend": "",
                 "append": "",
