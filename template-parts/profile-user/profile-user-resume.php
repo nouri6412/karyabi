@@ -23,7 +23,7 @@ $user_meta = get_query_var('user_meta');
     get_template_part('template-parts/profile-user/profile-user', 'resume-exp');
     ?>
 </div>
-<div id="education_bx" class="job-bx bg-white m-b30 ">
+<div id="eduction_bx" class="job-bx bg-white m-b30 ">
     <?php
     get_template_part('template-parts/profile-user/profile-user', 'resume-edu');
     ?>
