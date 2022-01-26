@@ -21,7 +21,7 @@ $count = $the_query->post_count;
     <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'درخواست '; ?></h5>
 </div>
 <ul class="post-job-bx browse-job-grid post-resume row">
-    <?php
+    <?php 
     while ($the_query->have_posts()) :
         $the_query->the_post();
     ?>

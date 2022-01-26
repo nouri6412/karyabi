@@ -8,7 +8,7 @@
  * @package WordPress
  * @subpackage Karyabi
  * @since 1.0.0
- * Template Name: مشاغل
+ * Template Name: کارجو
  */
 
 get_header();
@@ -19,7 +19,6 @@ $search["relation"] = "AND";
 
 $state_id = 0;
 $city_id = 0;
-$cat_id = 0;
 $search_word = "";
 
 if (isset($_GET["search_word"])) {
@@ -34,13 +33,10 @@ if (isset($_GET["job_city_id"])) {
     $city_id = $_GET["job_city_id"];
 }
 
-if (isset($_GET["cat_id"])) {
-    $cat_id = $_GET["cat_id"];
-}
 
 if (strlen($search_word) > 0) {
     $search[] =           array(
-        'key' => 'title',
+        'key' => 'resume-skills',
         'value' => $search_word,
         'compare' => 'LIKE'
     );
@@ -62,27 +58,17 @@ if ($city_id > 0) {
     );
 }
 
-if ($cat_id > 0) {
-    $search[] =           array(
-        'key' => 'cat_id',
-        'value' => $cat_id,
-        'compare' => '='
-    );
-}
 
 
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
-    'post_type' => 'job',
-    'post_status' => 'publish',
-    'meta_key' => 'active',
-    'meta_value' => '1',
-    'paged' => $paged,
+    'meta_key' => 'user_type',
+    'meta_value' => 'user',
     'meta_query' => $search,
-    'posts_per_page' => 8
+    'posts_per_page' => 10
 );
-$the_query = new WP_Query($args);
-$count = $the_query->post_count;
+$wp_user_query = new WP_User_Query($args);
+$authors = $wp_user_query->get_results();
+$count = $wp_user_query->post_count;
 ?>
 
 <!-- Content -->
@@ -91,12 +77,12 @@ $count = $the_query->post_count;
     <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php the_post_thumbnail_url(); ?>);">
         <div class="container">
             <div class="dez-bnr-inr-entry">
-                <h1 class="text-white">همه مشاغل </h1>
+                <h1 class="text-white">همه کارجو ها </h1>
                 <!-- Breadcrumb row -->
                 <div class="breadcrumb-row">
                     <ul class="list-inline">
                         <li><a href="<?php echo home_url();  ?>">خانه</a></li>
-                        <li>همه مشاغل </li>
+                        <li>همه کارجو ها </li>
                     </ul>
                 </div>
                 <!-- Breadcrumb row END -->
@@ -109,7 +95,7 @@ $count = $the_query->post_count;
         <div class="container">
             <div class="find-job-bx">
                 <?php
-                get_template_part('template-parts/homepage/homepage', 'search');
+                get_template_part('template-parts/homepage/homepage', 'search-user');
                 ?>
             </div>
         </div>
@@ -123,43 +109,34 @@ $count = $the_query->post_count;
                 <div class="row">
                     <div class="col-xl-9 col-lg-8 col-md-7">
                         <div class="job-bx-title clearfix">
-                            <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'شغل پیدا شد';  ?></h5>
+                            <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'کارجو پیدا شد';  ?></h5>
                         </div>
                         <ul class="post-job-bx">
                             <?php
-                            while ($the_query->have_posts()) :
-                                $the_query->the_post();
+                            if (!empty($authors)) {
+                                foreach ($authors as $author) {
+                                    
                             ?>
-                                <li>
-                                    <?php
-                                    get_template_part('template-parts/job/job', 'item');
-                                    ?>
-                                </li>
+                                    <li>
+                                        <?php
+                                        set_query_var('cur_author', $author);
+                                        get_template_part('template-parts/job/job', 'item-user');
+                                        ?>
+                                    </li>
                             <?php
-                            endwhile;
-                       
+                                }
+                            }
                             ?>
                         </ul>
-                        <div class="pagination">
-                            <?php
-                            echo paginate_links(array(
-                                'base'         => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
-                                'total'        => $the_query->max_num_pages,
-                                'current'      => max(1, get_query_var('paged')),
-                                'format'       => '?paged=%#%',
-                                'show_all'     => false,
-                                'type'         => 'plain',
-                                'end_size'     => 2,
-                                'mid_size'     => 1,
-                                'prev_next'    => true,
-                                'prev_text'    => sprintf('<i></i> %1$s', __('بعدی', 'text-domain')),
-                                'next_text'    => sprintf('%1$s <i></i>', __('قبلی', 'text-domain')),
-                                'add_args'     => false,
-                                'add_fragment' => '',
-                            ));
-                            ?>
-                        </div>
-                        <?php      wp_reset_query(); ?>
+                        <!-- <div class="pagination-bx m-t30">
+                            <ul class="pagination">
+                                <li class="next"><a href="javascript:void(0);"><i class="ti-arrow-left"></i> قبلی</a></li>
+                                <li class="active"><a href="javascript:void(0);">1</a></li>
+                                <li><a href="javascript:void(0);">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li class="previous"><a href="javascript:void(0);">بعدی <i class="ti-arrow-right"></i></a></li>
+                            </ul>
+                        </div> -->
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <?php
