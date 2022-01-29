@@ -173,6 +173,27 @@ class Karyabi_Job
         die();
     }
 
+    function active()
+    {
+
+
+        if(!is_admin())
+        {
+            echo json_encode([]);
+            die();
+        }
+        $job_id = sanitize_text_field($_POST["job_id"]);
+        $active = sanitize_text_field($_POST["active"]);
+
+
+        update_post_meta( $job_id, 'active', $active );
+
+        $result["state"] = 1;
+        $result["message"] = 'با موفقیت ذخیره شد';
+        echo json_encode($result);
+        die();
+    }
+
     function status()
     {
         $user_id = get_current_user_id();
@@ -184,6 +205,16 @@ class Karyabi_Job
         }
         $job_id = sanitize_text_field($_POST["job_id"]);
         $status = sanitize_text_field($_POST["status"]);
+
+        $job = get_post( $job_id );
+
+        $author = $job->post_author;
+
+        if($user_id!=$author)
+        {
+            echo json_encode([]);
+            die();
+        }
 
         update_post_meta( $job_id, 'status', $status );
 
@@ -203,4 +234,8 @@ add_action('wp_ajax_nopriv_mbm_profile_company_remove_job', array($Karyabi_Job, 
 
 add_action('wp_ajax_mbm_change_status_request', array($Karyabi_Job, 'status'));
 add_action('wp_ajax_nopriv_mbm_change_status_request', array($Karyabi_Job, 'status'));
+
+
+add_action('wp_ajax_mbm_change_status_job', array($Karyabi_Job, 'status'));
+add_action('wp_ajax_nopriv_mbm_change_status_job', array($Karyabi_Job, 'status'));
 

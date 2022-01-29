@@ -202,3 +202,36 @@ function time_ago_date(  $the_date) {
 }
 add_filter( 'get_the_date', 'time_ago_date', 10, 1 );
 
+
+
+add_filter('manage_job_posts_columns', function($columns) {
+	return array_merge($columns, ['active' => __('وضعیت تایید', 'textdomain')]);
+});
+ 
+add_action('manage_job_posts_custom_column', function($column_key, $post_id) {
+	if ($column_key == 'active') {
+		$verified = get_post_meta($post_id, 'active', true);
+		if ($verified) {
+			echo '<a href="edit.php?post_type=job&job_id='.$post_id.'&active=0" style="color:green;">'; _e('تایید شده', 'textdomain'); echo '</a>';
+		} else {
+			echo '<a href="edit.php?post_type=job&job_id='.$post_id.'&active=1"  style="color:red;">'; _e('تایید نشده', 'textdomain'); echo '</a>';
+		}
+	}
+}, 10, 2);
+
+
+add_action( 'admin_init', 'karyabi_admin_active_job' );
+function karyabi_admin_active_job()
+{
+    if(!is_admin())
+    {
+        return;
+    }
+    if(isset($_GET["post_type"])&&$_GET["post_type"]=="job"&&isset($_GET["job_id"]))
+    {
+        $job_id = sanitize_text_field($_GET["job_id"]);
+        $active = sanitize_text_field($_GET["active"]);
+        update_post_meta( $job_id, 'active', $active );
+    }
+}
+
