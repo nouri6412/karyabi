@@ -110,7 +110,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label>توضیحات:</label>
-                <textarea id="user-desc" class="form-control"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></textarea>
+                <div id="user-desc" contenteditable="true" style="width: 100%;min-height:120px;border:1px solid #eee;padding:10px;"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></div>
             </div>
         </div>
     </div>
@@ -156,7 +156,7 @@ $user_meta = get_query_var('user_meta');
                 'user_date_year':$('#user-date-year').val(),
                 'state_id':$('#state-id').val(),
                 'city_id':$('#city-id').val(),
-                'desc':$('#user-desc').val(),
+                'desc':$('#user-desc').html(),
                 'tel':$('#user-tel').val(),
                 'user-sex':$('input[name=\'user-sex\']:checked').val(),
                 'email':$('#user-email').val(),

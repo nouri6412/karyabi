@@ -19,7 +19,7 @@ class Karyabi_Company
 
         foreach ($_POST as $key => $post) {
             if ($key != "action") {
-                update_user_meta($user_id, $key, sanitize_text_field($post));
+                update_user_meta($user_id, $key, $post);
             }
         }
 

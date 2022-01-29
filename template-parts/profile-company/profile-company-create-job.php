@@ -166,7 +166,7 @@ if (isset($_GET["job_id"])) {
             <div class="col-lg-12 col-md-12">
                 <div class="form-group">
                     <label>شرح موقعیت شغلی</label>
-                    <input value="<?php echo get_the_content($job_id) ?>" id="desc_job" type="text" class="form-control" placeholder="">
+                    <div id="desc_job" contenteditable="true" style="width: 100%;min-height:120px;border:1px solid #eee;padding:10px;"><?php echo get_post_meta($job_id, 'desc', true) ?></div>
                 </div>
             </div>
 
@@ -189,12 +189,12 @@ if (isset($_GET["job_id"])) {
                 'job_city_id':$('#job_city_id').val(),
                 'job_address':$('#job_address').val(),
                 'job_sex':$('#job_sex').val(),
-                'desc_job':$('#desc_job').val(),
+                'desc_job':$('#desc_job').html(),
                 'cat_id':$('#cat_id').val()
             }
             ,$('#dzFormMsg-error')
             ,$('#dzFormMsg-doned')
-        )" type="button" class="site-button m-b30">ثبت آگهی ضغل</button>
+        )" type="button" class="site-button m-b30">ثبت آگهی شغل</button>
         <div id="dzFormMsg-error" class="dzFormMsg error"></div>
         <div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
     </form>

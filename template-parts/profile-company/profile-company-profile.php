@@ -101,7 +101,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label>درباره شرکت:</label>
-                <textarea id="company-desc" class="form-control"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></textarea>
+                <div id="company-desc" contenteditable="true" style="width: 100%;min-height:120px;border:1px solid #eee;padding:10px;"><?php echo isset($user_meta['desc']) ? $user_meta['desc'][0] : '';  ?></div>
             </div>
         </div>
     </div>
@@ -192,7 +192,7 @@ $user_meta = get_query_var('user_meta');
                 'cat_id':$('#company-cat').val(),
                 'state_id':$('#state-id').val(),
                 'city_id':$('#city-id').val(),
-                'desc':$('#company-desc').val(),
+                'desc':$('#company-desc').html(),
                 'tel':$('#company-tel').val(),
                 'email':$('#company-email').val(),
                 'country':$('#company-country').val(),

@@ -36,7 +36,7 @@ class Karyabi_Job
         $title = sanitize_text_field($_POST["job_title"]);
         $email = sanitize_text_field($_POST["job_email"]);
         $tag = sanitize_text_field($_POST["job_tag"]);
-        $desc = sanitize_text_field($_POST["desc_job"]);
+        $desc = $_POST["desc_job"];
         $sex = sanitize_text_field($_POST["job_sex"]);
         $coop_type = sanitize_text_field($_POST["job_coop_type"]);
         $exp = sanitize_text_field($_POST["job_exp"]);
@@ -56,6 +56,7 @@ class Karyabi_Job
             'post_content'      => $desc,
             'meta_input'   => array(
                 'title' =>$title,
+                'desc' =>$desc,
                 'active' => 0,
                 'coop-type' => $coop_type,
                 'email' => $email,
@@ -72,7 +73,7 @@ class Karyabi_Job
         );
 
 
-        $max_job_option = 5;
+        $max_job_option = 50;
 
         $get_option = get_field('job_max_job', 'option');
 
@@ -122,10 +123,12 @@ class Karyabi_Job
         {
             $my_post = array(
                 'ID'            => $job_id,
-                'post_title'   => $title
+                'post_title'   => $title,
+                'post_content'      => $desc
             );
             wp_update_post( $my_post );
             update_post_meta( $job_id, 'title', $title );
+            update_post_meta( $job_id, 'desc', $desc );
             update_post_meta( $job_id, 'active', 0 );
             update_post_meta( $job_id, 'coop-type', $coop_type );
             update_post_meta( $job_id, 'email', $email );

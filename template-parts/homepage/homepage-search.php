@@ -88,7 +88,7 @@ if (isset($_GET["cat_id"])) {
                     while ($the_query1->have_posts()) :
                         $the_query1->the_post();
                         $selected="";
-                        if(get_the_ID()==$citycat_id_id)
+                        if(get_the_ID()==$cat_id)
                         {
                             $selected="selected";
                         }

@@ -1,8 +1,11 @@
 <?php
+$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $user_id = get_current_user_id();
-$args = array(
+$args = array( 
     'post_type' => 'request',
     'meta_key'  => 'owner_id',
+    'posts_per_page' => 8,
+    'paged' => $paged,
     'meta_value' => $user_id
 );
 
@@ -75,9 +78,28 @@ $count = $the_query->post_count;
         </li>
     <?php
     endwhile;
-    wp_reset_query();
     ?>
 </ul>
+<div class="pagination">
+                            <?php
+                            echo paginate_links(array(
+                                'base'         => str_replace(999999999, '%#%', esc_url(get_pagenum_link(999999999))),
+                                'total'        => $the_query->max_num_pages,
+                                'current'      => max(1, get_query_var('paged')),
+                                'format'       => '?paged=%#%',
+                                'show_all'     => false,
+                                'type'         => 'plain',
+                                'end_size'     => 2,
+                                'mid_size'     => 1,
+                                'prev_next'    => true,
+                                'prev_text'    => sprintf('<i></i> %1$s', __('بعدی', 'text-domain')),
+                                'next_text'    => sprintf('%1$s <i></i>', __('قبلی', 'text-domain')),
+                                'add_args'     => false,
+                                'add_fragment' => '',
+                            ));
+                            ?>
+                        </div>
+                        <?php      wp_reset_query(); ?>
 <!-- <div class="pagination-bx float-left">
     <ul class="pagination">
         <li class="next"><a href="javascript:void(0);"><i class="ti-arrow-left"></i> بعدی</a></li>

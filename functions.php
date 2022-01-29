@@ -8,7 +8,7 @@ function karyabi_theme_support()
 }
 add_action('after_setup_theme', 'karyabi_theme_support');
 
-add_filter( 'show_admin_bar', '__return_false' );
+add_filter('show_admin_bar', '__return_false');
 
 // add tag support to pages
 function tags_support_all()
@@ -16,11 +16,12 @@ function tags_support_all()
     register_taxonomy_for_object_type('post_tag', 'page');
 }
 
-function register_session_new(){
-    if( ! session_id() ) {
-       session_start();
-     }
- }
+function register_session_new()
+{
+    if (!session_id()) {
+        session_start();
+    }
+}
 
 add_action('init', 'register_session_new');
 
@@ -69,8 +70,7 @@ require get_template_directory() . '/classes/class-custom-theme-walker-comment.p
 
 ////save-post
 
-foreach (glob(get_template_directory()."/inc/save-post/*.php") as $filename)
-{
+foreach (glob(get_template_directory() . "/inc/save-post/*.php") as $filename) {
     require $filename;
 }
 
@@ -177,9 +177,9 @@ function karyabi_theme_scripts()
 
     wp_localize_script('karyabi_ajax_script', 'custom_theme_mbm_object', array(
         'ajaxurl' => admin_url('admin-ajax.php'),
-        'security' => wp_create_nonce( 'file_upload' ),
+        'security' => wp_create_nonce('file_upload'),
         'siteurl' => site_url(),
-        'loginurl' => site_url().'?login=user',
+        'loginurl' => site_url() . '?login=user',
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
         'max_page' => $wp_query->max_num_pages
     ));
@@ -190,7 +190,15 @@ add_action('wp_enqueue_scripts', 'karyabi_theme_scripts');
 
 ////ajax
 
-foreach (glob(get_template_directory()."/inc/ajax/*.php") as $filename)
-{
+foreach (glob(get_template_directory() . "/inc/ajax/*.php") as $filename) {
     require $filename;
 }
+
+
+//date hook
+function time_ago_date(  $the_date) {
+
+	return human_time_diff( get_the_time('U'), current_time('timestamp') ) . ' ' .'پیش';
+}
+add_filter( 'get_the_date', 'time_ago_date', 10, 1 );
+
