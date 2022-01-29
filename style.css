@@ -103,3 +103,22 @@ margin-top: 10px;
     min-height: 25px !important;
     border: 1px solid #c3bdbd !important;
 }
+
+*,body{
+    font-family: 'iranyekan', sans-serif;
+}
+h1, h2, h3, h4, h5, h6,p,a{
+    font-family: 'iranyekan', sans-serif;
+}
+
+.cv-manager, .cv-manager li, .cv-manager ul, .post-job-bx, .post-job-bx li, .post-job-bx ul,.salary-bx span{
+    font-size: 14px;;
+}
+
+.post-bx h4{
+    font-size: 18px;
+}
+
+.section-head h1, .section-head h2, .section-head h3{
+    font-size: 20px;
+}

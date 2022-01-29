@@ -40,10 +40,8 @@ get_header();
         </div>
     </div>
     <!-- About Us END -->
-    <?php
-    get_template_part('template-parts/homepage/homepage', 'city');
-    ?>
-    <!-- Our Job -->
+    
+        <!-- Our Job -->
     <div class="section-full bg-white content-inner-2">
         <div class="container">
             <div class="d-flex job-title-bx section-head">
@@ -70,6 +68,10 @@ get_header();
         </div>
     </div>
     <!-- Our Job END -->
+    <?php
+    get_template_part('template-parts/homepage/homepage', 'city');
+    ?>
+
     <!-- Call To Action -->
     <?php
     get_template_part('template-parts/homepage/homepage', 'comments');
