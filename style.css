@@ -122,3 +122,8 @@ h1, h2, h3, h4, h5, h6,p,a{
 .section-head h1, .section-head h2, .section-head h3{
     font-size: 20px;
 }
+
+.find-job-bx h2{
+    font-weight: 700;
+    font-size: 44px;
+}
