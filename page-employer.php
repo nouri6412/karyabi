@@ -25,13 +25,6 @@ get_template_part('template-parts/emp/emp', 'unit-5');
 get_template_part('template-parts/emp/emp', 'unit-6');
 get_template_part('template-parts/emp/emp', 'unit-7');
 ?>
-<!--  -->
-<!--  -->
-<!--  -->
-
-<!--  -->
-
-
 
 <?php
 get_footer('emp');

@@ -25,10 +25,10 @@ get_header();
 				<div class="col-md-12 m-b30">
 					<div class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
 						<div class="tab-content">
-						<h3 class="font-weight-700 m-b5">ثبت نام کارجو</h3>
+						<h3 class="font-weight-700 m-b5">ثبت نام کارفرما</h3>
 							<h4 class="font-weight-700 m-b5">اطلاعات خود را وارد کنید</h4>
 							<p class="font-weight-600">اگر با ما حساب کاربری دارید <a href="<?php echo site_url() . '?login=user' ?>">لطفا وارد شوید</a></p>
-							<input id="user_type" name="user_type" value="user" type="hidden" />
+							<input id="user_type" name="user_type" value="company" type="hidden" />
 							<div class="form-group">
 								<label class="font-weight-700">نام کاربری</label>
 								<input name="user_login" id="user_login" required="" class="form-control" placeholder="نام کاربری" type="text">

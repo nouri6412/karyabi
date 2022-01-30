@@ -12,7 +12,7 @@ $unit = get_field("unit7");
                     <div class="font-size-4xl sm-font-size-2xl font-weight-bold text-center color-grey-dark-3">
                         <?php echo $unit["title"]; ?>
                     </div>
-                    <div class="font-size-2xl sm-font-size-lg mt-2 text-center color-grey-dark-2 mb-5"><?php echo $unit["desc"]; ?>
+                    <div class="font-size-2xl sm-font-size-lg mt-2 text-center color-grey-dark-2 mb-5"><?php echo $unit["desc1"]; ?>
                     </div>
                     <a href="" class="btn btn-lg btn-cta position-relative">
 
