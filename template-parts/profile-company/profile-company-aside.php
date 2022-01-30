@@ -23,7 +23,7 @@ $user_meta = get_query_var('user_meta');
 			<div class="candidate-title">
 				<h4 class="m-b5"><?php echo $user_info->user_nicename;  ?></h4>
 			</div>
-		</div>
+		</div> 
 		<ul>
 			<li><a href="<?php  echo home_url('profile') ?>" class="active">
 					<i class="fa fa-user-o" aria-hidden="true"></i>

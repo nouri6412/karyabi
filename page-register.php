@@ -8,7 +8,7 @@
  * @package WordPress
  * @subpackage Karyabi
  * @since 1.0.0
- * Template Name: صفحه ثبت نام کارفرما
+ * Template Name: صفحه ثبت نام 
  */
 
 

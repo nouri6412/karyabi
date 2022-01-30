@@ -53,8 +53,8 @@
 						<div class="extra-nav">
 							<div class="extra-cell">
 								<?php if (!is_user_logged_in()) { ?>
-									<a href="<?php echo site_url('register'); ?>" class="site-button"><i class="fa fa-user"></i> ثبت نام</a>
-									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود </a>
+									<a href="<?php echo site_url('register'); ?>" class="site-button"><i class="fa fa-user"></i> ثبت نام کارجو</a>
+									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود کارجو </a>
 								<?php } else {
 								?>
 									<a href="<?php echo site_url('profile'); ?>" class="site-button"><i class="fa fa-user"></i>پروفایل من</a>

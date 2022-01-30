@@ -14,7 +14,7 @@ $unit = get_field("unit7");
                     </div>
                     <div class="font-size-2xl sm-font-size-lg mt-2 text-center color-grey-dark-2 mb-5"><?php echo $unit["desc1"]; ?>
                     </div>
-                    <a href="" class="btn btn-lg btn-cta position-relative">
+                    <a href="<?php  echo home_url('profile?action=create-job') ?>" class="btn btn-lg btn-cta position-relative">
 
                         برو به پنل درج آگهی
 

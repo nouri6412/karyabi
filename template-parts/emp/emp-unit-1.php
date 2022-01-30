@@ -10,7 +10,7 @@ $unit=get_field("unit1");
                 </div>
                 <div class="mt-5">
                     <p class="font-size-2xl sm-font-size-lg"><?php echo $unit["desc"]; ?></p>
-                    <div class="mt-5"><a href="" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a></div>
+                    <div class="mt-5"><a href="<?php  echo home_url('profile') ?>" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a></div>
                     <p class="mt-5"><?php echo $unit["desc_short"]; ?></p>
                 </div>
                 <div class="row">
