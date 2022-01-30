@@ -23,12 +23,14 @@ Author: جلیل نوری
         url('assets/fonts/vazir/ttf/Vazir-Bold.ttf') format('truetype');
     font-weight: bold;
 }
-.box-loading{
+
+.box-loading {
     position: relative;
     height: 32px;
     width: 100%;
 }
-.loading-ajax{
+
+.loading-ajax {
     display: none;
     width: 30px;
     background-image: url(assets/img/loading.gif);
@@ -37,93 +39,97 @@ Author: جلیل نوری
     position: absolute;
     top: -10px;
 }
-.dzFormMsg.error{
-color: red;
-margin-top: 10px;
+
+.dzFormMsg.error {
+    color: red;
+    margin-top: 10px;
 }
 
-.before-message{
+.before-message {
     color: red;
     float: left;
     font-size: 13px;
     line-height: 34px;
 }
 
-.dzFormMsg.doned{
+.dzFormMsg.doned {
     color: green;
     margin-top: 10px;
 }
-.site-button.exit{
+
+.site-button.exit {
     background-color: #ef4a4a;
 }
-.site-button.request-btn{
-   width: 100%;;
+
+.site-button.request-btn {
+    width: 100%;
+    ;
 }
 
-.candidate-info img{
+.candidate-info img {
     height: 100%;
     object-fit: cover;
 }
 
-.form-loop{
+.form-loop {
     margin-bottom: 15px;
     border: 1px solid #d5d5d5;
     padding: 10px 10px 5px 5px;
     position: relative;
 }
-.form-loop .btn-delete{
+
+.form-loop .btn-delete {
     position: absolute;
     top: 0;
     left: 0;
     font-size: 11px;
 }
 
-.form-check-label{
+.form-check-label {
     margin-right: 20px;
 }
 
-.accept-box{
+.accept-box {}
 
-}
+.accept-box label {}
 
-.accept-box label{
+.accept-box select {}
 
-}
-
-.accept-box select{
-
-}
-.bootstrap-select.show.btn-group .dropdown-menu.inner{
+.bootstrap-select.show.btn-group .dropdown-menu.inner {
     border: 1px solid #b3b3b3;
 }
-.status-box div{
+
+.status-box div {
     width: 20%;
 }
-.tag_complete .tag_input{
+
+.tag_complete .tag_input {
     min-height: 25px !important;
     border: 1px solid #c3bdbd !important;
 }
 
-*,body{
-    font-family: 'iranyekan', sans-serif;
-}
-h1, h2, h3, h4, h5, h6,p,a{
+*, body {
     font-family: 'iranyekan', sans-serif;
 }
 
-.cv-manager, .cv-manager li, .cv-manager ul, .post-job-bx, .post-job-bx li, .post-job-bx ul,.salary-bx span{
-    font-size: 14px;;
+h1, h2, h3, h4, h5, h6, p, a {
+    font-family: 'iranyekan', sans-serif;
 }
 
-.post-bx h4{
+.cv-manager, .cv-manager li, .cv-manager ul, .post-job-bx, .post-job-bx li, .post-job-bx ul, .salary-bx span {
+    font-size: 14px;
+    ;
+}
+
+.post-bx h4 {
     font-size: 18px;
 }
 
-.section-head h1, .section-head h2, .section-head h3{
+.section-head h1, .section-head h2, .section-head h3 {
     font-size: 20px;
 }
 
-.find-job-bx h2{
+.find-job-bx h2 {
     font-weight: 700;
     font-size: 44px;
 }
