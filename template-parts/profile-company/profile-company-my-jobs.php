@@ -4,6 +4,17 @@ $args = array(
     'post_type' => 'job',
     'author'  => $user_id
 );
+
+
+
+if (isset($_GET["active"])) {
+    $meta_arg = [];
+    $meta_arg["relation"] = "AND";
+    $meta_arg[] = ["key" => "active", "value" => $_GET["active"], "compare" => "="];
+
+    $args["meta_query"] = $meta_arg;
+}
+
 $the_query = new WP_Query($args);
 ?>
 <div class="job-bx clearfix">
@@ -12,6 +23,93 @@ $the_query = new WP_Query($args);
         <div class="float-right">
 
         </div>
+    </div>
+    <div class="job-cats">
+        <ul>
+            <?php
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id
+            );
+            $the_query_job_0_0 = new WP_Query($args);
+            $count_0_0 = $the_query_job_0_0->post_count;
+
+
+            $meta_arg = [];
+            $meta_arg["relation"] = "AND";
+            $meta_arg[] = ["key" => "active", "value" => '0', "compare" => "="];
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id,
+                'meta_query' => $meta_arg
+            );
+            $the_query_job_0 = new WP_Query($args);
+            $count_0 = $the_query_job_0->post_count;
+
+            $meta_arg = [];
+            $meta_arg["relation"] = "AND";
+            $meta_arg[] = ["key" => "active", "value" => '1', "compare" => "="];
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id,
+                'meta_query' => $meta_arg
+            );
+            $the_query_job_1 = new WP_Query($args);
+            $count_1 = $the_query_job_1->post_count;
+
+            $meta_arg = [];
+            $meta_arg["relation"] = "AND";
+            $meta_arg[] = ["key" => "active", "value" => '2', "compare" => "="];
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id,
+                'meta_query' => $meta_arg
+            );
+            $the_query_job_2 = new WP_Query($args);
+            $count_2 = $the_query_job_2->post_count;
+
+            $meta_arg = [];
+            $meta_arg["relation"] = "AND";
+            $meta_arg[] = ["key" => "active", "value" => '3', "compare" => "="];
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id,
+                'meta_query' => $meta_arg
+            );
+            $the_query_job_3 = new WP_Query($args);
+            $count_3 = $the_query_job_3->post_count;
+
+
+            $meta_arg = [];
+            $meta_arg["relation"] = "AND";
+            $meta_arg[] = ["key" => "active", "value" => '4', "compare" => "="];
+            $args = array(
+                'post_type' => 'job',
+                'author'  => $user_id,
+                'meta_query' => $meta_arg
+            );
+            $the_query_job_4 = new WP_Query($args);
+            $count_4 = $the_query_job_4->post_count;
+            ?>
+            <li class="<?php echo (!isset($_GET["active"])) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs') ?>"> همه <span><?php echo $count_0_0;  ?></span></a>
+            </li>
+            <li class="<?php echo (isset($_GET["active"]) && $_GET["active"] == 0) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs&active=0') ?>"> غیر فعال <span><?php echo $count_0;  ?></span></a>
+            </li>
+            <li class="<?php echo (isset($_GET["active"]) && $_GET["active"] == 1) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs&active=1') ?>"> فعال <span><?php echo $count_1;  ?></span></a>
+            </li>
+            <li class="<?php echo (isset($_GET["active"]) && $_GET["active"] == 2) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs&active=2') ?>"> بسته شده <span><?php echo $count_2;  ?></span></a>
+            </li>
+            <li class="<?php echo (isset($_GET["active"]) && $_GET["active"] == 3) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs&active=3') ?>"> آرشیو شده <span><?php echo $count_3;  ?></span></a>
+            </li>
+            <li class="<?php echo (isset($_GET["active"]) && $_GET["active"] == 4) ? 'selected' : ''; ?>">
+                <a href="<?php echo home_url('profile?action=my-jobs&active=4') ?>"> پیش نویس <span><?php echo $count_4;  ?></span></a>
+            </li>
+        </ul>
     </div>
     <div>
         <div>
@@ -29,6 +127,7 @@ $the_query = new WP_Query($args);
                             ?>
                             <?php echo get_the_job_status($active, true) ?>
                         </div>
+
                         <div class="d-flex">
                             <div><button onclick="ajax_submit_mbm_remove_job(
             {
@@ -36,7 +135,7 @@ $the_query = new WP_Query($args);
                 'job_id':<?php echo get_the_ID() ?>
             }
             ,'<?php echo 'ads-' . get_the_ID(); ?>'
-        )" class="edit ads-btn"><i class="fa fa-remove m-r5"></i> حذف</button>
+        )" class="edit ads-btn"> حذف <i class="fa fa-remove m-r5"></i></button>
                                 <a class="btn btn-default" href="<?php echo home_url('profile?action=create-job&job_id=' . get_the_ID()); ?>">ویرایش <i class="fa fa-edit"></i></a>
                             </div>
                         </div>

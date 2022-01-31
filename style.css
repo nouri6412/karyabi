@@ -133,3 +133,73 @@ h1, h2, h3, h4, h5, h6, p, a {
     font-weight: 700;
     font-size: 44px;
 }
+
+.job-cats{
+
+}
+
+.job-cats ul{
+    width: 100%;
+    display: flex;
+}
+
+.job-cats ul li{
+    list-style: none;
+    float: right;
+    width: 120px;
+    height: 50px;
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #c3bfbf;
+    margin: 2px;
+    border-radius: 8px;
+    line-height: 34px;
+    cursor: pointer;
+}
+
+.job-cats ul li:hover{
+    background-color: #e3e3e3;
+}
+
+.job-cats ul li.selected{
+    background-color: #e3e3e3;
+}
+
+.job-cats ul li span{
+    color: red;
+}
+
+.job-cats ul li a{
+
+}
+
+.box-filter{
+
+}
+
+.box-filter ul{
+    
+}
+
+.box-filter ul li{
+    list-style: none;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 5px;
+}
+
+.box-filter ul li a{
+    cursor: pointer;
+}
+
+.box-filter ul li.selected{
+
+}
+
+.box-filter ul li a span{
+    float: left;
+    color: red;
+}
+.job-links.favorite{
+    left: 60px;
+}

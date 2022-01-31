@@ -159,6 +159,18 @@ if (isset($_GET["job_id"])) {
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
+                    <label> وضعیت آگهی</label>
+                    <select id="job_status">
+                    <option <?php echo (get_post_meta($job_id, 'active', true) == 0) ? 'selected="selected"' : '' ?> value="0">غیر فعال</option>
+                    <option <?php echo (get_post_meta($job_id, 'active', true) == 1) ? 'selected="selected"' : '' ?> value="1"> فعال شده</option>
+                    <option <?php echo (get_post_meta($job_id, 'active', true) == 2) ? 'selected="selected"' : '' ?> value="2">بسته شده</option>
+                    <option <?php echo (get_post_meta($job_id, 'active', true) == 3) ? 'selected="selected"' : '' ?> value="3">آرشیو شده</option>
+                    <option <?php echo (get_post_meta($job_id, 'active', true) == 4) ? 'selected="selected"' : '' ?> value="4">پیش نویس</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <div class="form-group">
                     <label>آدرس</label>
                     <input value="<?php echo get_post_meta($job_id, 'address', true) ?>" id="job_address" type="text" class="form-control" placeholder="">
                 </div>
@@ -179,6 +191,7 @@ if (isset($_GET["job_id"])) {
                 'action': 'mbm_profile_company_insert_job',
                 'job_id':$('#job_id').val(),
                 'job_title':$('#job_title').val(),
+                'job_status':$('#job_status').val(),
                 'job_email':$('#job_email').val(),
                 'job_tag':$('#job_tag').val(),
                 'job_coop_type':$('#job_coop_type').val(),

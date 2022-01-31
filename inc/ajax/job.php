@@ -46,6 +46,12 @@ class Karyabi_Job
         $city_id = sanitize_text_field($_POST["job_city_id"]);
         $address = sanitize_text_field($_POST["job_address"]);
         $cat_id = sanitize_text_field($_POST["cat_id"]);
+        $status = sanitize_text_field($_POST["job_status"]);
+
+        if($status==1)
+        {
+            $status=0;
+        }
        
 
         $args_post = array(
@@ -57,7 +63,7 @@ class Karyabi_Job
             'meta_input'   => array(
                 'title' =>$title,
                 'desc' =>$desc,
-                'active' => 0,
+                'active' => $status,
                 'coop-type' => $coop_type,
                 'email' => $email,
                 'exp' => $exp,
@@ -129,7 +135,7 @@ class Karyabi_Job
             wp_update_post( $my_post );
             update_post_meta( $job_id, 'title', $title );
             update_post_meta( $job_id, 'desc', $desc );
-            update_post_meta( $job_id, 'active', 0 );
+            update_post_meta( $job_id, 'active', $status );
             update_post_meta( $job_id, 'coop-type', $coop_type );
             update_post_meta( $job_id, 'email', $email );
             update_post_meta( $job_id, 'exp', $exp );
@@ -194,6 +200,41 @@ class Karyabi_Job
         die();
     }
 
+    function favorite()
+    {
+
+        $user_id = get_current_user_id();
+
+        if($user_id==0)
+        {
+            echo json_encode([]);
+            die();
+        }
+        $job_id = sanitize_text_field($_POST["job_id"]);
+        $status = sanitize_text_field($_POST["status"]);
+
+        $job = get_post( $job_id );
+
+        $author =get_post_meta($job_id, 'owner_id', true) ;
+
+        if($user_id!=$author)
+        {
+            $result["state"] = 0;
+            $result["message"] = 'شما صاحب آگهی نیستید'.$author.'-'.$user_id;
+            
+            echo json_encode($result);
+            die();
+        }
+
+        update_post_meta( $job_id, 'favorite', $status );
+
+        $result["state"] = 1;
+        $result["favorite"] = $status;
+        $result["message"] = 'با موفقیت ذخیره شد';
+        echo json_encode($result);
+        die();
+    }
+
     function status()
     {
         $user_id = get_current_user_id();
@@ -208,11 +249,14 @@ class Karyabi_Job
 
         $job = get_post( $job_id );
 
-        $author = $job->post_author;
+        $author =get_post_meta($job_id, 'owner_id', true) ;
 
         if($user_id!=$author)
         {
-            echo json_encode([]);
+            $result["state"] = 0;
+            $result["message"] = 'شما صاحب آگهی نیستید'.$author.'-'.$user_id;
+            
+            echo json_encode($result);
             die();
         }
 
@@ -235,7 +279,10 @@ add_action('wp_ajax_nopriv_mbm_profile_company_remove_job', array($Karyabi_Job, 
 add_action('wp_ajax_mbm_change_status_request', array($Karyabi_Job, 'status'));
 add_action('wp_ajax_nopriv_mbm_change_status_request', array($Karyabi_Job, 'status'));
 
+add_action('wp_ajax_mbm_change_favorite_request', array($Karyabi_Job, 'favorite'));
+add_action('wp_ajax_nopriv_mbm_change_favorite_request', array($Karyabi_Job, 'favorite'));
 
-add_action('wp_ajax_mbm_change_status_job', array($Karyabi_Job, 'status'));
-add_action('wp_ajax_nopriv_mbm_change_status_job', array($Karyabi_Job, 'status'));
+
+add_action('wp_ajax_mbm_change_status_job', array($Karyabi_Job, 'active'));
+add_action('wp_ajax_nopriv_mbm_change_status_job', array($Karyabi_Job, 'active'));
 

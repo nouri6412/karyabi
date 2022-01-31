@@ -50,7 +50,19 @@ function get_the_job_status($active, $btn = false)
 	if ($active == 1) {
 		$ret = "منتشر شده";
 		$type_btn = "success";
+	} else 	if ($active == 2) {
+		$ret = "بسته شده";
+		$type_btn = "success";
 	}
+	else 	if ($active == 3) {
+		$ret = "آرشیو شده";
+		$type_btn = "success";
+	}
+	else 	if ($active == 4) {
+		$ret = "پیش نویس";
+		$type_btn = "success";
+	}
+
 	if ($btn) {
 		$ret = '<span class="btn btn-' . $type_btn . '">' . $ret . '</span>';
 	}
@@ -70,7 +82,7 @@ function custom_get_salary($ID)
 {
 	$min = 0;
 	$max = 0;
-	$ret='';
+	$ret = '';
 
 	if (is_numeric(get_post_meta($ID, 'min-salary', true))) {
 		$min = get_post_meta($ID, 'min-salary', true);
@@ -80,7 +92,7 @@ function custom_get_salary($ID)
 		$max = get_post_meta($ID, 'max-salary', true);
 	}
 
-	$ret= 'حقوق' . ' ';
+	$ret = 'حقوق' . ' ';
 	if ($min > 0 && $max > 0) {
 		$ret .= 'از' . ' ' . get_post_meta($ID, 'min-salary', true) . ' ' . 'تا' . get_post_meta($ID, 'max-salary', true);
 	} else  if ($min > 0) {
