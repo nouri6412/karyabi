@@ -19,7 +19,7 @@ if (isset($_GET["job_city_id"])) {
 <form action="<?php echo home_url('search-user'); ?>" method="get" class="dezPlaceAni">
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="form-group">
+        <div class="form-group <?php echo (strlen($search_word) > 0) ? 'focused' : ''  ?>">
                 <label>عنوان شغل، عبارت یا کلمه کلیدی</label>
                 <div class="input-group">
                     <input value="<?php echo $search_word; ?>" id="search_word" name="search_word" type="text" class="form-control" placeholder="">

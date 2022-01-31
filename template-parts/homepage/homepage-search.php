@@ -23,7 +23,7 @@ if (isset($_GET["cat_id"])) {
 <form action="<?php echo home_url('search-job'); ?>" method="get" class="dezPlaceAni">
     <div class="row">
         <div class="col-lg-3 col-md-6">
-            <div class="form-group">
+            <div class="form-group <?php echo (strlen($search_word) > 0) ? 'focused' : ''  ?>">
                 <label>عنوان شغل، عبارت یا کلمه کلیدی</label>
                 <div class="input-group">
                     <input value="<?php echo $search_word; ?>" id="search_word" name="search_word" type="text" class="form-control" placeholder="">
@@ -43,10 +43,9 @@ if (isset($_GET["cat_id"])) {
                 <select onchange="ajax_submit_mbm_get_city_list($(this).val(),$('#box-city-id'),'job_city_id',<?php echo $state_id; ?>)" id="job_state_id" name="job_state_id">
                     <option value="0"> کل استان ها</option>
                     <?php foreach ($states as $item) {
-                        $selected="";
-                        if($item["id"]==$state_id)
-                        {
-                            $selected="selected";
+                        $selected = "";
+                        if ($item["id"] == $state_id) {
+                            $selected = "selected";
                         }
                     ?>
                         <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
@@ -62,10 +61,9 @@ if (isset($_GET["cat_id"])) {
                         <?php
                         $citis = $Common_State_City->get_city_list($state_id);
                         foreach ($citis as $item) {
-                            $selected="";
-                            if($item["id"]==$city_id)
-                            {
-                                $selected="selected";
+                            $selected = "";
+                            if ($item["id"] == $city_id) {
+                                $selected = "selected";
                             }
                         ?>
                             <option <?php echo $selected; ?> value="<?php echo $item["id"]; ?>"><?php echo $item["title"]; ?></option>
@@ -87,10 +85,9 @@ if (isset($_GET["cat_id"])) {
                     <?php
                     while ($the_query1->have_posts()) :
                         $the_query1->the_post();
-                        $selected="";
-                        if(get_the_ID()==$cat_id)
-                        {
-                            $selected="selected";
+                        $selected = "";
+                        if (get_the_ID() == $cat_id) {
+                            $selected = "selected";
                         }
                     ?>
                         <option <?php echo $selected; ?> value="<?php echo get_the_ID(); ?>"><?php echo get_the_title(); ?></option>
