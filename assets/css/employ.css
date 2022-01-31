@@ -24,8 +24,8 @@ nav ul li {
 }
 
 .fold {
-    background-color: #4367cb;
-    background-image: linear-gradient(282deg, #678edb, #27396f);
+    background-color: #274c77;
+    background-image: linear-gradient(282deg, #274c77, #27396f);
     min-height: 640px;
     padding-top: 160px;
     padding-bottom: 100px;
@@ -88,7 +88,8 @@ nav ul li {
 }
 
 .section.sub-share-job {
-    background-color: #678edb;
+    background-color: #274c77;
+    
 }
 
 .section.features {
@@ -98,7 +99,7 @@ nav ul li {
 }
 
 .section.quote {
-    background-image: linear-gradient(282deg, #678edb, #27396f);
+    background-image: linear-gradient(282deg, #274c77, #27396f);
     min-height: 680px;
 }
 
@@ -154,7 +155,7 @@ nav ul li {
 }
 
 .section.section-cta .card-cta .btn-cta {
-    background-image: linear-gradient(282deg, #678edb, #27396f);
+    background-image: linear-gradient(282deg, #274c77, #27396f);
     color: #fff;
     border-radius: 0.25rem;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 12%), 0 2px 4px 0 rgb(0 0 0 / 8%);
@@ -296,12 +297,15 @@ nav ul li {
     align-self: baseline !important;
     fill: #c9d2dc;
 }
-.item-nav{
+
+.item-nav {
     width: 100px;
 }
-.seting{
-    cursor: pointer;   
+
+.seting {
+    cursor: pointer;
 }
+
 .section.features .item .text {
     display: inline-block;
 }
@@ -467,21 +471,23 @@ nav ul li {
     0% {
         background-position: 0 0;
     }
-    
+
     100% {
         background-position: -8257px 0;
     }
 
 }
+
 @keyframes animatedBackground {
     0% {
         background-position: 0 0;
     }
-    
+
     100% {
         background-position: -1920px 0;
     }
 }
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -641,6 +647,7 @@ nav ul li {
 .slick-slider {
     overflow: hidden !important;
 }
-.slick-dots{
+
+.slick-dots {
     bottom: 0 !important;
 }

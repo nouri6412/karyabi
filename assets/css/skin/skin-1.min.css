@@ -93,8 +93,6 @@
 .pagination > li > span:hover,
 .sidenav .closebtn:focus,
 .sidenav .closebtn:hover,
-.site-button:active,
-.site-button:focus,
 .site-button:hover {
   background-color: #274c77;
 }
