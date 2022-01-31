@@ -172,7 +172,10 @@ $count = $the_query->post_count;
                                 <a href="javascript:void(0);"><span><?php echo $tag; ?></span></a>
                             <?php } ?>
                         </div>
-                        <a href="<?php echo home_url('profile?action=resume&user_id=' . get_the_author_meta('ID')); ?>" target="blank" class="job-links">
+                        <a onclick="ajax_submit_mbm_job_request_user_resume({
+                                        'action': 'mbm_change_favorite_request',
+                'user_id':<?php echo get_the_ID(); ?>
+                    },'content-user-resume')" href="#" data-toggle="modal" data-target="#user-details" target="blank" class="job-links">
                             <i class="fa fa-download"></i>
                         </a>
                         <?php if (get_post_meta(get_the_ID(), 'favorite', true) == 1) {  ?>
@@ -234,3 +237,6 @@ $count = $the_query->post_count;
         <?php wp_reset_query(); ?>
     </div>
 </div>
+<?php
+get_template_part('template-parts/profile-company/profile-company', 'user-view');
+?>

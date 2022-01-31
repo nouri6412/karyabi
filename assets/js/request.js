@@ -14,27 +14,40 @@ function ajax_submit_mbm_job_request(data, btn, element_result) {
     });
 }
 
+function ajax_submit_mbm_job_request_user_resume(data, element_result) {
+
+    var error = '';
+    $('#' + element_result).html();
+    custom_theme_mbm_base_ajax(data, function (result) {
+
+        if (result.state == 1) {
+            $('#' + element_result).html(result.html);
+        }
+        else {
+
+        }
+    });
+}
+
 function ajax_submit_mbm_change_status_request(data, is_gold = 0) {
 
     var error = '';
     if (is_gold != 0) {
         data.status = is_gold.attr('data-status');
     }
-console.log(data);
+    console.log(data);
     custom_theme_mbm_base_ajax(data, function (result) {
         console.log(result);
-    
+
         if (result.state == 1) {
             if (is_gold != 0) {
-                if(result.favorite==0)
-                {
-                    is_gold.attr('data-status',1);
+                if (result.favorite == 0) {
+                    is_gold.attr('data-status', 1);
                 }
-                else
-                {
-                    is_gold.attr('data-status',0);
+                else {
+                    is_gold.attr('data-status', 0);
                 }
-               
+
                 if (result.favorite == 1) {
                     is_gold.css('color', 'gold');
                 }
