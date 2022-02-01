@@ -7,7 +7,7 @@ $user_meta = get_query_var('user_meta');
         <h5 class="font-weight-700 pull-left text-uppercase">اطلاعات کاربر</h5>
         <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
     </div>
-
+ 
     <div class="row m-b30">
         <div class="col-lg-6 col-md-6">
             <div class="form-group">

@@ -39,3 +39,9 @@ $user_meta = get_query_var('user_meta');
     get_template_part('template-parts/profile-user/profile-user', 'resume-prefer');
     ?>
 </div>
+
+<div id="resume_file_bx" class="job-bx bg-white m-b30 ">
+    <?php
+    get_template_part('template-parts/profile-user/profile-user', 'resume-file');
+    ?>
+</div>

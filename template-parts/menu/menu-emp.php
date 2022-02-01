@@ -37,7 +37,7 @@
 								<?php
 								} ?>
 
-                    <span class="employer-label ">کارفرمابان</span>
+                    <span class="employer-label ">کارفرمایان</span>
 
                     <li> <a title="<?php echo get_bloginfo('name'); ?>" href="<?php echo site_url(); ?>"><img src="<?php echo get_field('header', 'option')["logo"]; ?>" class="logo" alt="<?php echo get_bloginfo('name'); ?>"></a>
                     </li>

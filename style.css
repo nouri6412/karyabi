@@ -134,16 +134,14 @@ h1, h2, h3, h4, h5, h6, p, a {
     font-size: 44px;
 }
 
-.job-cats{
+.job-cats {}
 
-}
-
-.job-cats ul{
+.job-cats ul {
     width: 100%;
     display: flex;
 }
 
-.job-cats ul li{
+.job-cats ul li {
     list-style: none;
     float: right;
     width: 120px;
@@ -157,53 +155,143 @@ h1, h2, h3, h4, h5, h6, p, a {
     cursor: pointer;
 }
 
-.job-cats ul li:hover{
+.job-cats ul li:hover {
     background-color: #e3e3e3;
 }
 
-.job-cats ul li.selected{
+.job-cats ul li.selected {
     background-color: #e3e3e3;
 }
 
-.job-cats ul li span{
+.job-cats ul li span {
     color: red;
 }
 
-.job-cats ul li a{
+.job-cats ul li a {}
 
-}
+.box-filter {}
 
-.box-filter{
+.box-filter ul {}
 
-}
-
-.box-filter ul{
-    
-}
-
-.box-filter ul li{
+.box-filter ul li {
     list-style: none;
     margin-bottom: 10px;
     border-bottom: 1px solid #e1e1e1;
     padding-bottom: 5px;
 }
 
-.box-filter ul li a{
+.box-filter ul li a {
     cursor: pointer;
 }
 
-.box-filter ul li.selected{
+.box-filter ul li.selected {}
 
-}
-
-.box-filter ul li a span{
+.box-filter ul li a span {
     float: left;
     color: red;
 }
-.job-links.favorite{
+
+.job-links.favorite {
     left: 60px;
 }
 
-.lead-form-modal .modal-content{
+.lead-form-modal .modal-content {
     background-color: rgb(0 0 0 / 37%);
 }
+
+.resume-popup {
+    padding: 15px;
+}
+
+.resume-popup .resume-popup-header {
+    display: flex;
+    padding: 10px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-avatar {
+    width: 66px;
+    border-radius: 50%;
+    margin-left: 15px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title {}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name {
+    display: flex;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-name span {
+    font-size: 12px;
+    color: #4c4c4c;
+    line-height: 30px;
+}
+
+.resume-popup .resume-popup-header .resume-popup-header-title .resume-popup-header-title-date {
+    font-size: 12px;
+    color: #939191;
+}
+
+.resume-popup .resume-popup-body {}
+
+.resume-popup .resume-popup-body .panel {
+    padding: 14px;
+}
+
+.resume-popup .resume-popup-body .panel-info {
+ 
+}
+
+.resume-popup .resume-popup-body .panel-info .panel-heading {
+    padding: 5px 5px 5px 5px;
+    background-color: #dbdbdb;
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-body .panel-info .panel-body {
+    padding: 15px 15px 5px 5px;
+    border: 1px solid #c1c1c1;
+    border-top: 0px;
+}
+
+.resume-popup .resume-popup-body .user-info {
+    display: flex;
+}
+
+.resume-popup .resume-popup-body .user-info .fa {
+    margin-left: 15px;
+    line-height: 25px;
+}
+
+.resume-popup .resume-popup-body .user-info .user-info-label {
+    margin-left: 15px;
+    width: 125px;
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-body .user-info .user-info-title {
+    font-size: 14px;
+}
+
+.resume-popup .resume-popup-footer {}
+
+.user-detail .modal-content{
+background-color: #fff;
+}
+
+.user-detail .modal-body{
+    background-color: #fff;
+    }
+
+    .user-detail .modal-dialog{
+        background-color: #fff;
+    }
+
+    .custom-file{
+height: 80px;
+    }

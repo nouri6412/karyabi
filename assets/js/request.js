@@ -17,6 +17,7 @@ function ajax_submit_mbm_job_request(data, btn, element_result) {
 function ajax_submit_mbm_job_request_user_resume(data, element_result) {
 
     var error = '';
+    console.log(data);
     $('#' + element_result).html();
     custom_theme_mbm_base_ajax(data, function (result) {
 

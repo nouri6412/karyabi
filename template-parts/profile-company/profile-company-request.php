@@ -146,7 +146,12 @@ $count = $the_query->post_count;
                     <div class="post-bx">
                         <div class="d-flex m-b20">
                             <div class="job-post-info">
-                                <h5 class="m-b0"><a href="<?php echo home_url('profile?action=resume&user_id=' . get_the_author_meta('ID')); ?>"><?php echo  get_the_author_meta('user_name') ?></a></h5>
+                                <h5 class="m-b0"><a data-toggle="modal" data-target="#user-details" onclick="ajax_submit_mbm_job_request_user_resume({
+                                        'action': 'mbm_user_resume_popup',
+                'user_id':<?php echo get_the_author_meta('ID'); ?>,
+                'req_id':<?php echo get_the_ID(); ?>,
+                'date':'<?php echo get_the_date('',get_the_ID()); ?>'
+                    },'content-user-resume')" href="#"><?php echo  get_the_author_meta('user_name') ?></a></h5>
                                 <p class="m-b5 font-13">
                                     <a href="javascript:void(0);" class="text-primary"><?php echo  get_the_author_meta('user_exp') ?></a>
                                 </p>
@@ -173,9 +178,11 @@ $count = $the_query->post_count;
                             <?php } ?>
                         </div>
                         <a onclick="ajax_submit_mbm_job_request_user_resume({
-                                        'action': 'mbm_change_favorite_request',
-                'user_id':<?php echo get_the_ID(); ?>
-                    },'content-user-resume')" href="#" data-toggle="modal" data-target="#user-details" target="blank" class="job-links">
+                                        'action': 'mbm_user_resume_popup',
+                'user_id':<?php echo get_the_author_meta('ID'); ?>,
+                'req_id':<?php echo get_the_ID(); ?>,
+                'date':'<?php echo get_the_date('',get_the_ID()); ?>'
+                    },'content-user-resume')" href="#" data-toggle="modal" data-target="#user-details"  class="job-links">
                             <i class="fa fa-download"></i>
                         </a>
                         <?php if (get_post_meta(get_the_ID(), 'favorite', true) == 1) {  ?>
