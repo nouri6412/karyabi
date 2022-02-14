@@ -62,7 +62,11 @@ class MyTmpTelegramBot
             $user = get_user_by('login', $chatId);
             update_user_meta($user->ID, "bot_step", $data);
             $this->user_resume($user);
-        }  else if ($data == "user-profile-name") {
+        } else if ($data == "menu-user-jobs") {
+            $user = get_user_by('login', $chatId);
+            update_user_meta($user->ID, "bot_step", $data);
+            $this->user_jobs($user);
+        } else if ($data == "user-profile-name") {
             $user = get_user_by('login', $chatId);
             update_user_meta($user->ID, "bot_step", $data);
             $this->sendMessage($chatId, "نام و نام خانوادگی را وارد نمائید");
@@ -181,8 +185,8 @@ class MyTmpTelegramBot
                     ['text' => 'رزومه و مهارت من', 'callback_data' => 'menu-user-resume']
                 ],
                 [
-                    ['text' => 'رزومه های پیشنهادی', 'callback_data' => 'menu-user-my-resume'],
-                    ['text' => 'رزومه های ارسالی', 'callback_data' => 'menu-user-my-request']
+                    ['text' => 'شغل های پیشنهادی', 'callback_data' => 'menu-user-jobs'],
+                    ['text' => 'رزومه های ارسالی', 'callback_data' => 'menu-user-request']
                 ]
             ]
         ];
@@ -239,6 +243,54 @@ class MyTmpTelegramBot
         $encodedKeyboard = json_encode($keyboard);
 
         $this->sendMessage($user->data->user_login, "رزومه من", "&reply_markup=" . $encodedKeyboard);
+    }
+
+    public function user_jobs($user)
+    {
+     
+        $data= json_decode(get_the_author_meta('resume-skills', $user->ID));
+        $skills = [];
+        if (isset($data->skills)) {
+            $skills = explode(',', $data->skills);
+        }
+        
+        $search = array();
+        $search["relation"] = "OR";
+        foreach ($skills as $item) {
+            $search[] =           array(
+                'key' => 'tag',
+                'value' => $item,
+                'compare' => 'LIKE'
+            );
+        }
+        
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+        
+        $args = array(
+            'post_type' => 'job',
+            'post_status' => 'publish',
+            'meta_key' => 'active',
+            'meta_value' => '1',
+            'posts_per_page' => 10,
+            'paged' => $paged,
+            'meta_query' => $search
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+        $this->sendMessage($user->data->user_login,$count." ". "شغل پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'درخواست شغل' , 'callback_data' => 'user-request-job-'.get_the_ID()]
+                    ]
+                ]
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+            $this->sendMessage($user->data->user_login,get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)), "&reply_markup=" . $encodedKeyboard);
+        endwhile;
+        wp_reset_query();
     }
 
     public function register_user($chat_id)
