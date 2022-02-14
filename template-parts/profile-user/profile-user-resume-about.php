@@ -1,4 +1,4 @@
-<?php
+<?php 
 $user_meta = get_query_var('user_meta');
 $data = [];
 $data["about"] = "توضیحات درباره من";

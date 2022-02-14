@@ -135,7 +135,7 @@ $user_meta = get_query_var('user_meta');
             <div class="form-group">
                 <label>گوگل</label>
                 <input id="user-fa-google" value="<?php echo isset($user_meta['fa-google']) ? $user_meta['fa-google'][0] : '';  ?>" type="text" class="form-control" placeholder="https://www.google.com/">
-            </div>
+            </div> 
         </div>
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
@@ -159,7 +159,7 @@ $user_meta = get_query_var('user_meta');
                 'desc':$('#user-desc').html(),
                 'tel':$('#user-tel').val(),
                 'user-sex':$('input[name=\'user-sex\']:checked').val(),
-                'email':$('#user-email').val(),
+                'user_e_email':$('#user-email').val(),
                 'fa-facebook':$('#user-fa-facebook').val(),
                 'fa-twitter':$('#user-fa-twitter').val(),
                 'fa-google':$('#user-fa-google').val(),
