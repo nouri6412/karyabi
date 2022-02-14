@@ -288,7 +288,7 @@ class MyTmpTelegramBot
                 ]
             ];
             $encodedKeyboard = json_encode($keyboard);
-            $this->sendMessage($user->data->user_login,get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)), "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($user->data->user_login,get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)).' - '.get_post_meta(get_the_ID(), 'tag', true), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
     }
