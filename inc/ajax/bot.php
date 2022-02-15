@@ -63,7 +63,7 @@ class MyTmpTelegramBot
                     break;
                 }
             case "register-company": {
-
+                    $this->register_company($chatId);
                     break;
                 }
             case "menu-user-profile": {
@@ -233,6 +233,37 @@ class MyTmpTelegramBot
         update_user_meta($user->ID, "bot_step", "menu");
 
         $this->sendMessage($user->data->user_login, "منوی کارجو", "&reply_markup=" . $encodedKeyboard);
+    }
+
+    public function company_menu($user)
+    {
+        $step = get_the_author_meta('bot_step', $user->ID);
+
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'اطلاعات پروفایل', 'callback_data' => 'menu-company-profile'],
+                    ['text' => 'ارسال آگهی', 'callback_data' => 'menu-company-create-job']
+                ],
+                [
+                    ['text' => 'آگهی های من', 'callback_data' => 'menu-company-jobs']
+                ],
+                [
+                    ['text' => 'رزومه های بررسی نشده', 'callback_data' => 'menu-company-request-0']
+                ],
+                [
+                    ['text' => 'رزومه های تایید برای مصاحبه', 'callback_data' => 'menu-company-request-1']
+                ],
+                [
+                    ['text' => 'رزومه های استخدام شده', 'callback_data' => 'menu-company-request-2']
+                ]
+            ]
+        ];
+        $encodedKeyboard = json_encode($keyboard);
+
+        update_user_meta($user->ID, "bot_step", "menu");
+
+        $this->sendMessage($user->data->user_login, "منوی کارفرما", "&reply_markup=" . $encodedKeyboard);
     }
 
     public function user_profile($user)
@@ -424,6 +455,10 @@ class MyTmpTelegramBot
 
     public function register_user($chat_id)
     {
+        $user = get_user_by('login', $chat_id);
+        if ($user) {
+            return;
+        }
         $result = wp_create_user($chat_id, '123456');
         if (is_wp_error($result)) {
             $error = $result->get_error_message();
@@ -432,6 +467,23 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "user_type", "user");
             update_user_meta($user->ID, "bot_step", "start");
             $this->user_menu($user);
+        }
+    }
+
+    public function register_company($chat_id)
+    {
+        $user = get_user_by('login', $chat_id);
+        if ($user) {
+            return;
+        }
+        $result = wp_create_user($chat_id, '123456');
+        if (is_wp_error($result)) {
+            $error = $result->get_error_message();
+        } else {
+            $user = get_user_by('id', $result);
+            update_user_meta($user->ID, "user_type", "company");
+            update_user_meta($user->ID, "bot_step", "start");
+            $this->company_menu($user);
         }
     }
 }
