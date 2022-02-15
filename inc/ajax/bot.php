@@ -52,6 +52,10 @@ class MyTmpTelegramBot
         $chatId = $item["callback_query"]['message']['chat']['id'];
         $data = $item["callback_query"]['data'];
 
+        if (strpos($data, 'user-request-job-') !== false) {
+            $this->user_job_request(str_replace('user-request-job-', "", $data), $chatId);
+            return;
+        }
 
         switch ($data) {
             case "register-user": {
@@ -78,6 +82,12 @@ class MyTmpTelegramBot
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->user_jobs($user);
+                    break;
+                }
+            case "menu-user-request": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->user_requests($user);
                     break;
                 }
             case "menu-user-name": {
@@ -214,7 +224,7 @@ class MyTmpTelegramBot
                 ],
                 [
                     ['text' => 'شغل های پیشنهادی', 'callback_data' => 'menu-user-jobs'],
-                    ['text' => 'رزومه های ارسالی', 'callback_data' => 'menu-user-request']
+                    ['text' => 'درخواست های من', 'callback_data' => 'menu-user-request']
                 ]
             ]
         ];
@@ -273,6 +283,57 @@ class MyTmpTelegramBot
         $this->sendMessage($user->data->user_login, "رزومه من", "&reply_markup=" . $encodedKeyboard);
     }
 
+    public function user_job_request($job_id, $chatId)
+    {
+        $user = get_user_by('login', $chatId);
+        $owner_id = get_post_field('post_author', $job_id);
+
+
+
+        $search = array();
+
+        $search["relation"] = "AND";
+
+        $search[] =           array(
+            'key' => 'job_id',
+            'value' => $job_id,
+            'compare' => '='
+        );
+
+        $search[] =           array(
+            'key' => 'owner_id',
+            'value' => $owner_id,
+            'compare' => '='
+        );
+
+        $args = array(
+            'post_type' => 'request',
+            'post_author'  => $user->ID,
+            'meta_query'        => $search
+        );
+        $the_query = new WP_Query($args);
+
+        $count = $the_query->post_count;
+
+
+        if ($count > 0) {
+            return;
+        }
+
+        $args_post = array(
+            'post_title'   => get_the_author_meta('user_name', $user->ID),
+            'post_type'    => 'request',
+            'post_author'  =>  $user->ID,
+            'post_status'  => 'publish',
+            'meta_input'   => array(
+                'status' => 0,
+                'job_id' => $job_id,
+                'owner_id' => $owner_id
+            )
+        );
+        $id = wp_insert_post($args_post);
+    }
+
     public function user_jobs($user)
     {
 
@@ -320,6 +381,46 @@ class MyTmpTelegramBot
         endwhile;
         wp_reset_query();
     }
+
+
+    public function user_requests($user)
+    {
+
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        $args = array(
+            'post_type' => 'request',
+            'post_status' => 'publish',
+            'post_author'  => $user->ID,
+            'posts_per_page' => 50,
+            'paged' => $paged
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+        $this->sendMessage($user->data->user_login, $count . " " . "درخواست");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+
+            $st = "وضعیت درخواست" . " : ";
+            $status = get_post_meta(get_the_ID(), 'status', true);
+            if ($status == 1) {
+                $st = $st . 'بررسی شده';
+            } else if ($status == 2) {
+                $st = $st . 'تایید برای مصاحبه';
+            } else if ($status == 2) {
+                $st = $st . 'رد درخواست';
+            } else if ($status == 2) {
+                $st = $st . 'استخدام شده';
+            } else {
+                $st = $st . 'در انتظار وضعیت';
+            }
+
+            $this->sendMessage($user->data->user_login, urlencode(get_the_title($job_id) . ' / ' . get_the_title(get_post_meta($job_id, 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta($job_id, 'tag', true) . PHP_EOL . $st));
+        endwhile;
+        wp_reset_query();
+    }
+
 
     public function register_user($chat_id)
     {

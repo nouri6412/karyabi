@@ -48,7 +48,7 @@ $count = $the_query->post_count;
                         <div>
                             <label>وضعیت درخواست</label>
                             <?php
-                            $status = get_post_meta($job_id, 'status', true);
+                            $status = get_post_meta(get_the_ID(), 'status', true);
                             if ($status == 1) {
                                 echo 'بررسی شده';
                             } else if ($status == 2) {
