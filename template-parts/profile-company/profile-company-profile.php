@@ -1,4 +1,4 @@
-<?php
+<?php 
 $user_info = get_query_var('user_info');
 $user_meta = get_query_var('user_meta');
 ?>
