@@ -79,12 +79,12 @@ class MyTmpTelegramBot
                     $this->user_profile($user);
                     break;
                 }
-                case "menu-company-profile": {
+            case "menu-company-profile": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->company_profile($user);
                     break;
-                }               
+                }
             case "menu-user-resume": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
@@ -320,10 +320,10 @@ class MyTmpTelegramBot
         $keyboard = [
             'inline_keyboard' => [
                 [
-                    ['text' => 'ارسال آگهی', 'callback_data' => 'menu-company-create-job']
+                    ['text' => 'اطلاعات پروفایل', 'callback_data' => 'menu-company-profile']
                 ],
                 [
-                    ['text' => 'اطلاعات پروفایل', 'callback_data' => 'menu-company-profile']
+                    ['text' => 'ارسال آگهی', 'callback_data' => 'menu-company-create-job']
                 ],
                 [
                     ['text' => 'آگهی های من', 'callback_data' => 'menu-company-jobs']
