@@ -344,7 +344,7 @@ class MyTmpTelegramBot
                 }
             case "company-profile-register-name": {
                     update_user_meta($user->ID, "company_name", $text);
-                    update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
+                    update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
                     $this->sendMessage($chatId, urlencode("ایمل شرکت را وارد نمائید"));
                     break;
                 }
@@ -990,7 +990,6 @@ class MyTmpTelegramBot
             $pass = rand(1000000, 9999999);
             $result = wp_create_user($chat_id, $pass);
             $user = get_user_by('id', $result);
-            update_user_meta($user->ID, "user_type_login", "user");
         }
 
         $user = get_user_by('login', $chat_id . "_user");
@@ -1007,6 +1006,7 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "user_pass", $pass);
             update_user_meta($user->ID, "user_type", "user");
             update_user_meta($user->ID, "bot_step", "start");
+            update_user_meta($user->ID, "user_type_login", "user");
 
             update_user_meta($user->ID, "bot_step", 'user-profile-register-name');
             $this->sendMessage($chat_id, urlencode("نام و نام خانوادگی را وارد نمائید"));
@@ -1038,7 +1038,9 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "company_pass", $pass);
             update_user_meta($user->ID, "user_type", "company");
             update_user_meta($user->ID, "bot_step", "start");
-            $this->company_menu($user,$chat_id);
+            update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
+            update_user_meta($user->ID, "user_type_login", "com");
+            $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
         }
     }
 }
