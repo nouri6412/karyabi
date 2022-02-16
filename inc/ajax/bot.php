@@ -62,6 +62,21 @@ class MyTmpTelegramBot
             return;
         }
 
+        if (strpos($data, 'company-job-remove-') !== false) {
+            $this->company_job_delete(str_replace('company-job-remove-', "", $data), $chatId);
+            return;
+        }
+
+
+        if (strpos($data, 'company-request-job-not-accept-') !== false) {
+            $this->company_request_status(str_replace('company-request-job-not-accept-', "", $data), $chatId, 3);
+            return;
+        }
+
+        if (strpos($data, 'company-request-job-accept-') !== false) {
+            $this->company_request_status(str_replace('company-request-job-accept-', "", $data), $chatId, 2);
+            return;
+        }
 
 
         switch ($data) {
@@ -89,6 +104,30 @@ class MyTmpTelegramBot
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->company_create_job($user);
+                    break;
+                }
+            case "menu-company-jobs": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_my_jobs($user);
+                    break;
+                }
+            case "menu-company-request-0": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_request_0($user);
+                    break;
+                }
+            case "menu-company-request-1": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_request_0($user,2);
+                    break;
+                }
+            case "menu-company-request-2": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_request_0($user,4);
                     break;
                 }
             case "menu-user-resume": {
@@ -178,19 +217,19 @@ class MyTmpTelegramBot
             case "company-profile-name": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "نام شرکت را وارد نمائید");
+                    $this->sendMessage($chatId, urlencode("نام شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-email": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "ایمیل شرکت را وارد نمائید");
+                    $this->sendMessage($chatId, urlencode("ایمیل شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-web": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "وب سایت شرکت را وارد نمائید");
+                    $this->sendMessage($chatId, urlencode("وب سایت شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-cat": {
@@ -202,13 +241,13 @@ class MyTmpTelegramBot
             case "company-profile-tel": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "تلفن شرکت را وارد نمائید");
+                    $this->sendMessage($chatId, urlencode("تلفن شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-about": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, "توضیحاتی درباره شرکت را وارد نمائید");
+                    $this->sendMessage($chatId, urlencode("توضیحاتی درباره شرکت را وارد نمائید"));
                     break;
                 }
             default: {
@@ -220,54 +259,165 @@ class MyTmpTelegramBot
     {
         $step = get_the_author_meta('bot_step', $user->ID);
 
-        if ($step == "user-profile-name") {
-            update_user_meta($user->ID, "user_name", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-exp") {
-            update_user_meta($user->ID, "user_exp", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-email") {
-            update_user_meta($user->ID, "user_e_email", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-date") {
-            update_user_meta($user->ID, "user_date_year", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-state") {
-            update_user_meta($user->ID, "user_state", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-city") {
-            update_user_meta($user->ID, "user_city", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-profile-tel") {
-            update_user_meta($user->ID, "tel", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-resume-about") {
-            $data = [];
-            $data["about"] = $text;
-            update_user_meta($user->ID, "resume-about", json_encode($data, JSON_UNESCAPED_UNICODE));
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "user-resume-skills") {
-            $data = [];
-            $data["skills"] = $text;
-            update_user_meta($user->ID, "resume-skills", json_encode($data, JSON_UNESCAPED_UNICODE));
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "company-profile-name") {
-            update_user_meta($user->ID, "company_name", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "company-profile-email") {
-            update_user_meta($user->ID, "company_email", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "company-profile-web") {
-            update_user_meta($user->ID, "web", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "company-profile-tel") {
-            update_user_meta($user->ID, "tel", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
-        } else if ($step == "company-profile-about") {
-            update_user_meta($user->ID, "desc", $text);
-            $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+        switch ($step) {
+            case "user-profile-name": {
+                    update_user_meta($user->ID, "user_name", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-exp": {
+                    update_user_meta($user->ID, "user_exp", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-email": {
+                    update_user_meta($user->ID, "user_e_email", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-date": {
+                    update_user_meta($user->ID, "user_date_year", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-state": {
+                    update_user_meta($user->ID, "user_state", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-city": {
+                    update_user_meta($user->ID, "user_city", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-tel": {
+                    update_user_meta($user->ID, "tel", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-resume-about": {
+                    $data = [];
+                    $data["about"] = $text;
+                    update_user_meta($user->ID, "resume-about", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-resume-skills": {
+                    $data = [];
+                    $data["skills"] = $text;
+                    update_user_meta($user->ID, "resume-skills", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-profile-name": {
+                    update_user_meta($user->ID, "company_name", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-profile-email": {
+                    update_user_meta($user->ID, "company_email", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-profile-web": {
+                    update_user_meta($user->ID, "web", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-profile-tel": {
+                    update_user_meta($user->ID, "tel", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-profile-about": {
+                    update_user_meta($user->ID, "desc", $text);
+                    $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-create-job-name": {
+                    $args_post = array(
+                        'post_title'   => $text,
+                        'post_type'    => 'job',
+                        'post_author'  => $user->ID,
+                        'post_status'  => 'draft',
+                        'meta_input'   => array(
+                            'title' => $text,
+                            'active' => 0,
+                        )
+                    );
+                    $id = wp_insert_post($args_post);
+                    if ($id > 0) {
+                        update_user_meta($user->ID, "create_job_id", $id);
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-email');
+                        $this->sendMessage($user->data->user_login, 'ایمیل آگهی را وارد نمائید');
+                    } else {
+                        $this->sendMessage($user->data->user_login, 'خطا لطفا عنوان تکراری وارد  ننمائید');
+                    }
+
+                    break;
+                }
+            case "company-create-job-email": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
+                    // $this->sendMessage($user->data->user_login, 'تگ های آگهی را با , جدا کرده و وارد نمائید');
+                    $this->sendMessage($user->data->user_login, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمائید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
+                    break;
+                }
+            case "company-create-job-tag": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'tag', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-coop-type');
+                    $this->sendMessage($user->data->user_login, 'نوع همکاری برای مثال دورکاری یا پروژه ای یا تمام وقت یا پاره وقت');
+                    break;
+                }
+            case "company-create-job-coop-type": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'coop-type', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-exp');
+                    $this->sendMessage($user->data->user_login, "سابقه کاری برای شغل");
+                    break;
+                }
+            case "company-create-job-exp": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'exp', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-min-salary');
+                    $this->sendMessage($user->data->user_login, urlencode("حداقل حقوق برای شغل"));
+                    break;
+                }
+            case "company-create-job-min-salary": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'min-salary', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-max-salary');
+                    $this->sendMessage($user->data->user_login, urlencode("حداکثر حقوق برای شغل"));
+                    break;
+                }
+            case "company-create-job-max-salary": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'max-salary', $text);
+
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-address');
+                    $this->sendMessage($user->data->user_login, "موقعیت مکانی و آدرس شغل");
+                    break;
+                }
+            case "company-create-job-address": {
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'address', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-desc');
+                    $this->sendMessage($user->data->user_login, urlencode('شرح شغل را ذکر کنید'));
+                    break;
+                }
+            case "company-create-job-desc": {
+                    $my_post = array(
+                        'ID'            => get_the_author_meta("create_job_id", $user->ID),
+                        'post_content'      => $text,
+                        'post_status'  => 'publish'
+                    );
+                    wp_update_post($my_post);
+                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'desc', $text);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-finish');
+                    $this->sendMessage($user->data->user_login, 'آگهی پس از بررسی ادمین منتشر خواهد شد');
+                    break;
+                }
+            default: {
+                    $this->sendMessage($user->data->user_login, "خطا" . " : " . $step);
+                };
         }
-        update_user_meta($user->ID, "bot_step", "input_text");
+
+        //update_user_meta($user->ID, "bot_step", "input_text");
     }
 
     public function start_menu($item)
@@ -385,6 +535,19 @@ class MyTmpTelegramBot
         $this->sendMessage($user->data->user_login, "اطلاعات ثبت شد");
     }
 
+    public function company_job_delete($job_id, $chatId)
+    {
+        $user = get_user_by('login', $chatId);
+        wp_delete_post($job_id);
+        $this->sendMessage($user->data->user_login, urlencode("آگهی مورد نظر حذف شد"));
+    }
+    public function company_request_status($job_id, $chatId, $status)
+    {
+        $user = get_user_by('login', $chatId);
+        update_post_meta($job_id, 'status', $status);
+        $this->sendMessage($user->data->user_login, urlencode("وضعیت درخواست تغییر یافت"));
+    }
+
     public function company_profile($user)
     {
 
@@ -428,41 +591,52 @@ class MyTmpTelegramBot
 
     public function company_create_job($user)
     {
+        update_user_meta($user->ID, "bot_step", 'company-create-job-name');
 
-        $keyboard = [
-            'inline_keyboard' => [
-                [
-                    ['text' => 'عنوان شغل' . ' : ', 'callback_data' => 'company-create-job-name']
-                ],
-                [
-                    ['text' => 'ایمیل' . ' : ', 'callback_data' => 'company-create-job-email']
-                ],
-                [
-                    ['text' => 'مهارت های مورد نیاز' . ' : ', 'callback_data' => 'company-create-job-tag']
-                ],
-                [
-                    ['text' => 'نوع همکاری' . ' : ', 'callback_data' => 'company-create-job-coop-type']
-                ],
-                [
-                    ['text' => 'سابقه کاری' . ' : ', 'callback_data' => 'company-create-job-exp']
-                ],
-                [
-                    ['text' => 'حداقل حقوق' . ' : ', 'callback_data' => 'company-create-job-min-salary']
-                ],
-                [
-                    ['text' => 'حداکثر حقوق' . ' : ', 'callback_data' => 'company-create-job-max-salary']
-                ],
-                [
-                    ['text' => 'موقعیت مکانی و آدرس' . ' : ', 'callback_data' => 'company-create-job-address']
-                ],
-                [
-                    ['text' => 'شرح شغل' . ' : ', 'callback_data' => 'company-create-job-desc']
+        $this->sendMessage($user->data->user_login, "عنوان آگهی را وارد نمائید");
+    }
+
+    public function company_my_jobs($user)
+    {
+
+        $data = json_decode(get_the_author_meta('resume-skills', $user->ID));
+        $skills = [];
+        if (isset($data->skills)) {
+            $skills = explode(',', $data->skills);
+        }
+
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        $args = array(
+            'post_type' => 'job',
+            'author'  => $user->ID,
+            'post_status' => 'publish'
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+        $this->sendMessage($user->data->user_login, $count . " " . "آگهی پیدا شده است");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'حذف آگهی', 'callback_data' => 'company-job-remove-' . get_the_ID()]
+                    ]
                 ]
-            ]
-        ];
-        $encodedKeyboard = json_encode($keyboard);
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+            $desc = "";
+            $desc .= PHP_EOL . "وضعیت آگهی" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
+            $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
+            $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
+            $desc .= PHP_EOL . "حداقل حقوق" . " : " . get_post_meta(get_the_ID(), 'min-salary', true);
+            $desc .= PHP_EOL . "حداکثر حقوق" . " : " . get_post_meta(get_the_ID(), 'max-salary', true);
+            $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
+            $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
-        $this->sendMessage($user->data->user_login, "فیلد های آگهی را پر نمائید", "&reply_markup=" . $encodedKeyboard);
+            $this->sendMessage($user->data->user_login, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
+        endwhile;
+        wp_reset_query();
     }
 
     public function user_profile($user)
@@ -608,12 +782,12 @@ class MyTmpTelegramBot
             ];
             $encodedKeyboard = json_encode($keyboard);
             $desc = "";
-            $desc .= PHP_EOL . "نوع همکاری" ." : ". get_post_meta(get_the_ID(), 'coop-type', true);
-            $desc .= PHP_EOL . "سابقه کاری"." : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق"." : " . get_post_meta(get_the_ID(), 'min-salary', true);
-            $desc .= PHP_EOL . "حداکثر حقوق"." : " . get_post_meta(get_the_ID(), 'max-salary', true);
-            $desc .= PHP_EOL . "موقعیت مکانی"." : " . get_post_meta(get_the_ID(), 'address', true);
-            $desc .= PHP_EOL . "شرح شغل"." : " . get_post_meta(get_the_ID(), 'desc', true);
+            $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
+            $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
+            $desc .= PHP_EOL . "حداقل حقوق" . " : " . get_post_meta(get_the_ID(), 'min-salary', true);
+            $desc .= PHP_EOL . "حداکثر حقوق" . " : " . get_post_meta(get_the_ID(), 'max-salary', true);
+            $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
+            $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
             $this->sendMessage($user->data->user_login, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
@@ -646,15 +820,93 @@ class MyTmpTelegramBot
                 $st = $st . 'بررسی شده';
             } else if ($status == 2) {
                 $st = $st . 'تایید برای مصاحبه';
-            } else if ($status == 2) {
+            } else if ($status == 3) {
                 $st = $st . 'رد درخواست';
-            } else if ($status == 2) {
+            } else if ($status == 4) {
                 $st = $st . 'استخدام شده';
             } else {
                 $st = $st . 'در انتظار وضعیت';
             }
 
             $this->sendMessage($user->data->user_login, urlencode(get_the_title($job_id) . ' / ' . get_the_title(get_post_meta($job_id, 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta($job_id, 'tag', true) . PHP_EOL . $st));
+        endwhile;
+        wp_reset_query();
+    }
+
+    public function company_request_0($user, $status = 0)
+    {
+
+        $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+
+        $meta_arg = [];
+        $meta_arg["relation"] = "AND";
+        $meta_arg[] = ["key" => "status", "value" => $status, "compare" => "="];
+
+        $args = array(
+            'post_type' => 'request',
+            'meta_key'  => 'owner_id',
+            'posts_per_page' => 1000,
+            'paged' => $paged,
+            'meta_value' => $user->ID,
+            "meta_query" => $meta_arg
+        );
+        $the_query = new WP_Query($args);
+        $count = $the_query->post_count;
+        $this->sendMessage($user->data->user_login, $count . " " . "درخواست");
+        while ($the_query->have_posts()) :
+            $the_query->the_post();
+            $job_id = get_post_meta(get_the_ID(), 'job_id', true);
+
+            $st = "وضعیت درخواست" . " : ";
+            $status = get_post_meta(get_the_ID(), 'status', true);
+            if ($status == 1) {
+                $st = $st . 'بررسی شده';
+            } else if ($status == 2) {
+                $st = $st . 'تایید برای مصاحبه';
+            } else if ($status == 3) {
+                $st = $st . 'رد درخواست';
+            } else if ($status == 4) {
+                $st = $st . 'استخدام شده';
+            } else {
+                $st = $st . 'در انتظار وضعیت';
+            }
+
+            $desc = "";
+            $desc .= PHP_EOL . "درخواست کننده" . " : " . get_the_author_meta('user_name');
+            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . get_the_author_meta('user_exp');
+            $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta('user_e_email');
+            $desc .= PHP_EOL . "سال تولد" . " : " . get_the_author_meta('user_date_year');
+            $desc .= PHP_EOL . "استان و شهر" . " : " . get_the_author_meta('user_state') . ' ' . get_the_author_meta('user_city');
+            $desc .= PHP_EOL . "تلفن" . " : " . get_the_author_meta('tel');
+
+            $data = json_decode(get_the_author_meta('resume-skills'));
+            $skills = PHP_EOL .  "خالی است";
+            if (isset($data->skills)) {
+                $skills = $data->skills;
+            }
+
+            $desc .= PHP_EOL .  "مهارت" . " : " . $skills;
+
+            $data = json_decode(get_the_author_meta('resume-about'));
+            $about = PHP_EOL .  "خالی است";
+            if (isset($data->about)) {
+                $about = $data->about;
+            }
+
+            $desc .= PHP_EOL .  "درباره" . " : " . $about;
+
+            $keyboard = [
+                'inline_keyboard' => [
+                    [
+                        ['text' => 'رد درخواست', 'callback_data' => 'company-request-job-not-accept-' . get_the_ID()],
+                        ['text' => 'تایید برای مصاحبه', 'callback_data' => 'company-request-job-accept-' . get_the_ID()],
+                        ['text' => 'استخدام شد', 'callback_data' => 'company-request-job-accept-emp-' . get_the_ID()]
+                    ]
+                ]
+            ];
+            $encodedKeyboard = json_encode($keyboard);
+
+            $this->sendMessage($user->data->user_login, urlencode(get_the_title($job_id) . ' / ' . get_the_title(get_post_meta($job_id, 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta($job_id, 'tag', true) . PHP_EOL . $st . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
     }

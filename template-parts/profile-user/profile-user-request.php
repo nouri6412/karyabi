@@ -53,9 +53,9 @@ $count = $the_query->post_count;
                                 echo 'بررسی شده';
                             } else if ($status == 2) {
                                 echo 'تایید برای مصاحبه';
-                            } else if ($status == 2) {
+                            } else if ($status == 3) {
                                 echo 'رد درخواست';
-                            } else if ($status == 2) {
+                            } else if ($status == 4) {
                                 echo 'استخدام شده';
                             } else {
                                 echo 'در انتظار وضعیت';
