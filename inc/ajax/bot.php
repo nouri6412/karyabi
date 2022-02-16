@@ -505,8 +505,15 @@ class MyTmpTelegramBot
     public function login_company($chatid)
     {
         $user = get_user_by('login', $chatid);
-        update_user_meta($user->ID, "user_type_login", "com");
-        $this->company_menu($user,$chatid);
+        if($user)
+        {
+            update_user_meta($user->ID, "user_type_login", "com");
+            $this->company_menu($user,$chatid);
+        }
+        else{
+            
+            $this->sendMessage($chatid, urlencode('هنوز به عنوان کارفرما ثبت نام نکرده اید'));
+        }
     }
 
     public function user_menu($user,$chatId)
@@ -981,13 +988,14 @@ class MyTmpTelegramBot
         if ($user1) {
         } else {
             $pass = rand(1000000, 9999999);
-            $result = wp_create_user($chat_id . "_user", $pass);
+            $result = wp_create_user($chat_id, $pass);
             $user = get_user_by('id', $result);
             update_user_meta($user->ID, "user_type_login", "user");
         }
 
         $user = get_user_by('login', $chat_id . "_user");
         if ($user) {
+            $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
             return;
         }
         $pass = rand(1000000, 9999999);
@@ -1011,13 +1019,14 @@ class MyTmpTelegramBot
         if ($user1) {
         } else {
             $pass = rand(1000000, 9999999);
-            $result = wp_create_user($chat_id . "_user", $pass);
+            $result = wp_create_user($chat_id, $pass);
             $user = get_user_by('id', $result);
             update_user_meta($user->ID, "user_type_login", "com");
         }
 
         $user = get_user_by('login', $chat_id . "_com");
         if ($user) {
+            $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
             return;
         }
         $pass = rand(1000000, 9999999);
