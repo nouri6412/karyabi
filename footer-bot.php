@@ -44,7 +44,7 @@ get_template_part('template-parts/custom-js/custom-js', 'create-job');
             $time_bot = 0;
         }
 
-    }, 2000);
+    }, 3000);
 </script>
 </body>
 
