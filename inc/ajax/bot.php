@@ -85,6 +85,12 @@ class MyTmpTelegramBot
                     $this->company_profile($user);
                     break;
                 }
+            case "menu-company-create-job": {
+                    $user = get_user_by('login', $chatId);
+                    update_user_meta($user->ID, "bot_step", $data);
+                    $this->company_create_job($user);
+                    break;
+                }
             case "menu-user-resume": {
                     $user = get_user_by('login', $chatId);
                     update_user_meta($user->ID, "bot_step", $data);
@@ -420,6 +426,44 @@ class MyTmpTelegramBot
         $this->sendMessage($user->data->user_login, "اطلاعات پروفایل", "&reply_markup=" . $encodedKeyboard);
     }
 
+    public function company_create_job($user)
+    {
+
+        $keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'عنوان شغل' . ' : ', 'callback_data' => 'company-create-job-name']
+                ],
+                [
+                    ['text' => 'ایمیل' . ' : ', 'callback_data' => 'company-create-job-email']
+                ],
+                [
+                    ['text' => 'مهارت های مورد نیاز' . ' : ', 'callback_data' => 'company-create-job-tag']
+                ],
+                [
+                    ['text' => 'نوع همکاری' . ' : ', 'callback_data' => 'company-create-job-coop-type']
+                ],
+                [
+                    ['text' => 'سابقه کاری' . ' : ', 'callback_data' => 'company-create-job-exp']
+                ],
+                [
+                    ['text' => 'حداقل حقوق' . ' : ', 'callback_data' => 'company-create-job-min-salary']
+                ],
+                [
+                    ['text' => 'حداکثر حقوق' . ' : ', 'callback_data' => 'company-create-job-max-salary']
+                ],
+                [
+                    ['text' => 'موقعیت مکانی و آدرس' . ' : ', 'callback_data' => 'company-create-job-address']
+                ],
+                [
+                    ['text' => 'شرح شغل' . ' : ', 'callback_data' => 'company-create-job-desc']
+                ]
+            ]
+        ];
+        $encodedKeyboard = json_encode($keyboard);
+
+        $this->sendMessage($user->data->user_login, "فیلد های آگهی را پر نمائید", "&reply_markup=" . $encodedKeyboard);
+    }
 
     public function user_profile($user)
     {
@@ -563,7 +607,15 @@ class MyTmpTelegramBot
                 ]
             ];
             $encodedKeyboard = json_encode($keyboard);
-            $this->sendMessage($user->data->user_login, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true)), "&reply_markup=" . $encodedKeyboard);
+            $desc = "";
+            $desc .= PHP_EOL . "نوع همکاری" ." : ". get_post_meta(get_the_ID(), 'coop-type', true);
+            $desc .= PHP_EOL . "سابقه کاری"." : " . get_post_meta(get_the_ID(), 'exp', true);
+            $desc .= PHP_EOL . "حداقل حقوق"." : " . get_post_meta(get_the_ID(), 'min-salary', true);
+            $desc .= PHP_EOL . "حداکثر حقوق"." : " . get_post_meta(get_the_ID(), 'max-salary', true);
+            $desc .= PHP_EOL . "موقعیت مکانی"." : " . get_post_meta(get_the_ID(), 'address', true);
+            $desc .= PHP_EOL . "شرح شغل"." : " . get_post_meta(get_the_ID(), 'desc', true);
+
+            $this->sendMessage($user->data->user_login, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
         wp_reset_query();
     }

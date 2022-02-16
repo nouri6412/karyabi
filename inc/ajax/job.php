@@ -65,7 +65,7 @@ class Karyabi_Job
                 'desc' =>$desc,
                 'active' => $status,
                 'coop-type' => $coop_type,
-                'email' => $email,
+                'job-email' => $email,
                 'exp' => $exp,
                 'tag' => $tag,
                 'min-salary' => $min_salary,

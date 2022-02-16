@@ -12,7 +12,7 @@ if (isset($_GET["job_id"])) {
     <div class="job-bx-title clearfix">
         <h5 class="font-weight-700 pull-left text-uppercase">ارسال شغل جدید</h5>
         <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
-    </div>
+    </div> 
     <form>
         <input id="job_id" name="job_id" type="hidden" value="<?php echo $job_id; ?>" />
         <div class="row">
