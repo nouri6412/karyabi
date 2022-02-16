@@ -345,7 +345,7 @@ class MyTmpTelegramBot
             case "company-profile-register-name": {
                     update_user_meta($user->ID, "company_name", $text);
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
-                    $this->sendMessage($chatId, urlencode("ایمل شرکت را وارد نمائید"));
+                    $this->sendMessage($chatId, urlencode("ایمیل شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-register-email": {
@@ -989,9 +989,9 @@ class MyTmpTelegramBot
         } else {
             $pass = rand(1000000, 9999999);
             $result = wp_create_user($chat_id, $pass);
-            $user = get_user_by('id', $result);
+            $user1 = get_user_by('id', $result);
         }
-
+        update_user_meta($user1->ID, "user_type_login", "user");
         $user = get_user_by('login', $chat_id . "_user");
         if ($user) {
             $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
@@ -1020,10 +1020,10 @@ class MyTmpTelegramBot
         } else {
             $pass = rand(1000000, 9999999);
             $result = wp_create_user($chat_id, $pass);
-            $user = get_user_by('id', $result);
-            update_user_meta($user->ID, "user_type_login", "com");
+            $user1 = get_user_by('id', $result);
+        
         }
-
+        update_user_meta($user1->ID, "user_type_login", "com");
         $user = get_user_by('login', $chat_id . "_com");
         if ($user) {
             $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
@@ -1039,7 +1039,7 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "user_type", "company");
             update_user_meta($user->ID, "bot_step", "start");
             update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
-            update_user_meta($user->ID, "user_type_login", "com");
+      
             $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
         }
     }
