@@ -1030,7 +1030,7 @@ class MyTmpTelegramBot
             return;
         }
         $pass = rand(1000000, 9999999);
-        $result = wp_create_user($chat_id . "_user", $pass);
+        $result = wp_create_user($chat_id . "_com", $pass);
         if (is_wp_error($result)) {
             $error = $result->get_error_message();
         } else {
