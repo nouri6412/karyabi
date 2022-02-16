@@ -378,13 +378,13 @@ class MyTmpTelegramBot
             case "company-create-job-exp": {
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'exp', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-min-salary');
-                    $this->sendMessage($user->data->user_login, urlencode("حداقل حقوق برای شغل"));
+                    $this->sendMessage($user->data->user_login, urlencode("حداقل حقوق به دلار برای شغل"));
                     break;
                 }
             case "company-create-job-min-salary": {
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'min-salary', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-max-salary');
-                    $this->sendMessage($user->data->user_login, urlencode("حداکثر حقوق برای شغل"));
+                    $this->sendMessage($user->data->user_login, urlencode("حداکثر حقوق  به دلار برای شغل"));
                     break;
                 }
             case "company-create-job-max-salary": {
