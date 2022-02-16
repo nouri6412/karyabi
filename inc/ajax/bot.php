@@ -351,7 +351,7 @@ class MyTmpTelegramBot
             case "company-profile-register-email": {
                     update_user_meta($user->ID, "company_email", $text);
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-tel');
-                    $this->sendMessage($chatId, urlencode("ایمیل را وارد نمائید"));
+                    $this->sendMessage($chatId, urlencode("تلفن را وارد نمائید"));
                     break;
                 }
             case "company-profile-register-tel": {
