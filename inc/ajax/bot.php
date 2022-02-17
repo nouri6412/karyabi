@@ -78,6 +78,10 @@ class MyTmpTelegramBot
             $this->company_request_status(str_replace('company-request-job-accept-', "", $data), $chatId, 2);
             return;
         }
+        if (strpos($data, 'company-request-job-emp-accept-') !== false) {
+            $this->company_request_status(str_replace('company-request-job-emp-accept-', "", $data), $chatId, 4);
+            return;
+        }
 
 
         switch ($data) {
@@ -389,7 +393,7 @@ class MyTmpTelegramBot
                         'post_status'  => 'draft',
                         'meta_input'   => array(
                             'title' => $text,
-                            'active' => 0,
+                            'active' => 1,
                         )
                     );
                     $id = wp_insert_post($args_post);
@@ -460,7 +464,7 @@ class MyTmpTelegramBot
                     break;
                 }
             default: {
-                    $this->sendMessage($chatId, "خطا" . " : " . $step);
+                //    $this->sendMessage($chatId, "خطا" . " : " . $step);
                 };
         }
 
@@ -536,7 +540,7 @@ class MyTmpTelegramBot
 
         update_user_meta($user->ID, "bot_step", "menu");
 
-        $this->sendMessage($chatId, "منوی کارجو", "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("منوی کارجو"), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function company_menu($user,$chatId)
@@ -569,7 +573,7 @@ class MyTmpTelegramBot
 
         update_user_meta($user->ID, "bot_step", "menu");
 
-        $this->sendMessage($chatId, "منوی کارفرما", "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("منوی کارفرما"), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function company_cat($user,$chatId)
@@ -739,7 +743,7 @@ class MyTmpTelegramBot
         ];
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, "اطلاعات فردی", "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("اطلاعات فردی"), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function user_resume($user,$chatId)
@@ -754,7 +758,7 @@ class MyTmpTelegramBot
         ];
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, "رزومه من", "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("رزومه من"),"&reply_markup=" . $encodedKeyboard);
     }
 
     public function user_job_request($job_id, $chatId)
@@ -970,7 +974,7 @@ class MyTmpTelegramBot
                     [
                         ['text' => 'رد درخواست', 'callback_data' => 'company-request-job-not-accept-' . get_the_ID()],
                         ['text' => 'تایید برای مصاحبه', 'callback_data' => 'company-request-job-accept-' . get_the_ID()],
-                        ['text' => 'استخدام شد', 'callback_data' => 'company-request-job-accept-emp-' . get_the_ID()]
+                        ['text' => 'استخدام شد', 'callback_data' => 'company-request-job-emp-accept-' . get_the_ID()]
                     ]
                 ]
             ];
@@ -994,7 +998,16 @@ class MyTmpTelegramBot
         update_user_meta($user1->ID, "user_type_login", "user");
         $user = get_user_by('login', $chat_id . "_user");
         if ($user) {
-            $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
+            $user_name=get_the_author_meta('user_name', $user->ID);
+            if(strlen($user_name)==0)
+            {
+                update_user_meta($user->ID, "bot_step", 'user-profile-register-name');
+                $this->sendMessage($chat_id, urlencode("نام و نام خانوادگی را وارد نمائید"));
+            }
+            else
+            {
+                $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
+            }
             return;
         }
         $pass = rand(1000000, 9999999);
@@ -1026,7 +1039,16 @@ class MyTmpTelegramBot
         update_user_meta($user1->ID, "user_type_login", "com");
         $user = get_user_by('login', $chat_id . "_com");
         if ($user) {
-            $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
+            $user_name=get_the_author_meta('company_name', $user->ID);
+            if(strlen($user_name)==0)
+            {
+                update_user_meta($user->ID, "bot_step", 'user-profile-register-name');
+                $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
+            }
+            else
+            {
+                $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
+            }
             return;
         }
         $pass = rand(1000000, 9999999);

@@ -25,10 +25,11 @@ get_template_part('template-parts/custom-js/custom-js', 'create-job');
         if ($time_bot == 0) {
             $time_bot = 1;
             jQuery.ajax({
-                url: 'http://localhost:84/reserve/bot',
+                url: 'http://localhost:84/karyabi/bot',
                 success: function() {
                     $time_bot = 0;
                 },
+                error: function (jqXHR, textStatus, errorThrown) {console.log("error ajax");  $time_bot = 0; },
                 beforeSend: function() {
                     jQuery('.loading-ajax').show();
                 },
@@ -40,7 +41,7 @@ get_template_part('template-parts/custom-js/custom-js', 'create-job');
             $time_bot++;
         }
 
-        if ($time_bot > 5) {
+        if ($time_bot > 10) {
             $time_bot = 0;
         }
 
