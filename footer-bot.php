@@ -25,7 +25,7 @@ get_template_part('template-parts/custom-js/custom-js', 'create-job');
         if ($time_bot == 0) {
             $time_bot = 1;
             jQuery.ajax({
-                url: 'http://localhost:84/karyabi/bot',
+                url: 'http://localhost:84/reserve/bot',
                 success: function() {
                     $time_bot = 0;
                 },

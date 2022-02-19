@@ -389,7 +389,7 @@ class MyTmpTelegramBot
                     $args_post = array(
                         'post_title'   => $text,
                         'post_type'    => 'job',
-                        'post_author'  => $user->ID,
+                        'author__in'  => [$user->ID],
                         'post_status'  => 'draft',
                         'meta_input'   => array(
                             'title' => $text,
@@ -461,6 +461,7 @@ class MyTmpTelegramBot
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'desc', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-finish');
                     $this->sendMessage($chatId, 'آگهی پس از بررسی ادمین منتشر خواهد شد');
+                    $this->company_menu($user,$chatId);
                     break;
                 }
             default: {
@@ -786,7 +787,7 @@ class MyTmpTelegramBot
 
         $args = array(
             'post_type' => 'request',
-            'post_author'  => $user->ID,
+            'author__in'  => [$user->ID],
             'meta_query'        => $search
         );
         $the_query = new WP_Query($args);
@@ -801,7 +802,7 @@ class MyTmpTelegramBot
         $args_post = array(
             'post_title'   => get_the_author_meta('user_name', $user->ID),
             'post_type'    => 'request',
-            'post_author'  =>  $user->ID,
+            'author__in'  => [$user->ID],
             'post_status'  => 'publish',
             'meta_input'   => array(
                 'status' => 0,
@@ -850,7 +851,7 @@ class MyTmpTelegramBot
             $keyboard = [
                 'inline_keyboard' => [
                     [
-                        ['text' => 'درخواست شغل', 'callback_data' => 'user-request-job-' . get_the_ID()]
+                        ['text' => 'ارسال درخواست همکاری', 'callback_data' => 'user-request-job-' . get_the_ID()]
                     ]
                 ]
             ];
@@ -877,7 +878,7 @@ class MyTmpTelegramBot
         $args = array(
             'post_type' => 'request',
             'post_status' => 'publish',
-            'post_author'  => $user->ID,
+            'author__in'  => [$user->ID],
             'posts_per_page' => 50,
             'paged' => $paged
         );
@@ -1061,7 +1062,7 @@ class MyTmpTelegramBot
             update_user_meta($user->ID, "user_type", "company");
             update_user_meta($user->ID, "bot_step", "start");
             update_user_meta($user->ID, "bot_step", 'company-profile-register-name');
-      
+            update_user_meta($user->ID, "user_type_login", "com");
             $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
         }
     }
