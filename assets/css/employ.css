@@ -53,8 +53,8 @@ background-repeat: no-repeat ;
     margin: 32px 0;
     color: #232629;
     border-radius: 0.25rem;
-    box-shadow: 0 4px 8px 0 rgb(0 0 0 / 12%), 0 2px 4px 0 rgb(0 0 0 / 8%);
-    background: #ffcd70;
+    background-color: #003d6c;
+    color: #fff;
 }
 
 .mask-white {
