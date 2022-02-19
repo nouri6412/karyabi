@@ -52,11 +52,21 @@
 						<!-- extra nav -->
 						<div class="extra-nav">
 							<div class="extra-cell">
-								<?php if (!is_user_logged_in()) { ?>
+								<?php
+								$user_id = get_current_user_id();
+								$user_type = get_the_author_meta('user_type', $user_id);
+								?>
+								<?php if (!is_user_logged_in() || $user_type != "user") { ?>
 									<a href="<?php echo site_url('register'); ?>" class="site-button"><i class="fa fa-user"></i> ثبت نام کارجو</a>
 									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود کارجو </a>
-								<?php } else {
-								?>
+									<?php
+									if (is_user_logged_in() && $user_type == "company") {
+									?>
+										<a href="<?php echo wp_logout_url(site_url()); ?>" class="site-button exit"><i class="fa fa-sign-out"></i> خروج کارفرما</a>
+									<?php
+									}
+								} else {
+									?>
 									<a href="<?php echo site_url('profile'); ?>" class="site-button"><i class="fa fa-user"></i>پروفایل من</a>
 									<a href="<?php echo wp_logout_url(site_url()); ?>" class="site-button exit"><i class="fa fa-sign-out"></i> خروج</a>
 								<?php

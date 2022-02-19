@@ -19,13 +19,18 @@ nav ul li {
 
 nav ul li a,
 nav ul li {
-    color: #d9e6fc !important;
+    color: #05327e ;
     font-size: 14px;
 }
 
+.item-nav  a,.item-nav{
+    color: #fff;
+}
+
 .fold {
-    background-color: #274c77;
-    background-image: linear-gradient(282deg, #274c77, #27396f);
+background-image: url(../img/7-08.png);
+background-size: cover;
+background-repeat: no-repeat ;
     min-height: 640px;
     padding-top: 160px;
     padding-bottom: 100px;
@@ -64,7 +69,7 @@ nav ul li {
     position: relative;
 }
 
-.landing .fold .fold-image {
+.landing  .fold-image {
     width: 100%;
     border-radius: 0.5rem;
     box-shadow: 0 4px 8px 0 rgb(0 0 0 / 12%), 0 2px 4px 0 rgb(0 0 0 / 8%);
@@ -300,6 +305,9 @@ nav ul li {
 
 .item-nav {
     margin: 5px !important;
+    background-color: #003d6c;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .seting {

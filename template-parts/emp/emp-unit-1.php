@@ -23,7 +23,15 @@ $unit=get_field("unit1");
                     </div>
                     <p class="mt-5"><?php echo $unit["desc_short"]; ?></p>
                 </div>
-                <div class="row">
+
+            </div>
+        </div>
+        <svg version="1.1" id="Layer_1" class="mask-white" x="0px" y="0px" viewBox="0 0 1920 99.4" enable-background="new 0 0 1920 99.4" xml:space="preserve">
+            <path d="M0,99.4h1920V27.6C1291.8-69.2,655.7,128,0,23.9V99.4z"></path>
+        </svg>
+    </div>
+
+    <div class="row">
                     <div class="col">
                         <div class="fold-image">
                             <div style="background-image: url(<?php echo $unit["image"]; ?>);" class="fold-images-container">
@@ -31,11 +39,5 @@ $unit=get_field("unit1");
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <svg version="1.1" id="Layer_1" class="mask-white" x="0px" y="0px" viewBox="0 0 1920 99.4" enable-background="new 0 0 1920 99.4" xml:space="preserve">
-            <path d="M0,99.4h1920V27.6C1291.8-69.2,655.7,128,0,23.9V99.4z"></path>
-        </svg>
-    </div>
     <!--  -->
 </div>

@@ -2,7 +2,7 @@
 $user_id = get_current_user_id();
 $args = array(
     'post_type' => 'job',
-    'author'  => $user_id
+    'author__in'  => [$user_id],
 );
 
 

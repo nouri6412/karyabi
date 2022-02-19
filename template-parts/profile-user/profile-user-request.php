@@ -3,7 +3,7 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $user_id = get_current_user_id();
 $args = array(
     'post_type' => 'request',
-    'author'  => $user_id,
+    'author__in'  => [$user_id],
     'posts_per_page' => 8,
     'paged' => $paged
 );
