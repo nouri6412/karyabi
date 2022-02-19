@@ -3,7 +3,7 @@ $unit = get_field("unit7");
 ?>
 <div class="section section-cta">
 
-    <div class="bg" style="background-image: url(<?php echo $unit["image"]; ?>)"></div>
+    <div class="bg" ></div>
     <div class="container">
         <div class="row">
             <div class="d-none d-sm-block col-sm-2"></div>
