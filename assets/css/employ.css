@@ -34,7 +34,7 @@ background-repeat: no-repeat ;
     min-height: 640px;
     padding-top: 160px;
     padding-bottom: 100px;
-    color: #fff;
+    color: #000;
     z-index: 1;
     position: relative;
 }
@@ -648,6 +648,13 @@ background-repeat: no-repeat ;
 
     .section.quote .transition .text {
         font-size: .9rem;
+    }
+
+}
+
+@media (min-width: 767.98px) {
+    .epm-header-panel {
+        width: 50%;
     }
 
 }

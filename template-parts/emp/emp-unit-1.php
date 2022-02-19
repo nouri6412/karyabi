@@ -4,7 +4,7 @@ $unit=get_field("unit1");
 <div class="landing">
     <div class="fold">
         <div class="container">
-            <div class="text-center">
+            <div class="text-center epm-header-panel">
                 <div>
                     <h1 class="text-white font-size-6xl sm-font-size-2xl"><?php echo $unit["title"]; ?></h1>
                 </div>
