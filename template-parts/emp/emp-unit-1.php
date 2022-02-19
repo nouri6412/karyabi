@@ -31,7 +31,11 @@ $unit=get_field("unit1");
         </svg>
     </div>
 
-    <div class="row">
+
+    <!--  -->
+</div>
+
+<div class="row">
                     <div class="col">
                         <div class="fold-image">
                             <div style="background-image: url(<?php echo $unit["image"]; ?>);" class="fold-images-container">
@@ -39,5 +43,3 @@ $unit=get_field("unit1");
                         </div>
                     </div>
                 </div>
-    <!--  -->
-</div>
