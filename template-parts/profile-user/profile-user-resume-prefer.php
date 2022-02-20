@@ -7,6 +7,7 @@ $data = new prefer_object;
 $data->salary = "";
 if (isset($user_meta["resume-prefer"])) {
     $data = json_decode($user_meta["resume-prefer"][0]);
+    
 }
 ?>
 <div class="d-flex">
@@ -16,7 +17,7 @@ if (isset($user_meta["resume-prefer"])) {
     <?php } ?>
 
 </div>
-<p class="m-b0"><?php echo 'حداقل حقوق درخواستی' . ' : ' . (isset($data->salary)) ? $data->salary : '';  ?></p>
+<p class="m-b0"><?php echo 'حداقل حقوق درخواستی' . ' : ' ; echo (isset($data->salary)) ? $data->salary : '';  ?></p>
 <hr>
 <h5 class="m-b15">سطح ارشدیت در زمینه فعالیت</h5>
 <p class="m-b0"><?php echo  (isset($data->degree1) && $data->degree1==1) ? 'تازه کار' : '';  ?></p>

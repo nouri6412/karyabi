@@ -1,25 +1,25 @@
 <?php
-$unit=get_field("unit1");
+$unit = get_field("unit1");
 ?>
 <div class="landing">
     <div class="fold">
         <div class="container">
             <div class="text-center epm-header-panel">
                 <div>
-                    <h1 class="text-white font-size-6xl sm-font-size-2xl"><?php echo $unit["title"]; ?></h1>
+                    <h1 class="font-size-6xl sm-font-size-2xl"><?php echo $unit["title"]; ?></h1>
                 </div>
                 <div class="mt-5">
                     <p class="font-size-2xl sm-font-size-lg"><?php echo $unit["desc"]; ?></p>
                     <div class="mt-5">
-                    <?php if (!is_user_logged_in()) { ?>
-                                    <a href="<?php  echo home_url('?login=1') ?>" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
+                        <?php if (!is_user_logged_in()) { ?>
+                            <a href="<?php echo home_url('?login=1') ?>" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
 
-								<?php } else {
-								?>
-                        <a href="<?php  echo home_url('profile') ?>" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
+                        <?php } else {
+                        ?>
+                            <a href="<?php echo home_url('profile') ?>" class="btn-cta">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
 
-								<?php
-								} ?>
+                        <?php
+                        } ?>
                     </div>
                     <p class="mt-5"><?php echo $unit["desc_short"]; ?></p>
                 </div>
@@ -34,12 +34,13 @@ $unit=get_field("unit1");
 
     <!--  -->
 </div>
-
-<div class="row">
-                    <div class="col">
-                        <div class="fold-image">
-                            <div style="background-image: url(<?php echo $unit["image"]; ?>);" class="fold-images-container">
-                            </div>
-                        </div>
-                    </div>
+<div class="my-container">
+    <div class="row">
+        <div class="col">
+            <div class="fold-image">
+                <div style="background-image: url(<?php echo $unit["image"]; ?>);" class="fold-images-container">
                 </div>
+            </div>
+        </div>
+    </div>
+</div>

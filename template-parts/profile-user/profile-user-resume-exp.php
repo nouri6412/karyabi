@@ -1,11 +1,22 @@
 <?php
 $user_meta = get_query_var('user_meta');
+
+
 $data = [];
 if (isset($user_meta["resume-exp"])) {
     $data_1 = json_decode($user_meta["resume-exp"][0]);
 
-    $data = json_decode($data_1->exp);
+    if(!is_array($data_1->exp))
+    {
+        $data = json_decode($data_1->exp);
+    }
+ 
+    if(!$data)
+    {
+        $data = $data_1->exp;
+    }
 }
+
 
 ?>
 <div class="d-flex">

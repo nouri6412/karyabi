@@ -10,7 +10,7 @@ nav ul li {
 }
 
 .font-size-6xl {
-    font-size: 3rem;
+    font-size: 28px;
 }
 
 .font-size-2xl {
@@ -53,7 +53,7 @@ background-repeat: no-repeat ;
     margin: 32px 0;
     color: #232629;
     border-radius: 0.25rem;
-    background-color: #003d6c;
+    background-color: #273b70;
     color: #fff;
 }
 
@@ -88,12 +88,12 @@ background-repeat: no-repeat ;
 
 .section {
     min-height: 200px;
-    background-color: #eff2f5;
+    background-color: #fff;
     position: relative;
 }
 
 .section.sub-share-job {
-    background-color: #274c77;
+    background-color: #273b70;
     
 }
 
@@ -104,8 +104,10 @@ background-repeat: no-repeat ;
 }
 
 .section.quote {
-    background-image: linear-gradient(282deg, #274c77, #27396f);
+    background-image: url(../img/1-08.png);
     min-height: 680px;
+    background-size: 100% 110%;
+    background-repeat: no-repeat;
 }
 
 .svg-defs {
@@ -156,7 +158,7 @@ background-repeat: no-repeat ;
 }
 
 .font-size-2xl {
-    font-size: 1.25rem;
+    font-size: 15px;
 }
 
 .section.section-cta .card-cta .btn-cta {
@@ -173,8 +175,8 @@ background-repeat: no-repeat ;
 }
 
 .section.intro-feature .item .icon {
-    width: 64px;
-    height: 64px;
+    width: 150px;
+    height: 150px;
     border-radius: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -194,6 +196,11 @@ background-repeat: no-repeat ;
 
 .section.intro-feature .item .icon img {
     width: 100%;
+}
+
+.my-container{
+    width: 60%;
+    margin: auto;
 }
 
 .color-grey-dark-3 {
@@ -264,7 +271,7 @@ background-repeat: no-repeat ;
 }
 
 .section.share-job .img {
-    width: 360px;
+
     position: relative;
     margin: 0 auto 0 0;
 }
@@ -305,7 +312,7 @@ background-repeat: no-repeat ;
 
 .item-nav {
     margin: 5px !important;
-    background-color: #003d6c;
+    background-color: #273b70;
     padding: 5px;
     border-radius: 5px;
 }
@@ -649,12 +656,14 @@ background-repeat: no-repeat ;
     .section.quote .transition .text {
         font-size: .9rem;
     }
-
+    .my-container{
+        width: 95%;
+    }
 }
 
 @media (min-width: 767.98px) {
     .epm-header-panel {
-        width: 50%;
+        width: 57%;
     }
 
 }

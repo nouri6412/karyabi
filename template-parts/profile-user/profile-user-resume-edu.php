@@ -4,7 +4,14 @@ $data = [];
 if (isset($user_meta["resume-edu"])) {
     $data_1 = json_decode($user_meta["resume-edu"][0]);
 
-    $data = json_decode($data_1->exp);
+    if(!is_array($data_1->exp))
+    {
+        $data = json_decode($data_1->exp);
+    }
+    if(!$data)
+    {
+        $data = $data_1->exp;
+    }
 }
 
 ?>
@@ -21,7 +28,7 @@ foreach ($data as $item) {
     <h6 class="font-14 m-b0"><?php echo 'دانشگاه'.' : '.$item->uni ?></h6>
     <p class="m-b0"><?php echo 'رشته'.' : '.$item->major ?></p>
     <p class="m-b0"><?php echo 'مقطع'.' : '.$item->grade ?></p>
-    <p class="m-b0"><?php echo 'تجربه کاری از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
+    <p class="m-b0"><?php echo '  از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
     <hr>
 <?php
 }

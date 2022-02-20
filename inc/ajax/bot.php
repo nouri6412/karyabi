@@ -42,7 +42,7 @@ class MyTmpTelegramBot
                 $chatId = $item['message']['chat']['id'];
                 $user1 = get_user_by('login', $chatId);
                 $user = get_user_by('login', $chatId . "_" . get_the_author_meta('user_type_login', $user1->ID));
-                $this->callback_input($user, $item['message']["text"],$chatId);
+                $this->callback_input($user, $item['message']["text"], $chatId);
             }
         } else if (isset($item["callback_query"]['message'])) {
             $this->callback($item);
@@ -83,6 +83,10 @@ class MyTmpTelegramBot
             return;
         }
 
+        if (strpos($data, 'user-profile-view-') !== false) {
+            $this->user_profile_view(str_replace('user-profile-view-', "", $data), $chatId);
+            return;
+        }
 
         switch ($data) {
             case "register-user": {
@@ -104,61 +108,67 @@ class MyTmpTelegramBot
             case "menu-user-profile": {
                     $user = get_user_by('login', $chatId . "_user");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_profile($user,$chatId);
+                    $this->user_profile($user, $chatId);
+                    break;
+                }
+            case "menu-user-create-resume": {
+                    $user = get_user_by('login', $chatId . "_user");
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-name');
+                    $this->sendMessage($chatId, urlencode("نام و نام خانوادگی را وارد نماپید"));
                     break;
                 }
             case "menu-company-profile": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_profile($user,$chatId);
+                    $this->company_profile($user, $chatId);
                     break;
                 }
             case "menu-company-create-job": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_create_job($user,$chatId);
+                    $this->company_create_job($user, $chatId);
                     break;
                 }
             case "menu-company-jobs": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_my_jobs($user,$chatId);
+                    $this->company_my_jobs($user, $chatId);
                     break;
                 }
             case "menu-company-request-0": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user,0,$chatId);
+                    $this->company_request_0($user, 0, $chatId);
                     break;
                 }
             case "menu-company-request-1": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 2,$chatId);
+                    $this->company_request_0($user, 2, $chatId);
                     break;
                 }
             case "menu-company-request-2": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 4,$chatId);
+                    $this->company_request_0($user, 4, $chatId);
                     break;
                 }
             case "menu-user-resume": {
                     $user = get_user_by('login', $chatId . "_user");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_resume($user,$chatId);
+                    $this->user_resume($user, $chatId);
                     break;
                 }
             case "menu-user-jobs": {
                     $user = get_user_by('login', $chatId . "_user");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_jobs($user,$chatId);
+                    $this->user_jobs($user, $chatId);
                     break;
                 }
             case "menu-user-request": {
                     $user = get_user_by('login', $chatId . "_user");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_requests($user,$chatId);
+                    $this->user_requests($user, $chatId);
                     break;
                 }
             case "user-profile-name": {
@@ -248,7 +258,7 @@ class MyTmpTelegramBot
             case "company-profile-cat": {
                     $user = get_user_by('login', $chatId . "_com");
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_cat($user,$chatId);
+                    $this->company_cat($user, $chatId);
                     break;
                 }
             case "company-profile-tel": {
@@ -268,7 +278,115 @@ class MyTmpTelegramBot
         }
     }
 
-    public function callback_input($user, $text,$chatId)
+    public function user_profile_view($user_id, $chatId)
+    {
+        $user = get_user_by('login', $chatId . "_user");
+
+        $desc = "";
+        $desc .=  "نام" . " : " . get_the_author_meta( 'user_name', $user_id);
+        $desc .= PHP_EOL . "عنوان شغلی" . " : " . get_the_author_meta( 'user_exp', $user_id);
+        $desc .= PHP_EOL . "ایمیل" . " : " . get_the_author_meta( 'user_e_email', $user_id);
+        $desc .= PHP_EOL . "سال تولد" . " : " . get_the_author_meta( 'user_date_year', $user_id);
+        $desc .= PHP_EOL . "آدرس سکونت" . " : " . get_the_author_meta( 'user_state', $user_id) . ' - ' . get_the_author_meta( 'user_city', $user_id);
+        $desc .= PHP_EOL . "تلفن" . " : " . get_the_author_meta( 'tel', $user_id);
+
+        $data = json_decode(get_the_author_meta('resume-skills', $user_id));
+        $skills = PHP_EOL .  "خالی است";
+        if (isset($data->skills)) {
+            $skills = $data->skills;
+        }
+        $desc .= PHP_EOL .  "-----------";
+        $desc .= PHP_EOL .  "مهارت" . " : " . $skills;
+
+        $data = json_decode(get_the_author_meta('resume-about', $user_id));
+        $about = PHP_EOL .  "خالی است";
+        if (isset($data->about)) {
+            $about = $data->about;
+        }
+        $desc .= PHP_EOL .  "-----------";
+        $desc .= PHP_EOL .  "درباره" . " : " . $about;
+
+        /// exp
+        $data=[];
+        $data_1 = json_decode(get_the_author_meta('resume-exp', $user_id));
+
+        if (isset($data_1->exp) && !is_array($data_1->exp)) {
+            $data = json_decode($data_1->exp);
+        }
+
+        if (!$data && isset($data_1->exp)) {       
+            $data = $data_1->exp;
+        }
+        $desc .= PHP_EOL .  "-----------";
+        $desc .= PHP_EOL .  "سوابق شغلی" . " : ";
+
+        foreach ($data as $item) {
+            $desc .= PHP_EOL .  "شرکت" . " : " . $item->company;
+            $desc .= PHP_EOL .  "عنوان شغلی" . " : " . $item->title;
+            $desc .= PHP_EOL .  "از سال" . " : " . $item->date_from . ' - ' . "تا سال" . " : " . $item->date_from;
+            $desc .= PHP_EOL .  "توضیحات شغلی" . " : " . $item->desc;
+        }
+        // end exp
+
+
+        // edu
+        $data=[];
+        $data_1 = json_decode(get_the_author_meta('resume-edu', $user_id));
+
+        if (isset($data_1->exp) && !is_array($data_1->exp)) {
+            $data = json_decode($data_1->exp);
+        }
+
+        if (!$data && isset($data_1->exp)) {       
+            $data = $data_1->exp;
+        }
+        $desc .= PHP_EOL .  "-----------";
+        $desc .= PHP_EOL .  "سوابق تحصیلی" . " : ";
+
+        foreach ($data as $item) {
+            $desc .= PHP_EOL .  "دانشگاه" . " : " . $item->uni;
+            $desc .= PHP_EOL .  "رشته" . " : " . $item->major;
+            $desc .= PHP_EOL .  "مقطع" . " : " . $item->grade;
+            $desc .= PHP_EOL .  "از سال" . " : " . $item->date_from . ' - ' . "تا سال" . " : " . $item->date_from;
+        }
+        //end edu
+
+        $data=[];
+              // lang
+
+              $data_1 = json_decode(get_the_author_meta('resume-lang', $user_id));
+
+              if (isset($data_1->exp) && !is_array($data_1->exp)) {
+                  $data = json_decode($data_1->exp);
+              }
+      
+              if (!$data && isset($data_1->exp)) {       
+                  $data = $data_1->exp;
+              }
+              $desc .= PHP_EOL .  "-----------";
+              $desc .= PHP_EOL .  "زبان های مسلط" . " : ";
+      
+              foreach ($data as $item) {
+                  $desc .= PHP_EOL .  "زبان" . " : " . $item->title;
+              }
+              //end lang
+
+        // prefer
+        $data=[];
+        $data = json_decode(get_the_author_meta('resume-prefer', $user_id));
+
+        if (isset($item->salary)) {
+            $desc .= PHP_EOL .  "-----------";
+            $desc .= PHP_EOL .  "حقوق درخواستی" . " : " . $item->salary;
+        }
+
+        //end prefer
+
+
+        $this->sendMessage($chatId, urlencode($desc));
+    }
+ 
+    public function callback_input($user, $text, $chatId)
     {
         $step = get_the_author_meta('bot_step', $user->ID);
 
@@ -294,7 +412,7 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'user-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبتنام انجام شد"));
-                    $this->user_menu($user,$chatId);
+                    $this->user_menu($user, $chatId);
                     break;
                 }
             case "user-profile-exp": {
@@ -341,6 +459,247 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
                     break;
                 }
+            case "menu-user-create-resume-name": {
+                    update_user_meta($user->ID, "user_name", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-exp');
+                    $this->sendMessage($chatId, urlencode("عنوان شغلی را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-exp": {
+                    update_user_meta($user->ID, "user_exp", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-email');
+                    $this->sendMessage($chatId, urlencode("ایمیل را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-email": {
+                    update_user_meta($user->ID, "user_e_email", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-date');
+                    $this->sendMessage($chatId, urlencode("سال تولد را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-date": {
+                    update_user_meta($user->ID, "user_date_year", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-state');
+                    $this->sendMessage($chatId, urlencode("استان را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-state": {
+                    update_user_meta($user->ID, "user_state", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-city');
+                    $this->sendMessage($chatId, urlencode("شهر را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-city": {
+                    update_user_meta($user->ID, "user_city", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-tel');
+                    $this->sendMessage($chatId, urlencode("تلفن را وارد نماپید"));
+                    break;
+                }
+            case "menu-user-create-resume-tel": {
+                    update_user_meta($user->ID, "tel", $text);
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-about');
+                    $this->sendMessage($chatId, urlencode("درباره خود بنویسید"));
+                    break;
+                }
+            case "menu-user-create-resume-about": {
+                    $data = [];
+                    $data["about"] = $text;
+                    update_user_meta($user->ID, "resume-about", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-skills');
+                    $this->sendMessage($chatId, urlencode("  مهارت های خود را با جدا کننده " . ' , ' . "وارد نمائید مانند:" . ' java,wordpress'));
+                    break;
+                }
+            case "menu-user-create-resume-skills": {
+                    $data = [];
+                    $data["skills"] = $text;
+                    update_user_meta($user->ID, "resume-skills", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-company');
+                    $this->sendMessage($chatId, urlencode("سابقه شغلی خود را ثبت کنید"));
+                    $this->sendMessage($chatId, urlencode("نام شرکتی که قبلا مشغول به کار بوده اید؟"));
+                    break;
+                }
+            case "menu-user-create-resume-job-company": {
+                    $db = json_decode(get_the_author_meta("resume-exp", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["company"] = $text;
+                    update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-title');
+                    $this->sendMessage($chatId, urlencode("عنوان شغلی که در آن شرکت مشغول بوده اید؟"));
+                    break;
+                }
+            case "menu-user-create-resume-job-title": {
+                    $db = json_decode(get_the_author_meta("resume-exp", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["title"] = $text;
+                    update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-date-from');
+                    $this->sendMessage($chatId, urlencode("از سال ؟"));
+                    break;
+                }
+            case "menu-user-create-resume-job-date-from": {
+                    $db = json_decode(get_the_author_meta("resume-exp", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["date_from"] = $text;
+                    update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-date-to');
+                    $this->sendMessage($chatId, urlencode("تا سال ؟"));
+                    break;
+                }
+            case "menu-user-create-resume-job-date-to": {
+                    $db = json_decode(get_the_author_meta("resume-exp", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["date_to"] = $text;
+                    update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-desc');
+                    $this->sendMessage($chatId, urlencode("توضیحاتی در باره کار خود در شرکت بیان کنید"));
+                    break;
+                }
+            case "menu-user-create-resume-job-desc": {
+                    $db = json_decode(get_the_author_meta("resume-exp", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["desc"] = $text;
+                    update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-uni');
+                    $this->sendMessage($chatId, urlencode("سابقه تحصیلی خود را ثبت کنید"));
+                    $this->sendMessage($chatId, urlencode("نام دانشگاه؟"));
+                    break;
+                }
+
+            case "menu-user-create-resume-edu-uni": {
+                    $db = json_decode(get_the_author_meta("resume-edu", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["uni"] = $text;
+                    update_user_meta($user->ID, "resume-edu", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-major');
+                    $this->sendMessage($chatId, urlencode("رشته تحصیلی ؟"));
+                    break;
+                }
+
+            case "menu-user-create-resume-edu-major": {
+                    $db = json_decode(get_the_author_meta("resume-edu", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["major"] = $text;
+                    update_user_meta($user->ID, "resume-edu", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-grade');
+                    $this->sendMessage($chatId, urlencode("مقطع تحصیلی ؟"));
+                    break;
+                }
+
+            case "menu-user-create-resume-edu-grade": {
+                    $db = json_decode(get_the_author_meta("resume-edu", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["grade"] = $text;
+                    update_user_meta($user->ID, "resume-edu", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-date-from');
+                    $this->sendMessage($chatId, urlencode("از سال ؟"));
+                    break;
+                }
+
+            case "menu-user-create-resume-edu-date-from": {
+                    $db = json_decode(get_the_author_meta("resume-edu", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["date_from"] = $text;
+                    update_user_meta($user->ID, "resume-edu", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-date-to');
+                    $this->sendMessage($chatId, urlencode("تا سال ؟"));
+                    break;
+                }
+
+            case "menu-user-create-resume-edu-date-to": {
+                    $db = json_decode(get_the_author_meta("resume-edu", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $data["exp"][0]["date_to"] = $text;
+                    update_user_meta($user->ID, "resume-edu", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-lang');
+                    $this->sendMessage($chatId, urlencode("به کدام زبان ها تسلط دارید با , جدا کنید"));
+                    break;
+                }
+            case "menu-user-create-resume-lang": {
+                    $db = json_decode(get_the_author_meta("resume-lang", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    $data["exp"] = [];
+                    $data["exp"][] = [];
+                    if (isset($db["exp"])) {
+                        $data = $db;
+                    }
+                    $ex = explode(',', $text);
+                    $index = 0;
+                    foreach ($ex as $item) {
+                        $data["exp"][$index]["title"] = $item;
+                        $data["exp"][$index]["degree"] = "مسلط";
+                        $index++;
+                    }
+
+                    update_user_meta($user->ID, "resume-lang", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-prefer');
+                    $this->sendMessage($chatId, urlencode("حقوق درخواستی"));
+                    break;
+                }
+
+            case "menu-user-create-resume-prefer": {
+                    $db = json_decode(get_the_author_meta("resume-prefer", $user->ID), JSON_UNESCAPED_UNICODE);
+                    $data = [];
+                    if (isset($db["salary"])) {
+                        $data = $db;
+                    }
+                    $data["salary"] = $text;
+                    update_user_meta($user->ID, "resume-prefer", json_encode($data, JSON_UNESCAPED_UNICODE));
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-finish');
+                    $this->sendMessage($chatId, urlencode("رزومه شما کامل شد"));
+                    $this->user_menu($user, $chatId);
+                    break;
+                }
+
             case "company-profile-name": {
                     update_user_meta($user->ID, "company_name", $text);
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
@@ -362,7 +721,7 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبت نام انجام شد"));
-                    $this->company_menu($user,$chatId);
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             case "company-profile-email": {
@@ -410,7 +769,7 @@ class MyTmpTelegramBot
             case "company-create-job-email": {
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
-               
+
                     $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمائید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
                     break;
                 }
@@ -461,11 +820,11 @@ class MyTmpTelegramBot
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'desc', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-finish');
                     $this->sendMessage($chatId, 'آگهی پس از بررسی ادمین منتشر خواهد شد');
-                    $this->company_menu($user,$chatId);
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             default: {
-                //    $this->sendMessage($chatId, "خطا" . " : " . $step);
+                    //    $this->sendMessage($chatId, "خطا" . " : " . $step);
                 };
         }
 
@@ -495,41 +854,37 @@ class MyTmpTelegramBot
     public function login_user($chatid)
     {
         $user = get_user_by('login', $chatid);
-        if($user)
-        {
+        if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
-            $this->user_menu($user,$chatid);
-        }
-        else{
-            
+            $this->user_menu($user, $chatid);
+        } else {
+
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارجو ثبت نام نکرده اید'));
         }
-    
     }
 
     public function login_company($chatid)
     {
         $user = get_user_by('login', $chatid);
-        if($user)
-        {
+        if ($user) {
             update_user_meta($user->ID, "user_type_login", "com");
-            $this->company_menu($user,$chatid);
-        }
-        else{
-            
+            $this->company_menu($user, $chatid);
+        } else {
+
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارفرما ثبت نام نکرده اید'));
         }
     }
 
-    public function user_menu($user,$chatId)
+    public function user_menu($user, $chatId)
     {
         $step = get_the_author_meta('bot_step', $user->ID);
+        $user1 = get_user_by('login', $chatId . "_user");
 
         $keyboard = [
             'inline_keyboard' => [
                 [
-                    ['text' => 'اطلاعات فردی', 'callback_data' => 'menu-user-profile'],
-                    ['text' => 'رزومه و مهارت من', 'callback_data' => 'menu-user-resume']
+                    ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
+                    ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
                 ],
                 [
                     ['text' => 'شغل های پیشنهادی', 'callback_data' => 'menu-user-jobs'],
@@ -544,7 +899,7 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, urlencode("منوی کارجو"), "&reply_markup=" . $encodedKeyboard);
     }
 
-    public function company_menu($user,$chatId)
+    public function company_menu($user, $chatId)
     {
         $step = get_the_author_meta('bot_step', $user->ID);
 
@@ -577,7 +932,7 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, urlencode("منوی کارفرما"), "&reply_markup=" . $encodedKeyboard);
     }
 
-    public function company_cat($user,$chatId)
+    public function company_cat($user, $chatId)
     {
         $step = get_the_author_meta('bot_step', $user->ID);
 
@@ -623,7 +978,9 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, urlencode("وضعیت درخواست تغییر یافت"));
     }
 
-    public function company_profile($user,$chatId)
+
+
+    public function company_profile($user, $chatId)
     {
 
         $Karyabi_Category = new Karyabi_Category;
@@ -664,14 +1021,14 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, "اطلاعات پروفایل", "&reply_markup=" . $encodedKeyboard);
     }
 
-    public function company_create_job($user,$chatId)
+    public function company_create_job($user, $chatId)
     {
         update_user_meta($user->ID, "bot_step", 'company-create-job-name');
 
         $this->sendMessage($chatId, "عنوان آگهی را وارد نمائید");
     }
 
-    public function company_my_jobs($user,$chatId)
+    public function company_my_jobs($user, $chatId)
     {
 
         $data = json_decode(get_the_author_meta('resume-skills', $user->ID));
@@ -714,7 +1071,7 @@ class MyTmpTelegramBot
         wp_reset_query();
     }
 
-    public function user_profile($user,$chatId)
+    public function user_profile($user, $chatId)
     {
 
         $keyboard = [
@@ -747,7 +1104,7 @@ class MyTmpTelegramBot
         $this->sendMessage($chatId, urlencode("اطلاعات فردی"), "&reply_markup=" . $encodedKeyboard);
     }
 
-    public function user_resume($user,$chatId)
+    public function user_resume($user, $chatId)
     {
         $keyboard = [
             'inline_keyboard' => [
@@ -759,7 +1116,7 @@ class MyTmpTelegramBot
         ];
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, urlencode("رزومه من"),"&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("رزومه من"), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function user_job_request($job_id, $chatId)
@@ -813,7 +1170,7 @@ class MyTmpTelegramBot
         $id = wp_insert_post($args_post);
     }
 
-    public function user_jobs($user,$chatId)
+    public function user_jobs($user, $chatId)
     {
 
         $data = json_decode(get_the_author_meta('resume-skills', $user->ID));
@@ -870,7 +1227,7 @@ class MyTmpTelegramBot
     }
 
 
-    public function user_requests($user,$chatId)
+    public function user_requests($user, $chatId)
     {
 
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -908,7 +1265,7 @@ class MyTmpTelegramBot
         wp_reset_query();
     }
 
-    public function company_request_0($user, $status = 0,$chatId)
+    public function company_request_0($user, $status = 0, $chatId)
     {
 
         $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
@@ -976,10 +1333,14 @@ class MyTmpTelegramBot
                         ['text' => 'رد درخواست', 'callback_data' => 'company-request-job-not-accept-' . get_the_ID()],
                         ['text' => 'تایید برای مصاحبه', 'callback_data' => 'company-request-job-accept-' . get_the_ID()],
                         ['text' => 'استخدام شد', 'callback_data' => 'company-request-job-emp-accept-' . get_the_ID()]
+                    ],
+                    [
+                        ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . get_the_author_meta('ID')]
                     ]
                 ]
             ];
             $encodedKeyboard = json_encode($keyboard);
+
 
             $this->sendMessage($chatId, urlencode(get_the_title($job_id) . ' / ' . get_the_title(get_post_meta($job_id, 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta($job_id, 'tag', true) . PHP_EOL . $st . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
@@ -999,14 +1360,11 @@ class MyTmpTelegramBot
         update_user_meta($user1->ID, "user_type_login", "user");
         $user = get_user_by('login', $chat_id . "_user");
         if ($user) {
-            $user_name=get_the_author_meta('user_name', $user->ID);
-            if(strlen($user_name)==0)
-            {
+            $user_name = get_the_author_meta('user_name', $user->ID);
+            if (strlen($user_name) == 0) {
                 update_user_meta($user->ID, "bot_step", 'user-profile-register-name');
                 $this->sendMessage($chat_id, urlencode("نام و نام خانوادگی را وارد نمائید"));
-            }
-            else
-            {
+            } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
             }
             return;
@@ -1035,19 +1393,15 @@ class MyTmpTelegramBot
             $pass = rand(1000000, 9999999);
             $result = wp_create_user($chat_id, $pass);
             $user1 = get_user_by('id', $result);
-        
         }
         update_user_meta($user1->ID, "user_type_login", "com");
         $user = get_user_by('login', $chat_id . "_com");
         if ($user) {
-            $user_name=get_the_author_meta('company_name', $user->ID);
-            if(strlen($user_name)==0)
-            {
+            $user_name = get_the_author_meta('company_name', $user->ID);
+            if (strlen($user_name) == 0) {
                 update_user_meta($user->ID, "bot_step", 'user-profile-register-name');
                 $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
-            }
-            else
-            {
+            } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
             }
             return;
