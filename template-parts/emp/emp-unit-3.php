@@ -1,36 +1,32 @@
 <?php
 $unit = get_field("unit3");
 ?>
-<div class="section share-job pb-5">
-    <div class="container pb-4">
-        <div class="row share-job-header">
-        <div class=" col-1 d-none d-sm-inline-block"></div>
-            <div class="col">
-                <div class="font-size-4xl sm-font-size-xl font-weight-bold  color-grey-dark-3">
-                    <?php echo $unit["title"]; ?>
-                </div>
-            </div>
+<div class="mt-5 pt-5 pb-5">
+    <div class="container">
+        <div class="ps-5">
+            <h2><?php echo $unit["title"]; ?></h2>
         </div>
-        <div class="row">
-            <div class="col-md-5">
-                <?php
-                foreach ($unit["items"] as $item) {
-                ?>
-                    <div class="item">
-                        <div class="icon"><img src="<?php echo $item["image"]; ?>"></div>
-                        <div class="text">
-                            <div class="font-size-lg font-weight-bold color-grey-dark-3 mb-3"><?php echo $item["title"]; ?>
+        <div>
+            <div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <?php
+                        foreach ($unit["items"] as $item) {
+                        ?>
+                            <div class="d-flex align-items-center">
+                                <img src="<?php echo $item["image"]; ?>" alt="" width="60px">
+                                <div>
+                                    <h6><?php echo $item["title"]; ?>
+                                    </h6>
+                                    <p class="mb-0"><?php echo $item["desc"]; ?>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="font-size-lg color-grey-dark-2">
-                            <?php echo $item["desc"]; ?>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
-                <?php } ?>
-
-            </div>
-            <div class="col-md-7 d-none d-lg-block">
-                <div class="img"><img src="<?php echo $unit["image"]; ?>" alt="<?php echo $unit["title"]; ?>">
+                    <div class="col d-none d-lg-block">
+                        <img src="<?php echo $unit["image"]; ?>" alt="<?php echo $unit["title"]; ?>" width="100%">
+                    </div>
                 </div>
             </div>
         </div>

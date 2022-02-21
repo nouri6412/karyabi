@@ -20,3 +20,24 @@ $unit = get_field("unit4");
         </div>
     </div>
 </div>
+<div class="">
+    <div class="bg-primary pt-5 pb-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <?php
+                foreach ($unit as $item) {
+                ?>
+                    <div class="col-12 col-lg-4">
+                        <div class="d-flex flex-row flex-lg-column justify-content-between justify-content-lg-center align-items-center">
+                            <h1 class="text-white m-0 head">
+                                <?php echo $item["title"]; ?>
+                            </h1>
+                            <p class="text-white"><?php echo $item["desc"]; ?>
+                            </p>
+                        </div>
+                    </div>
+                <?php  } ?>
+            </div>
+        </div>
+    </div>
+</div>

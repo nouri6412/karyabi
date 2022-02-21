@@ -17,7 +17,6 @@ get_header('emp');
 ?>
 
 <?php
-get_template_part('template-parts/emp/emp', 'unit-1');
 get_template_part('template-parts/emp/emp', 'unit-2');
 get_template_part('template-parts/emp/emp', 'unit-3');
 get_template_part('template-parts/emp/emp', 'unit-4');
