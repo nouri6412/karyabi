@@ -27,7 +27,7 @@ $date = get_query_var('date');
             <div class="panel-body">
                 <div class="user-info"><i class="fa fa-phone"></i><label class="user-info-label">موبایل</label><label class="user-info-title"><?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?></label></div>
                 <div class="user-info"><i class="fa fa-envelope"></i><label class="user-info-label">ایمیل</label><label class="user-info-title"><?php echo isset($user_meta['email']) ? $user_meta['email'][0] : '';  ?></label></div>
-                <div class="user-info"><i class="fa fa-download"></i><label class="user-info-label">لینک رزومه</label><label class="user-info-title"><a target="_blank" href="<?php echo home_url('profile?action=resume&user_id=' . $user_id); ?>"> اینجا کلیک فرمائید</a></label></div>
+                <div class="user-info"><i class="fa fa-download"></i><label class="user-info-label">لینک رزومه</label><label class="user-info-title"><a target="_blank" href="<?php echo home_url('resume?user_id=' . $user_id); ?>"> اینجا کلیک فرمائید</a></label></div>
                 <div class="user-info"><i class="fa fa-download"></i><label class="user-info-label"> رزومه پیوست شده</label><label class="user-info-title"><a target="_blank" href="<?php echo isset($user_meta['resume-file']) ? $user_meta['resume-file'][0] : '#';  ?>"><?php echo isset($user_meta['resume-file']) ? 'اینجا کلیک فرمائید' : 'آپلود نشده است';  ?></a></label></div>
 
             </div>

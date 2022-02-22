@@ -26,7 +26,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>ایمیل</label>
-                <input id="user-email" type="email" class="form-control" value="<?php echo $user_info->user_email; ?>" placeholder="info@gmail.com">
+                <input id="user-email" type="email" class="form-control" value="<?php echo isset($user_meta['user_e_email']) ? $user_meta['user_e_email'][0] : '';  ?>" placeholder="info@gmail.com">
             </div>
         </div>
 
@@ -94,13 +94,13 @@ $user_meta = get_query_var('user_meta');
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <div class="custom-control custom-radio">
-                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="male") ? 'checked="checked"' : '';  ?> type="radio" class="custom-control-input" id="user-sex-male" name="user-sex" value="male" >
+                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="male") ? 'checked="checked' : '';  ?> type="radio" class="custom-control-input" id="user-sex-male" name="user-sex" value="male" >
                             <label class="custom-control-label" for="user-sex-male">مرد</label>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-6">
                         <div class="custom-control custom-radio">
-                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="fmale") ? 'checked="checked"' : '';  ?> type="radio" class="custom-control-input" id="user-sex-fmale" name="user-sex" value="fmale">
+                            <input <?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0]=="fmale") ? 'checked="checked' : '';  ?> type="radio" class="custom-control-input" id="user-sex-fmale" name="user-sex" value="fmale">
                             <label class="custom-control-label" for="user-sex-fmale">زن</label>
                         </div>
                     </div>

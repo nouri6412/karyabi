@@ -41,7 +41,7 @@ $page_action = get_query_var('page_action');
 						<span>مهارت های حرفه ای</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#employment_bx">
 						<span>سوابق شغلی</span></a></li>
-				<li><a class="scroll-bar nav-link" href="#education_bx">
+				<li><a class="scroll-bar nav-link" href="#eduction_bx">
 						<span>سوابق تحصیلی</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#language_bx">
 						<span>زبان ها</span></a></li>
@@ -52,6 +52,9 @@ $page_action = get_query_var('page_action');
 				<li><a href="<?php echo home_url('profile?action=resume') ?>">
 						<i class="fa fa-file-text-o" aria-hidden="true"></i>
 						<span>رزومه ساز</span></a></li>
+						<li><a target="_Blank" href="<?php echo home_url('resume?user_id='.$user_info->ID) ?>">
+						<i class="fa fa-file-text-o" aria-hidden="true"></i>
+						<span> مشاهده رزومه</span></a></li>
 				<li><a href="<?php echo home_url('profile?action=favorite') ?>">
 						<i class="fa fa-heart-o" aria-hidden="true"></i>
 						<span>شغل های ذخیره شده</span></a></li>
