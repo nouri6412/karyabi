@@ -377,7 +377,7 @@ class MyTmpTelegramBot
 
         if (isset($data->salary)) {
             $desc .= PHP_EOL .  "-----------";
-            $desc .= PHP_EOL .  "حقوق درخواستی" . " : " . $data->salary;
+            $desc .= PHP_EOL .  "حقوق درخواستی به دلار" . " : " . $data->salary;
         }
 
         //end prefer
@@ -514,7 +514,7 @@ class MyTmpTelegramBot
                     $data["skills"] = $text;
                     update_user_meta($user->ID, "resume-skills", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-job-company');
-                    $this->sendMessage($chatId, urlencode("سابقه شغلی خود را ثبت کنید"));
+                   // $this->sendMessage($chatId, urlencode("سابقه شغلی خود را ثبت کنید"));
                     $this->sendMessage($chatId, urlencode("نام شرکتی که قبلا مشغول به کار بوده اید؟"));
                     break;
                 }
@@ -585,8 +585,8 @@ class MyTmpTelegramBot
                     $data["exp"][0]["desc"] = $text;
                     update_user_meta($user->ID, "resume-exp", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-edu-uni');
-                    $this->sendMessage($chatId, urlencode("سابقه تحصیلی خود را ثبت کنید"));
-                    $this->sendMessage($chatId, urlencode("نام دانشگاه؟"));
+                   // $this->sendMessage($chatId, urlencode("سابقه تحصیلی خود را ثبت کنید"));
+                    $this->sendMessage($chatId, urlencode("نام دانشگاه فارغ التحصیلی"));
                     break;
                 }
 
@@ -1168,6 +1168,7 @@ class MyTmpTelegramBot
             )
         );
         $id = wp_insert_post($args_post);
+        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای ایم موقعیت شغلی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
     }
 
     public function user_jobs($user, $chatId)
