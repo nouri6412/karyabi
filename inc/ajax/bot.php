@@ -748,7 +748,7 @@ class MyTmpTelegramBot
                     $args_post = array(
                         'post_title'   => $text,
                         'post_type'    => 'job',
-                        'author__in'  => [$user->ID],
+                        'post_author'  => $user->ID,
                         'post_status'  => 'draft',
                         'meta_input'   => array(
                             'title' => $text,
