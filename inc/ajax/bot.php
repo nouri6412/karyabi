@@ -375,9 +375,9 @@ class MyTmpTelegramBot
         $data=[];
         $data = json_decode(get_the_author_meta('resume-prefer', $user_id));
 
-        if (isset($item->salary)) {
+        if (isset($data->salary)) {
             $desc .= PHP_EOL .  "-----------";
-            $desc .= PHP_EOL .  "حقوق درخواستی" . " : " . $item->salary;
+            $desc .= PHP_EOL .  "حقوق درخواستی" . " : " . $data->salary;
         }
 
         //end prefer
@@ -1159,7 +1159,7 @@ class MyTmpTelegramBot
         $args_post = array(
             'post_title'   => get_the_author_meta('user_name', $user->ID),
             'post_type'    => 'request',
-            'author__in'  => [$user->ID],
+            'post_author'  => $user->ID,
             'post_status'  => 'publish',
             'meta_input'   => array(
                 'status' => 0,
