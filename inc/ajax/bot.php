@@ -377,7 +377,7 @@ class MyTmpTelegramBot
 
         if (isset($data->salary)) {
             $desc .= PHP_EOL .  "-----------";
-            $desc .= PHP_EOL .  "حقوق درخواستی به دلار" . " : " . $data->salary;
+            $desc .= PHP_EOL .  "حقوق درخواستی " . " : " . $data->salary." ".'دلار';
         }
 
         //end prefer
@@ -682,7 +682,7 @@ class MyTmpTelegramBot
 
                     update_user_meta($user->ID, "resume-lang", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-prefer');
-                    $this->sendMessage($chatId, urlencode("حقوق درخواستی"));
+                    $this->sendMessage($chatId, urlencode("حقوق درخواستی به دلار"));
                     break;
                 }
 
