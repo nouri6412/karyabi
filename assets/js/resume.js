@@ -17,6 +17,7 @@ function ajax_submit_mbm_post_data_resume(data, element_load, modal, element_err
             element_load.html(result.html);
             modal.modal("hide");
             $('.modal-backdrop').remove();
+            document.location.href=custom_theme_mbm_object.siteurl+"/profile/?action=resume";
         }
     });
 }
