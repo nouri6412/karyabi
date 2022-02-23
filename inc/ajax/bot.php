@@ -752,7 +752,7 @@ class MyTmpTelegramBot
                         'post_status'  => 'draft',
                         'meta_input'   => array(
                             'title' => $text,
-                            'active' => 1,
+                            'active' => 0,
                         )
                     );
                     $id = wp_insert_post($args_post);

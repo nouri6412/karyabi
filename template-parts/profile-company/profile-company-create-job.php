@@ -25,7 +25,7 @@ if (isset($_GET["job_id"])) {
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                     <label>ایمیل</label>
-                    <input value="<?php echo get_post_meta($job_id, 'email', true) ?>" id="job_email" type="email" class="form-control" placeholder="info@gmail.com">
+                    <input value="<?php echo get_post_meta($job_id, 'job-email', true) ?>" id="job_email" type="email" class="form-control" placeholder="info@gmail.com">
                 </div>
             </div>
             <div class="col-lg-12 col-md-12">
@@ -103,13 +103,13 @@ if (isset($_GET["job_id"])) {
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                    <label>حداقل حقوق (ریال):</label>
+                    <label>حداقل حقوق (دلار):</label>
                     <input value="<?php echo get_post_meta($job_id, 'min-salary', true) ?>" id="job_min_salary" type="number" class="form-control" placeholder="مثال: 10000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                    <label>حداکثر حقوق (ریال):</label>
+                    <label>حداکثر حقوق (دلار):</label>
                     <input value="<?php echo get_post_meta($job_id, 'max-salary', true) ?>" id="job_max_salary" type="number" class="form-control" placeholder="مثال: 20000">
                 </div>
             </div>
