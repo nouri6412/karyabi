@@ -38,7 +38,7 @@
                                             $user_id = get_current_user_id();
                                             $args = array(
                                                 'post_type' => 'request',
-                                                'post_author'  => $user_id,
+                                                'author'  => $user_id,
                                                 'meta_key'        => 'job_id',
                                                 'meta_value'    => get_the_ID()
                                             );
@@ -72,7 +72,7 @@
                                             $user_id = get_current_user_id();
                                             $args = array(
                                                 'post_type' => 'favorite',
-                                                'post_author'  => $user_id,
+                                                'author'  => $user_id,
                                                 'meta_key'        => 'job_id',
                                                 'meta_value'    => get_the_ID()
                                             );

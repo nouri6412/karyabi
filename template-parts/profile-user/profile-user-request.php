@@ -3,7 +3,7 @@ $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $user_id = get_current_user_id();
 $args = array(
     'post_type' => 'request',
-    'author__in'  => [$user_id],
+    'author'  => $user_id,
     'posts_per_page' => 8,
     'paged' => $paged
 );
@@ -11,7 +11,7 @@ $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 ?>
 <div class="job-bx-title clearfix">
-    <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'شغل '; ?></h5>
+    <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'درخواست '; ?></h5>
 </div>
 <ul class="post-job-bx browse-job">
     <?php
