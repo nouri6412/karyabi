@@ -51,6 +51,21 @@ $date = get_query_var('date');
                 </div>
             </div>
         </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">رزومه</div>
+            <div class="panel-body">
+                <?php
+                if (isset($user_meta['resume-file'])&&1==2) {
+                ?>
+                    <iframe style="width: 100%;min-height:400px" src="<?php echo isset($user_meta['resume-file']) ? $user_meta['resume-file'][0] : '#';  ?>"></iframe>
+                <?php } else {
+                ?>
+                    <iframe style="width: 100%;min-height:500px" src="<?php echo home_url('resume?user_id=' . $user_id); ?>"></iframe>
+
+                <?php
+                } ?>
+            </div>
+        </div>
     </div>
     <div class="resume-popup-footer"></div>
 </div>

@@ -163,7 +163,7 @@ $user_meta = get_user_meta($user_id);
         <input class="btn-pdf" type="button" id="create_pdf" value="دریافت رزومه">
     </div>
 
-    <div class="form" style="max-width: none; width: 1005px;margin: auto;">
+    <div class="form" style="max-width: none ;margin: auto;">
         <div class="main">
             <div class="info">
                 <div class="info-avatar">
