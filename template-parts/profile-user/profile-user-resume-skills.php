@@ -10,7 +10,7 @@ if (isset($data->skills)) {
 }
 ?>
 <div class="d-flex">
-    <h5 class="m-b15">مهارت های حرفه ای</h5>
+    <h5 class="m-b15 prefer-title"><i class="fa fa-tasks"></i> مهارت های حرفه ای</h5>
     <?php if($user_meta["profile_user_id"]==0){ ?>
     <a href="javascript:void(0);" data-toggle="modal" data-target="#keyskills" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
     <?php } ?>

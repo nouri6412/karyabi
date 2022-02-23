@@ -4,7 +4,7 @@ $user_meta = get_query_var('user_meta');
 $page_action = get_query_var('page_action');
 ?>
 <div class="sticky-top">
-	<div class="candidate-info company-info candidate-info onepage">
+	<div style=" background-color: #2196f312 !important;" class="candidate-info company-info candidate-info onepage">
 		<div class="candidate-detail text-center">
 			<div class="canditate-des">
 				<a href="javascript:void(0);">
@@ -36,17 +36,17 @@ $page_action = get_query_var('page_action');
 				<?php  }?>
 			<?php if ($page_action == "resume") { ?>
 				<li><a class="scroll-bar nav-link" href="#profile_summary_bx">
-						<span>درباره من</span></a></li>
+						<span><i class="fa fa-info-circle"></i> درباره من</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#key_skills_bx">
-						<span>مهارت های حرفه ای</span></a></li>
+						<span><i class="fa fa-tasks"></i> مهارت های حرفه ای</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#employment_bx">
-						<span>سوابق شغلی</span></a></li>
+						<span><i class="fa fa-history"></i> سوابق شغلی</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#eduction_bx">
-						<span>سوابق تحصیلی</span></a></li>
+						<span><i class="fa fa-graduation-cap"></i> سوابق تحصیلی</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#language_bx">
-						<span>زبان ها</span></a></li>
+						<span><i class="fa fa-language"></i> زبان ها</span></a></li>
 				<li><a class="scroll-bar nav-link" href="#prefer_job_bx">
-						<span>ترجیحات شغلی</span></a></li>
+						<span><i class="fa fa-thumbs-up"></i> ترجیحات شغلی</span></a></li>
 
 			<?php } else { ?>
 				<li><a href="<?php echo home_url('profile?action=resume') ?>">

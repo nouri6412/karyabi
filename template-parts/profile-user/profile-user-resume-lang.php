@@ -16,7 +16,7 @@ if (isset($user_meta["resume-lang"])) {
 
 ?>
 <div class="d-flex">
-    <h5 class="m-b15">زبان ها </h5>
+    <h5 class="m-b15 prefer-title"><i class="fa fa-language"></i> زبان ها </h5>
     <?php if($user_meta["profile_user_id"]==0){ ?>
     <a href="javascript:void(0);" data-toggle="modal" data-target="#language" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
     <?php } ?>
@@ -26,7 +26,6 @@ foreach ($data as $item) {
 ?>
 
     <h6 class="font-14 m-b0"><?php echo $item->title.' : '.$item->degree ?></h6>
-    <hr>
 <?php
 }
 ?>

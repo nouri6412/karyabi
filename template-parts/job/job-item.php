@@ -20,7 +20,7 @@
             <span><?php echo custom_get_salary(get_the_ID()) ?></span>
         </div>
     </div>
-    <label class="like-btn">
+    <!-- <label class="like-btn">
         <input onchange="ajax_submit_mbm_job_request(
             {
                 'action': 'mbm_job_favorite',
@@ -29,6 +29,6 @@
             ,$(this)
             ,$('#favorite-btn')
         )" type="checkbox">
-        <span id="favorite-btn" class="checkmark"></span>
-    </label>
+        <span id="favorite-btn" class=""><i class="fa fa-bookmark"></i></span>
+    </label> -->
 </div>

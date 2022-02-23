@@ -11,32 +11,32 @@ if (isset($user_meta["resume-prefer"])) {
 }
 ?>
 <div class="d-flex">
-    <h5 class="m-b15">ترجیحات شغلی</h5>
+    <h5 class="m-b15 prefer-title"><i class="fa fa-thumbs-up"></i> ترجیحات شغلی</h5>
     <?php if($user_meta["profile_user_id"]==0){ ?>
     <a href="javascript:void(0);" data-toggle="modal" data-target="#prefer_job" class="site-button add-btn button-sm"><i class="fa fa-pencil m-r5"></i> ویرایش</a>
     <?php } ?>
 
 </div>
-<p class="m-b0"><?php echo 'حداقل حقوق درخواستی' . ' : ' ; echo (isset($data->salary)) ? $data->salary : '';  ?></p>
+<p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی' . ' : ' ; echo (isset($data->salary)) ? $data->salary : '';  ?></p>
 <hr>
-<h5 class="m-b15">سطح ارشدیت در زمینه فعالیت</h5>
+<h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
 <p class="m-b0"><?php echo  (isset($data->degree1) && $data->degree1==1) ? 'تازه کار' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->degree2) && $data->degree2==1) ? ' متخصص' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->degree3) && $data->degree3==1) ? ' مدیر' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->degree4) && $data->degree4==1) ? ' مدیر ارشد' : '';  ?></p>
 <hr>
-<h5 class="m-b15">نوع قراردادهای قابل قبول</h5>
+<h5 class="m-b15 prefer-title"><i class="fa fa-file"></i> نوع قراردادهای قابل قبول</h5>
 <p class="m-b0"><?php echo  (isset($data->emp1) && $data->emp1==1) ? 'تمام وقت' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->emp2) && $data->emp2==1) ? ' پاره وقت' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->emp3) && $data->emp3==1) ? ' دورکاری' : '';  ?></p>
 <p class="m-b0"><?php echo  (isset($data->emp4) && $data->emp4==1) ? 'کارآموز' : '';  ?></p>
 <hr>
-<h5 class="m-b15">مزایای شغلی موردنظر</h5>
-<p class="m-b0"><?php echo  (isset($data->adv1) && $data->adv1==1) ? 'امکان ترفیع سمت' : '';  ?></p>
-<p class="m-b0"><?php echo  (isset($data->adv2) && $data->adv2==1) ? ' بیمه' : '';  ?></p>
-<p class="m-b0"><?php echo  (isset($data->adv3) && $data->adv3==1) ? ' دوره های آموزشی' : '';  ?></p>
-<p class="m-b0"><?php echo  (isset($data->adv4) && $data->adv4==1) ? 'سرویس رفت و آمد' : '';  ?></p>
-<p class="m-b0"><?php echo  (isset($data->adv5) && $data->adv5==1) ? 'غذا به عهده شرکت' : '';  ?></p>
+<h5 class="m-b15 prefer-title"><i class="fa fa-tasks"></i> مزایای شغلی موردنظر</h5>
+<p class="m-b0"> <?php echo  (isset($data->adv1) && $data->adv1==1) ? '<i class="fa fa-user"></i>'.' '.'امکان ترفیع سمت' : '';  ?></p>
+<p class="m-b0"><?php echo  (isset($data->adv2) && $data->adv2==1) ? '<i class="fa fa-medkit"></i>'.' '.' بیمه' : '';  ?></p>
+<p class="m-b0"><?php echo  (isset($data->adv3) && $data->adv3==1) ? '<i class="fa fa-graduation-cap"></i>'.' '.' دوره های آموزشی' : '';  ?></p>
+<p class="m-b0"><?php echo  (isset($data->adv4) && $data->adv4==1) ? '<i class="fa fa-train"></i>'.' '.'سرویس رفت و آمد' : '';  ?></p>
+<p class="m-b0"><?php echo  (isset($data->adv5) && $data->adv5==1) ? '<i class="fa fa-cutlery"></i>'.' '.'غذا به عهده شرکت' : '';  ?></p>
 
 <!-- Modal -->
 <div class="modal fade modal-bx-info editor" id="prefer_job" tabindex="-1" role="dialog" aria-labelledby="ProfilesummaryModalLongTitle" aria-hidden="true">
@@ -131,7 +131,7 @@ if (isset($user_meta["resume-prefer"])) {
                                 <div class="form-check">
                                     <input <?php echo (isset($data->adv2) && $data->adv2 == 1) ? 'checked="checked"' : '';  ?> ckecked="ckecked" class="form-check-input" type="checkbox" id="prefer_adv2">
                                     <label class="form-check-label" for="emp2">
-                                        بیمه
+                                       بیمه
                                     </label>
                                 </div>
                                 <div class="form-check">

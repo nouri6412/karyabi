@@ -2,7 +2,7 @@
 <?php
 $user_meta = get_query_var('user_meta');
 ?>
-<h5 class="m-b10">آپلود رزومه</h5>
+<h5 class="m-b10 prefer-title"><i class="fa fa-file"></i> آپلود رزومه</h5>
 <p>رزومه مهمترین مدرکی است که استخدام کنندگان به دنبال آن هستند. استخدام کنندگان به طور کلی به پروفایل های های بدون رزومه نگاه نمی کنند.</p>
 <div class="row">
     <div class="col-lg-12 col-md-12">

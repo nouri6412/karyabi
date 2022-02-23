@@ -23,11 +23,17 @@ Author: جلیل نوری
         url('assets/fonts/vazir/ttf/Vazir-Bold.ttf') format('truetype');
     font-weight: bold;
 }
-
+.prefer-title{
+    color: #2196f3;
+}
 .box-loading {
     position: relative;
     height: 32px;
     width: 100%;
+}
+
+.job-bx {
+    background-color: #2196f312 !important;
 }
 
 .loading-ajax {
@@ -294,4 +300,9 @@ background-color: #fff;
 
     .custom-file{
 height: 80px;
+    }
+
+
+    .is-fixed .main-bar,.main-bar{
+        background: #eef1ff;
     }
