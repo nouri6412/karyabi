@@ -17,7 +17,7 @@ if (isset($user_meta["resume-prefer"])) {
     <?php } ?>
 
 </div>
-<p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی' . ' : ' ; echo (isset($data->salary)) ? $data->salary : '';  ?></p>
+<p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار' . ' : ' ; echo (isset($data->salary)) ? $data->salary : '';  ?></p>
 <hr>
 <h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
 <p class="m-b0"><?php echo  (isset($data->degree1) && $data->degree1==1) ? 'تازه کار' : '';  ?></p>
@@ -52,7 +52,7 @@ if (isset($user_meta["resume-prefer"])) {
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
                         <div class="form-group">
-                            <label>حداقل حقوق درخواستی</label>
+                            <label>حداقل حقوق درخواستی به دلار</label>
                             <input value="<?php echo isset($data->salary) ? $data->salary : '';  ?>" id="prefer_salary" class="form-control" placeholder="">
                         </div>
                     </div>

@@ -86,7 +86,7 @@
                                             <?php
                                             if ($count == 0 && $user_id > 0) {
                                             ?>
-                                                <div id="favorite-result" style="display: none;" class="dzFormMsg error">شغل ذخیده شد</div>
+                                                <div id="favorite-result" style="display: none;" class="dzFormMsg error">شغل ذخیره شد</div>
                                                 <button onclick="ajax_submit_mbm_job_request(
             {
                 'action': 'mbm_job_favorite',

@@ -33,7 +33,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label> سال تولد</label>
-                <input value="<?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?>" id="user-date-year" type="number" class="form-control" placeholder="1368">
+                <input value="<?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?>" id="user-date-year" type="number" class="form-control" placeholder="1995">
             </div>
         </div>
 

@@ -56,8 +56,12 @@ class Common_Manage_File
 
         $user_id = get_current_user_id();
         $result = $this->save_file();
+        $result["filename"]="";
         if ($result["url"]) {
             update_user_meta($user_id, 'resume-file', $result["url"]);
+            $ex=explode('/',$result["url"]);
+            $file_name=$ex[count($ex)-1];
+            $result["filename"]=$file_name;
         }
         echo json_encode($result);
         die();

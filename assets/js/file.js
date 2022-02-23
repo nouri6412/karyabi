@@ -41,6 +41,8 @@ function ajax_mbm_upload_file(element,path='')
             console.log(response.url);
             $('#'+path).css('display','block');
             $('#'+path).attr('href',response.url);
+            $('#'+path).html(response.filename);
+
             element.val('');          
         }
     });

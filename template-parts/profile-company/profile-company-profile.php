@@ -125,7 +125,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>کشور</label>
-                <input id="company-country" value="<?php echo isset($user_meta['country']) ? $user_meta['country'][0] : '';  ?>" type="text" class="form-control" placeholder="India">
+                <input id="company-country" value="<?php echo isset($user_meta['country']) ? $user_meta['country'][0] : '';  ?>" type="text" class="form-control" placeholder="">
             </div>
         </div>
         <div class="col-lg-6 col-md-6">
@@ -134,13 +134,13 @@ $user_meta = get_query_var('user_meta');
                 <input id="company-city" value="<?php echo isset($user_meta['city']) ? $user_meta['city'][0] : '';  ?>" type="text" class="form-control" placeholder="تبریز">
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div style="display: none;" class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>کد پستی</label>
                 <input id="company-pcode" value="<?php echo isset($user_meta['pcode']) ? $user_meta['pcode'][0] : '';  ?>" type="text" class="form-control" placeholder="504030">
             </div>
         </div>
-        <div class="col-lg-6 col-md-6">
+        <div class="col-lg-12 col-md-12">
             <div class="form-group">
                 <label>آدرس</label>
                 <input id="company-address" value="<?php echo isset($user_meta['address']) ? $user_meta['address'][0] : '';  ?>" type="text" class="form-control" placeholder="آدرس ...">

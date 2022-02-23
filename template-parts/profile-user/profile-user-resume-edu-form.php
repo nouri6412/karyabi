@@ -14,7 +14,7 @@ $date_to = isset($form_data->date_to) ? $form_data->date_to : 0;
         <div class="col-lg-4 col-md-4">
             <div class="form-group">
                 <label>رشته</label>
-                <input value="<?php echo isset($form_data->major) ? $form_data->major : '';  ?>" data-id="major" class="form-control" placeholder="نام شرکت خود را وارد کنید">
+                <input value="<?php echo isset($form_data->major) ? $form_data->major : '';  ?>" data-id="major" class="form-control" placeholder="عنوان رشته خود را وارد نمائید">
             </div>
         </div>
         <div class="col-lg-4 col-md-4">

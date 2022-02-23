@@ -27,6 +27,8 @@ $user_meta = get_user_meta($user_id);
 
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
+    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/fontawesome/css/font-awesome.min.css">
+
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery-3.6.0.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jspdf.min.js"></script>
     <style>
@@ -145,6 +147,14 @@ $user_meta = get_user_meta($user_id);
             background-color: #24d947;
             color: #fff;
         }
+        .info-link{
+            text-align: center;
+    padding-top: 24px;
+        }
+        .info-link a{
+            color: #eb6161;
+    text-decoration: none;
+        }
     </style>
 </head>
 
@@ -158,7 +168,11 @@ $user_meta = get_user_meta($user_id);
             <div class="info">
                 <div class="info-avatar">
                     <?php
-                    $avatar = get_field('header', 'option')["logo"];
+               $avatar=get_template_directory_uri()."/assets/img/male.jpg";
+                    if(isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale")
+                    {
+                        $avatar=get_template_directory_uri()."/assets/img/female.jpg";
+                    }
                     if (isset($user_meta['avatar'])) {
                         $avatar = $user_meta['avatar'][0];
                     }
@@ -167,21 +181,21 @@ $user_meta = get_user_meta($user_id);
                     <h3><?php echo isset($user_meta['user_name']) ? $user_meta['user_name'][0] : '';  ?></h3>
                 </div>
                 <div class="info-profile">
-                    <h5>اطلاعات شخصی</h5>
+                    <h5><i class="fa fa-info-circle"></i> اطلاعات شخصی</h5>
                     <div class="label">
-                        <span class="title">تخصص :</span><span class="value"><?php echo isset($user_meta['user_exp']) ? $user_meta['user_exp'][0] : '';  ?></span>
+                        <span class="title"><i class="fa fa-tasks"></i> تخصص :</span><span class="value"><?php echo isset($user_meta['user_exp']) ? $user_meta['user_exp'][0] : '';  ?></span>
                     </div>
                     <div class="label">
-                        <span class="title">آدرس ایمیل :</span><span class="value"><?php echo isset($user_meta['user_e_email']) ? $user_meta['user_e_email'][0] : '';  ?></span>
+                        <span class="title"><i class="fa fa-envelope"></i> آدرس ایمیل :</span><span class="value"><?php echo isset($user_meta['user_e_email']) ? $user_meta['user_e_email'][0] : '';  ?></span>
                     </div>
                     <div class="label">
-                        <span class="title">شماره موبایل :</span><span class="value"><?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?></span>
+                        <span class="title"><i class="fa fa-phone"></i> شماره موبایل :</span><span class="value"><?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?></span>
                     </div>
                     <div class="label">
-                        <span class="title">سال تولد :</span><span class="value"><?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?></span>
+                        <span class="title"><i class="fa fa-calendar"></i> سال تولد :</span><span class="value"><?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?></span>
                     </div>
                     <div class="label">
-                        <span class="title">جنسیت :</span><span class="value"><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "male") ? 'مرد' : '';  ?><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale") ? 'زن' : '';  ?></span>
+                        <span class="title"><i class="fa fa-user"></i> جنسیت :</span><span class="value"><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "male") ? 'مرد' : '';  ?><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale") ? 'زن' : '';  ?></span>
                     </div>
                     <div class="label">
                         <?php
@@ -197,7 +211,7 @@ $user_meta = get_user_meta($user_id);
                             }
                         }
                         ?>
-                        <span class="title">استان :</span><span class="value"><?php echo $state;  ?></span>
+                        <span class="title"><i class="fa fa-map-marker"></i> استان :</span><span class="value"><?php echo $state;  ?></span>
                     </div>
                     <div class="label">
                         <?php
@@ -211,12 +225,15 @@ $user_meta = get_user_meta($user_id);
                             }
                         }
                         ?>
-                        <span class="title">شهر :</span><span class="value"><?php echo $city;  ?></span>
+                        <span class="title"><i class="fa fa-map-marker"></i> شهر :</span><span class="value"><?php echo $city;  ?></span>
                     </div>
+                </div>
+                <div class="info-link">
+                    <a target="_Blank" href="https://karyabee.ca/">www.karyabee.ca</a>
                 </div>
             </div>
             <div class="exp">
-                <h4>درباره من</h4>
+                <h4><i class="fa fa-info-circle"></i> درباره من</h4>
                 <div class="detail">
                     <?php
                     $data = [];
@@ -227,7 +244,7 @@ $user_meta = get_user_meta($user_id);
                     ?>
                     <?php echo isset($data->about) ? $data->about : '';  ?>
                 </div>
-                <h4>سوابق شغلی</h4>
+                <h4><i class="fa fa-history"></i> سوابق شغلی</h4>
                 <div class="detail">
                     <?php
                     $data = [];
@@ -254,7 +271,7 @@ $user_meta = get_user_meta($user_id);
                     <?php
                     }  ?>
                 </div>
-                <h4>مهارت ها</h4>
+                <h4><i class="fa fa-tasks"></i> مهارت ها</h4>
                 <div class="detail">
                     <?php
                     $data = [];
@@ -277,7 +294,7 @@ $user_meta = get_user_meta($user_id);
                         ?>
                     </ul>
                 </div>
-                <h4>سوابق تحصیلی</h4>
+                <h4><i class="fa fa-graduation-cap"></i> سوابق تحصیلی</h4>
                 <div class="detail">
                     <?php
                     $data = [];
@@ -302,7 +319,7 @@ $user_meta = get_user_meta($user_id);
                     <?php
                     }  ?>
                 </div>
-                <h4>زبان های مسلط</h4>
+                <h4><i class="fa fa-language"></i> زبان های مسلط</h4>
                 <div class="detail">
                     <?php
                     $data = [];
@@ -327,6 +344,42 @@ $user_meta = get_user_meta($user_id);
                         }
                         ?>
                     </ul>
+                </div>
+
+                <h4><i class="fa fa-language"></i> ترجیحات شغلی</h4>
+                <div class="detail">
+                    <?php
+                    class prefer_object_1
+                    {
+                    }
+                    $data = new prefer_object_1;
+                    $data->salary = "";
+                    if (isset($user_meta["resume-prefer"])) {
+                        $data = json_decode($user_meta["resume-prefer"][0]);
+                    }
+                    ?>
+                    <p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار' . ' : ';
+                                                                echo (isset($data->salary)) ? $data->salary : '';  ?></p>
+                    <hr>
+                    <h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
+                    <p class="m-b0"><?php echo (isset($data->degree1) && $data->degree1 == 1) ? 'تازه کار' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->degree2) && $data->degree2 == 1) ? ' متخصص' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->degree3) && $data->degree3 == 1) ? ' مدیر' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->degree4) && $data->degree4 == 1) ? ' مدیر ارشد' : '';  ?></p>
+                    <hr>
+                    <h5 class="m-b15 prefer-title"><i class="fa fa-file"></i> نوع قراردادهای قابل قبول</h5>
+                    <p class="m-b0"><?php echo (isset($data->emp1) && $data->emp1 == 1) ? 'تمام وقت' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->emp2) && $data->emp2 == 1) ? ' پاره وقت' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->emp3) && $data->emp3 == 1) ? ' دورکاری' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->emp4) && $data->emp4 == 1) ? 'کارآموز' : '';  ?></p>
+                    <hr>
+                    <h5 class="m-b15 prefer-title"><i class="fa fa-tasks"></i> مزایای شغلی موردنظر</h5>
+                    <p class="m-b0"> <?php echo (isset($data->adv1) && $data->adv1 == 1) ? '<i class="fa fa-user"></i>' . ' ' . 'امکان ترفیع سمت' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->adv2) && $data->adv2 == 1) ? '<i class="fa fa-medkit"></i>' . ' ' . ' بیمه' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->adv3) && $data->adv3 == 1) ? '<i class="fa fa-graduation-cap"></i>' . ' ' . ' دوره های آموزشی' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->adv4) && $data->adv4 == 1) ? '<i class="fa fa-train"></i>' . ' ' . 'سرویس رفت و آمد' : '';  ?></p>
+                    <p class="m-b0"><?php echo (isset($data->adv5) && $data->adv5 == 1) ? '<i class="fa fa-cutlery"></i>' . ' ' . 'غذا به عهده شرکت' : '';  ?></p>
+
                 </div>
             </div>
         </div>

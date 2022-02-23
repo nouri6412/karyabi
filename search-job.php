@@ -39,11 +39,20 @@ if (isset($_GET["cat_id"])) {
 }
 
 if (strlen($search_word) > 0) {
-    $search[] =           array(
+    $search_title=[];
+    $search_title["relation"] = "OR";
+    $search_title[] =           array(
         'key' => 'title',
         'value' => $search_word,
         'compare' => 'LIKE'
     );
+    $search_title[] =           array(
+        'key' => 'tag',
+        'value' => $search_word,
+        'compare' => 'LIKE'
+    );
+
+    $search[]=$search_title;
 }
 
 if ($state_id > 0) {
@@ -137,7 +146,7 @@ $count = $the_query->post_count;
                                 </li>
                             <?php
                             endwhile;
-                       
+
                             ?>
                         </ul>
                         <div class="pagination">
@@ -159,7 +168,7 @@ $count = $the_query->post_count;
                             ));
                             ?>
                         </div>
-                        <?php      wp_reset_query(); ?>
+                        <?php wp_reset_query(); ?>
                     </div>
                     <div class="col-xl-3 col-lg-4 col-md-5">
                         <?php

@@ -306,3 +306,13 @@ height: 80px;
     .is-fixed .main-bar,.main-bar{
         background: #eef1ff;
     }
+
+    .extra-nav .site-button{
+        margin-right: 0;
+        font-size: 12px;
+        padding: 7px 8px;
+    }
+
+    .extra-nav .site-button .fa{
+        margin-left: 3px;
+    }
