@@ -16555,7 +16555,7 @@ var JobBoard = (function () {
               jQuery(this).fadeIn('slow')
             })
           })
-        }),
+        }), 
         e < 991)
       ) {
         if (0 == $('.mo-left .header-nav').children('div').length) {
@@ -16565,11 +16565,11 @@ var JobBoard = (function () {
           jQuery('.mo-left .header-nav').prepend(t),
             jQuery('.mo-left .header-nav .logo-header > a > img').attr(
               'src',
-              'images/logo.png'
+              custom_theme_mbm_object.sitelogo
             ),
             jQuery('.mo-left.lw .header-nav .logo-header > a > img').attr(
               'src',
-              'images/logo-white.png'
+              custom_theme_mbm_object.sitelogo
             )
         }
       } else

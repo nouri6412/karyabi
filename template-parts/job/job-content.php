@@ -67,6 +67,8 @@
                                             <?php } else if ($user_id > 0) { ?>
                                                 <div id="request-result" class="dzFormMsg error">رزومه قبلا ارسال شده است</div>
 
+                                            <?php } else if ($user_id == 0) { ?>
+                                                <a class="site-button request-btn" href="<?php echo site_url("register"); ?>">درخواست و ارسال رزومه</a>
                                             <?php } ?>
                                         </li>
                                         <li>

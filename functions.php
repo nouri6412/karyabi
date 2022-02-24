@@ -179,6 +179,7 @@ function karyabi_theme_scripts()
         'ajaxurl' => admin_url('admin-ajax.php'),
         'security' => wp_create_nonce('file_upload'),
         'siteurl' => site_url(),
+        'sitelogo' => get_field('header', 'option')["logo"],
         'loginurl' => site_url() . '?login=user',
         'current_page' => get_query_var('paged') ? get_query_var('paged') : 1,
         'max_page' => $wp_query->max_num_pages

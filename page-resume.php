@@ -28,7 +28,7 @@ $user_meta = get_user_meta($user_id);
 <head>
     <meta charset="<?php bloginfo('charset'); ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/plugins/fontawesome/css/font-awesome.min.css">
-
+    <meta name="viewport" content="width=device-width, maximum-scale=1">
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery-3.6.0.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jspdf.min.js"></script>
     <style>
@@ -74,9 +74,11 @@ $user_meta = get_user_meta($user_id);
             min-height: 200px;
             background-color: #cde9ff;
             width: 30%;
-            padding: 20px;
+           
         }
-
+.panel-padding{
+    padding: 20px;
+}
         .main .info .info-avatar {
             margin: auto;
         }
@@ -117,7 +119,7 @@ $user_meta = get_user_meta($user_id);
             min-height: 200px;
             background-color: #fff;
             width: 70%;
-            padding: 20px;
+           
             font-size: 14px;
         }
 
@@ -147,13 +149,29 @@ $user_meta = get_user_meta($user_id);
             background-color: #24d947;
             color: #fff;
         }
-        .info-link{
+
+        .info-link {
             text-align: center;
-    padding-top: 24px;
+            padding-top: 24px;
         }
-        .info-link a{
+
+        .info-link a {
             color: #eb6161;
-    text-decoration: none;
+            text-decoration: none;
+        }
+
+        @media screen and (max-width:768px) {
+            .main {
+                display: block;
+            }
+
+            .main .info {
+                width: 100%;
+            }
+
+            .main .exp {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -163,223 +181,226 @@ $user_meta = get_user_meta($user_id);
         <input class="btn-pdf" type="button" id="create_pdf" value="دریافت رزومه">
     </div>
 
-    <div class="form" style="max-width: none ;margin: auto;">
+    <div class="form" style="width: 80%;max-width: none ;margin: auto;">
         <div class="main">
             <div class="info">
-                <div class="info-avatar">
-                    <?php
-               $avatar=get_template_directory_uri()."/assets/img/male.jpg";
-                    if(isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale")
-                    {
-                        $avatar=get_template_directory_uri()."/assets/img/female.jpg";
-                    }
-                    if (isset($user_meta['avatar'])) {
-                        $avatar = $user_meta['avatar'][0];
-                    }
-                    ?>
-                    <img src="<?php echo $avatar; ?>">
-                    <h3><?php echo isset($user_meta['user_name']) ? $user_meta['user_name'][0] : '';  ?></h3>
-                </div>
-                <div class="info-profile">
-                    <h5><i class="fa fa-info-circle"></i> اطلاعات شخصی</h5>
-                    <div class="label">
-                        <span class="title"><i class="fa fa-tasks"></i> تخصص :</span><span class="value"><?php echo isset($user_meta['user_exp']) ? $user_meta['user_exp'][0] : '';  ?></span>
-                    </div>
-                    <div class="label">
-                        <span class="title"><i class="fa fa-envelope"></i> آدرس ایمیل :</span><span class="value"><?php echo isset($user_meta['user_e_email']) ? $user_meta['user_e_email'][0] : '';  ?></span>
-                    </div>
-                    <div class="label">
-                        <span class="title"><i class="fa fa-phone"></i> شماره موبایل :</span><span class="value"><?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?></span>
-                    </div>
-                    <div class="label">
-                        <span class="title"><i class="fa fa-calendar"></i> سال تولد :</span><span class="value"><?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?></span>
-                    </div>
-                    <div class="label">
-                        <span class="title"><i class="fa fa-user"></i> جنسیت :</span><span class="value"><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "male") ? 'مرد' : '';  ?><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale") ? 'زن' : '';  ?></span>
-                    </div>
-                    <div class="label">
+                <div class="panel-padding">
+                    <div class="info-avatar">
                         <?php
-                        $Common_State_City = new Common_State_City;
+                        $avatar = get_template_directory_uri() . "/assets/img/male.jpg";
+                        if (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale") {
+                            $avatar = get_template_directory_uri() . "/assets/img/female.jpg";
+                        }
+                        if (isset($user_meta['avatar'])) {
+                            $avatar = $user_meta['avatar'][0];
+                        }
+                        ?>
+                        <img src="<?php echo $avatar; ?>">
+                        <h3><?php echo isset($user_meta['user_name']) ? $user_meta['user_name'][0] : '';  ?></h3>
+                    </div>
+                    <div class="info-profile">
+                        <h5><i class="fa fa-info-circle"></i> اطلاعات شخصی</h5>
+                        <div class="label">
+                            <span class="title"><i class="fa fa-tasks"></i> تخصص :</span><span class="value"><?php echo isset($user_meta['user_exp']) ? $user_meta['user_exp'][0] : '';  ?></span>
+                        </div>
+                        <div class="label">
+                            <span class="title"><i class="fa fa-envelope"></i> آدرس ایمیل :</span><span class="value"><?php echo isset($user_meta['user_e_email']) ? $user_meta['user_e_email'][0] : '';  ?></span>
+                        </div>
+                        <div class="label">
+                            <span class="title"><i class="fa fa-phone"></i> شماره موبایل :</span><span class="value"><?php echo isset($user_meta['tel']) ? $user_meta['tel'][0] : '';  ?></span>
+                        </div>
+                        <div class="label">
+                            <span class="title"><i class="fa fa-calendar"></i> سال تولد :</span><span class="value"><?php echo isset($user_meta['user_date_year']) ? $user_meta['user_date_year'][0] : '';  ?></span>
+                        </div>
+                        <div class="label">
+                            <span class="title"><i class="fa fa-user"></i> جنسیت :</span><span class="value"><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "male") ? 'مرد' : '';  ?><?php echo (isset($user_meta['user-sex']) && $user_meta['user-sex'][0] == "fmale") ? 'زن' : '';  ?></span>
+                        </div>
+                        <div class="label">
+                            <?php
+                            $Common_State_City = new Common_State_City;
 
-                        $states = $Common_State_City->get_state_list();
-                        $state_id = isset($user_meta['state_id']) ? $user_meta['state_id'][0] : 0;
-                        $state = "";
-                        foreach ($states as $item) {
-                            $selected = "";
-                            if ($state_id == $item["id"]) {
-                                $state = $item["title"];
+                            $states = $Common_State_City->get_state_list();
+                            $state_id = isset($user_meta['state_id']) ? $user_meta['state_id'][0] : 0;
+                            $state = "";
+                            foreach ($states as $item) {
+                                $selected = "";
+                                if ($state_id == $item["id"]) {
+                                    $state = $item["title"];
+                                }
                             }
-                        }
-                        ?>
-                        <span class="title"><i class="fa fa-map-marker"></i> استان :</span><span class="value"><?php echo $state;  ?></span>
-                    </div>
-                    <div class="label">
-                        <?php
-                        $citis = $Common_State_City->get_city_list($state_id);
-                        $city_id = isset($user_meta['city_id']) ? $user_meta['city_id'][0] : 0;
-                        $city = "";
-                        foreach ($citis as $item) {
-                            $selected = "";
-                            if ($city_id == $item["id"]) {
-                                $city = $item["title"];
+                            ?>
+                            <span class="title"><i class="fa fa-map-marker"></i> استان :</span><span class="value"><?php echo $state;  ?></span>
+                        </div>
+                        <div class="label">
+                            <?php
+                            $citis = $Common_State_City->get_city_list($state_id);
+                            $city_id = isset($user_meta['city_id']) ? $user_meta['city_id'][0] : 0;
+                            $city = "";
+                            foreach ($citis as $item) {
+                                $selected = "";
+                                if ($city_id == $item["id"]) {
+                                    $city = $item["title"];
+                                }
                             }
-                        }
-                        ?>
-                        <span class="title"><i class="fa fa-map-marker"></i> شهر :</span><span class="value"><?php echo $city;  ?></span>
+                            ?>
+                            <span class="title"><i class="fa fa-map-marker"></i> شهر :</span><span class="value"><?php echo $city;  ?></span>
+                        </div>
                     </div>
-                </div>
-                <div class="info-link">
-                    <a target="_Blank" href="https://karyabee.ca/">www.karyabee.ca</a>
+                    <div class="info-link">
+                        <a target="_Blank" href="https://karyabee.ca/">www.karyabee.ca</a>
+                    </div>
                 </div>
             </div>
             <div class="exp">
-                <h4><i class="fa fa-info-circle"></i> درباره من</h4>
-                <div class="detail">
-                    <?php
-                    $data = [];
-                    $data["about"] = "خالی است";
-                    if (isset($user_meta["resume-about"])) {
-                        $data = json_decode($user_meta["resume-about"][0]);
-                    }
-                    ?>
-                    <?php echo isset($data->about) ? $data->about : '';  ?>
-                </div>
-                <h4><i class="fa fa-history"></i> سوابق شغلی</h4>
-                <div class="detail">
-                    <?php
-                    $data = [];
-                    if (isset($user_meta["resume-exp"])) {
-                        $data_1 = json_decode($user_meta["resume-exp"][0]);
-
-                        if (!is_array($data_1->exp)) {
-                            $data = json_decode($data_1->exp);
-                        }
-
-                        if (!$data) {
-                            $data = $data_1->exp;
-                        }
-                    }
-                    ?>
-                    <?php foreach ($data as $item) {
-                    ?>
-
-                        <p class="company-title m-b0"><?php echo $item->company ?></p>
-                        <p class="m-b0"><?php echo $item->title ?></p>
-                        <p class="m-b0"><?php echo 'تجربه کاری از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
-                        <p class="m-b0"><?php echo $item->desc ?></p>
-
-                    <?php
-                    }  ?>
-                </div>
-                <h4><i class="fa fa-tasks"></i> مهارت ها</h4>
-                <div class="detail">
-                    <?php
-                    $data = [];
-                    if (isset($user_meta["resume-skills"])) {
-                        $data = json_decode($user_meta["resume-skills"][0]);
-                    }
-                    $skills = [];
-                    if (isset($data->skills)) {
-                        $skills = explode(',', $data->skills);
-                    }
-                    ?>
-                    <ul>
+                <div class="panel-padding">
+                    <h4><i class="fa fa-info-circle"></i> درباره من</h4>
+                    <div class="detail">
                         <?php
-                        foreach ($skills as $item) {
-                        ?>
-                            <li><?php echo $item; ?></li>
-
-                        <?php
+                        $data = [];
+                        $data["about"] = "خالی است";
+                        if (isset($user_meta["resume-about"])) {
+                            $data = json_decode($user_meta["resume-about"][0]);
                         }
                         ?>
-                    </ul>
-                </div>
-                <h4><i class="fa fa-graduation-cap"></i> سوابق تحصیلی</h4>
-                <div class="detail">
-                    <?php
-                    $data = [];
-                    if (isset($user_meta["resume-edu"])) {
-                        $data_1 = json_decode($user_meta["resume-edu"][0]);
-
-                        if (!is_array($data_1->exp)) {
-                            $data = json_decode($data_1->exp);
-                        }
-                        if (!$data) {
-                            $data = $data_1->exp;
-                        }
-                    }
-                    ?>
-                    <?php foreach ($data as $item) {
-                    ?>
-                        <p class="company-title m-b0"><?php echo 'دانشگاه' . ' : ' . $item->uni ?></p>
-                        <p class="m-b0"><?php echo 'رشته' . ' : ' . $item->major ?></p>
-                        <p class="m-b0"><?php echo 'مقطع' . ' : ' . $item->grade ?></p>
-                        <p class="m-b0"><?php echo '  از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
-
-                    <?php
-                    }  ?>
-                </div>
-                <h4><i class="fa fa-language"></i> زبان های مسلط</h4>
-                <div class="detail">
-                    <?php
-                    $data = [];
-                    if (isset($user_meta["resume-lang"])) {
-                        $data_1 = json_decode($user_meta["resume-lang"][0]);
-
-                        if (!is_array($data_1->exp)) {
-                            $data = json_decode($data_1->exp);
-                        }
-                        if (!$data) {
-                            $data = $data_1->exp;
-                        }
-                    }
-                    ?>
-                    <ul>
+                        <?php echo isset($data->about) ? $data->about : '';  ?>
+                    </div>
+                    <h4><i class="fa fa-history"></i> سوابق شغلی</h4>
+                    <div class="detail">
                         <?php
-                        foreach ($data as $item) {
-                        ?>
-                            <li><?php echo $item->title . ' : ' . $item->degree ?></li>
+                        $data = [];
+                        if (isset($user_meta["resume-exp"])) {
+                            $data_1 = json_decode($user_meta["resume-exp"][0]);
 
-                        <?php
+                            if (!is_array($data_1->exp)) {
+                                $data = json_decode($data_1->exp);
+                            }
+
+                            if (!$data) {
+                                $data = $data_1->exp;
+                            }
                         }
                         ?>
-                    </ul>
-                </div>
+                        <?php foreach ($data as $item) {
+                        ?>
 
-                <h4><i class="fa fa-language"></i> ترجیحات شغلی</h4>
-                <div class="detail">
-                    <?php
-                    class prefer_object_1
-                    {
-                    }
-                    $data = new prefer_object_1;
-                    $data->salary = "";
-                    if (isset($user_meta["resume-prefer"])) {
-                        $data = json_decode($user_meta["resume-prefer"][0]);
-                    }
-                    ?>
-                    <p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار' . ' : ';
-                                                                echo (isset($data->salary)) ? $data->salary : '';  ?></p>
-                    <hr>
-                    <h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
-                    <p class="m-b0"><?php echo (isset($data->degree1) && $data->degree1 == 1) ? 'تازه کار' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->degree2) && $data->degree2 == 1) ? ' متخصص' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->degree3) && $data->degree3 == 1) ? ' مدیر' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->degree4) && $data->degree4 == 1) ? ' مدیر ارشد' : '';  ?></p>
-                    <hr>
-                    <h5 class="m-b15 prefer-title"><i class="fa fa-file"></i> نوع قراردادهای قابل قبول</h5>
-                    <p class="m-b0"><?php echo (isset($data->emp1) && $data->emp1 == 1) ? 'تمام وقت' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->emp2) && $data->emp2 == 1) ? ' پاره وقت' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->emp3) && $data->emp3 == 1) ? ' دورکاری' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->emp4) && $data->emp4 == 1) ? 'کارآموز' : '';  ?></p>
-                    <hr>
-                    <h5 class="m-b15 prefer-title"><i class="fa fa-tasks"></i> مزایای شغلی موردنظر</h5>
-                    <p class="m-b0"> <?php echo (isset($data->adv1) && $data->adv1 == 1) ? '<i class="fa fa-user"></i>' . ' ' . 'امکان ترفیع سمت' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->adv2) && $data->adv2 == 1) ? '<i class="fa fa-medkit"></i>' . ' ' . ' بیمه' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->adv3) && $data->adv3 == 1) ? '<i class="fa fa-graduation-cap"></i>' . ' ' . ' دوره های آموزشی' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->adv4) && $data->adv4 == 1) ? '<i class="fa fa-train"></i>' . ' ' . 'سرویس رفت و آمد' : '';  ?></p>
-                    <p class="m-b0"><?php echo (isset($data->adv5) && $data->adv5 == 1) ? '<i class="fa fa-cutlery"></i>' . ' ' . 'غذا به عهده شرکت' : '';  ?></p>
+                            <p class="company-title m-b0"><?php echo $item->company ?></p>
+                            <p class="m-b0"><?php echo $item->title ?></p>
+                            <p class="m-b0"><?php echo 'تجربه کاری از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
+                            <p class="m-b0"><?php echo $item->desc ?></p>
 
+                        <?php
+                        }  ?>
+                    </div>
+                    <h4><i class="fa fa-tasks"></i> مهارت ها</h4>
+                    <div class="detail">
+                        <?php
+                        $data = [];
+                        if (isset($user_meta["resume-skills"])) {
+                            $data = json_decode($user_meta["resume-skills"][0]);
+                        }
+                        $skills = [];
+                        if (isset($data->skills)) {
+                            $skills = explode(',', $data->skills);
+                        }
+                        ?>
+                        <ul>
+                            <?php
+                            foreach ($skills as $item) {
+                            ?>
+                                <li><?php echo $item; ?></li>
+
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+                    <h4><i class="fa fa-graduation-cap"></i> سوابق تحصیلی</h4>
+                    <div class="detail">
+                        <?php
+                        $data = [];
+                        if (isset($user_meta["resume-edu"])) {
+                            $data_1 = json_decode($user_meta["resume-edu"][0]);
+
+                            if (!is_array($data_1->exp)) {
+                                $data = json_decode($data_1->exp);
+                            }
+                            if (!$data) {
+                                $data = $data_1->exp;
+                            }
+                        }
+                        ?>
+                        <?php foreach ($data as $item) {
+                        ?>
+                            <p class="company-title m-b0"><?php echo 'دانشگاه' . ' : ' . $item->uni ?></p>
+                            <p class="m-b0"><?php echo 'رشته' . ' : ' . $item->major ?></p>
+                            <p class="m-b0"><?php echo 'مقطع' . ' : ' . $item->grade ?></p>
+                            <p class="m-b0"><?php echo '  از سال' . ' ' . $item->date_from . " " . " تا سال" . " " . $item->date_to; ?></p>
+
+                        <?php
+                        }  ?>
+                    </div>
+                    <h4><i class="fa fa-language"></i> زبان های مسلط</h4>
+                    <div class="detail">
+                        <?php
+                        $data = [];
+                        if (isset($user_meta["resume-lang"])) {
+                            $data_1 = json_decode($user_meta["resume-lang"][0]);
+
+                            if (!is_array($data_1->exp)) {
+                                $data = json_decode($data_1->exp);
+                            }
+                            if (!$data) {
+                                $data = $data_1->exp;
+                            }
+                        }
+                        ?>
+                        <ul>
+                            <?php
+                            foreach ($data as $item) {
+                            ?>
+                                <li><?php echo $item->title . ' : ' . $item->degree ?></li>
+
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </div>
+
+                    <h4><i class="fa fa-language"></i> ترجیحات شغلی</h4>
+                    <div class="detail">
+                        <?php
+                        class prefer_object_1
+                        {
+                        }
+                        $data = new prefer_object_1;
+                        $data->salary = "";
+                        if (isset($user_meta["resume-prefer"])) {
+                            $data = json_decode($user_meta["resume-prefer"][0]);
+                        }
+                        ?>
+                        <p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار' . ' : ';
+                                                                    echo (isset($data->salary)) ? $data->salary : '';  ?></p>
+                        <hr>
+                        <h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
+                        <p class="m-b0"><?php echo (isset($data->degree1) && $data->degree1 == 1) ? 'تازه کار' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->degree2) && $data->degree2 == 1) ? ' متخصص' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->degree3) && $data->degree3 == 1) ? ' مدیر' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->degree4) && $data->degree4 == 1) ? ' مدیر ارشد' : '';  ?></p>
+                        <hr>
+                        <h5 class="m-b15 prefer-title"><i class="fa fa-file"></i> نوع قراردادهای قابل قبول</h5>
+                        <p class="m-b0"><?php echo (isset($data->emp1) && $data->emp1 == 1) ? 'تمام وقت' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->emp2) && $data->emp2 == 1) ? ' پاره وقت' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->emp3) && $data->emp3 == 1) ? ' دورکاری' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->emp4) && $data->emp4 == 1) ? 'کارآموز' : '';  ?></p>
+                        <hr>
+                        <h5 class="m-b15 prefer-title"><i class="fa fa-tasks"></i> مزایای شغلی موردنظر</h5>
+                        <p class="m-b0"> <?php echo (isset($data->adv1) && $data->adv1 == 1) ? '<i class="fa fa-user"></i>' . ' ' . 'امکان ترفیع سمت' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->adv2) && $data->adv2 == 1) ? '<i class="fa fa-medkit"></i>' . ' ' . ' بیمه' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->adv3) && $data->adv3 == 1) ? '<i class="fa fa-graduation-cap"></i>' . ' ' . ' دوره های آموزشی' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->adv4) && $data->adv4 == 1) ? '<i class="fa fa-train"></i>' . ' ' . 'سرویس رفت و آمد' : '';  ?></p>
+                        <p class="m-b0"><?php echo (isset($data->adv5) && $data->adv5 == 1) ? '<i class="fa fa-cutlery"></i>' . ' ' . 'غذا به عهده شرکت' : '';  ?></p>
+
+                    </div>
                 </div>
             </div>
         </div>

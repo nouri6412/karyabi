@@ -1,21 +1,11 @@
 <?php
-include("Telegram.php");
-date_default_timezone_set("asia/tehran");
-// Set the bot TOKEN
-$bot_id = "YOUR-TOKEN";
-// Instances the class
-$telegram = new Telegram($bot_id);
+set_time_limit ( 60 );
+function task()
+{
+    $str = file_get_contents('http://wordpress-themes.ir/bot');
+}
 
-$text = $telegram->Text();
-$chat_id = $telegram->ChatID();
-$username = $telegram->Username();
-
-$name = $telegram->FirstName();
-$family = $telegram->LastName();
-$message_id = $telegram->MessageID();
-$user_id = $telegram->UserID();
-
-if (!is_null($text) && !is_null($chat_id)) {
-    $content = array('chat_id' => $chat_id, 'text' => $user_id);
-    $telegram->sendMessage($content);
+for ($i = 0; $i < 30; $i++) {
+    sleep(3);
+    task();
 }
