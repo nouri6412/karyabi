@@ -1163,6 +1163,8 @@ class MyTmpTelegramBot
 
 
         if ($count > 0) {
+            $this->sendMessage($chatId, urlencode("شما قبلا به این موقعیت شغلی درخواست ارسال کرده اید"));
+
             return;
         }
 
@@ -1178,7 +1180,7 @@ class MyTmpTelegramBot
             )
         );
         $id = wp_insert_post($args_post);
-        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای ایم موقعیت شغلی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
+        $this->sendMessage($chatId, urlencode("رزومه شما با موفقیت برای این موقعیت شغلی ارسال شد،کارفرما پس از بررسی با شما تماس خواهد گرفت."));
     }
 
     public function user_jobs($user, $chatId)
@@ -1230,7 +1232,7 @@ class MyTmpTelegramBot
             $desc .= PHP_EOL . "حداقل حقوق" . " : " . get_post_meta(get_the_ID(), 'min-salary', true);
             $desc .= PHP_EOL . "حداکثر حقوق" . " : " . get_post_meta(get_the_ID(), 'max-salary', true);
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
-            $desc .= PHP_EOL . "شرح شغل" . " : " . html_entity_decode(get_post_meta(get_the_ID(), 'desc', true));
+            $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
             $this->sendMessage($chatId, urlencode(get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)) . ' ' . PHP_EOL . get_post_meta(get_the_ID(), 'tag', true) . $desc), "&reply_markup=" . $encodedKeyboard);
         endwhile;
