@@ -414,8 +414,8 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, urlencode("ثبتنام انجام شد"));
                    $pass= get_the_author_meta( 'user_pass', $user->ID);
                    $text="اطلاعات ورود به سایت عبارت است از";
-                   $text.=PHP_EOL."نام کاربری"." : ".$chatId."_user";
-                   $text.=PHP_EOL."رمز عبور"." : ".$pass;
+                   $text.=PHP_EOL."نام کاربری"." : ".PHP_EOL.$chatId."_user";
+                   $text.=PHP_EOL."رمز عبور"." : ".PHP_EOL.$pass;
                    $this->sendMessage($chatId, urlencode($text));
                     $this->user_menu($user, $chatId);
                     break;
@@ -728,8 +728,8 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, urlencode("ثبت نام انجام شد"));
                     $pass= get_the_author_meta( 'company_pass', $user->ID);
                     $text="اطلاعات ورود به سایت عبارت است از";
-                    $text.=PHP_EOL."نام کاربری"." : ".$chatId."_com";
-                    $text.=PHP_EOL."رمز عبور"." : ".$pass;
+                    $text.=PHP_EOL."نام کاربری"." : ".PHP_EOL.$chatId."_com";
+                    $text.=PHP_EOL."رمز عبور"." : ".PHP_EOL.$pass;
                     $this->sendMessage($chatId, urlencode($text));
                     $this->company_menu($user, $chatId);
                     break;
