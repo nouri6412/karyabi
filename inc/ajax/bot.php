@@ -412,7 +412,7 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'user-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبتنام انجام شد"));
-                   $pass= get_post_meta($user->ID, 'user_pass', true);
+                   $pass= get_the_author_meta( 'user_pass', $user->ID);
                    $text="اطلاعات ورود به سایت عبارت است از";
                    $text.=PHP_EOL."نام کاربری"." : ".$chatId."_user";
                    $text.=PHP_EOL."رمز عبور"." : ".$pass;
@@ -726,7 +726,7 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبت نام انجام شد"));
-                    $pass= get_post_meta($user->ID, 'user_pass', true);
+                    $pass= get_the_author_meta( 'company_pass', $user->ID);
                     $text="اطلاعات ورود به سایت عبارت است از";
                     $text.=PHP_EOL."نام کاربری"." : ".$chatId."_com";
                     $text.=PHP_EOL."رمز عبور"." : ".$pass;
