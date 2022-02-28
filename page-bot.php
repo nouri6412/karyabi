@@ -21,11 +21,13 @@ $updatesJson2Array = json_decode($updatesJson, true);
 $update_id = 0;
 //var_dump($updatesJson2Array['result']);
 foreach ($updatesJson2Array['result'] as $item) {
+ 
     $update_id = $item["update_id"];
     if ($id > 0) {
         $id = 0;
         continue;
     }
+   // var_dump($item);
     $obj->message($item);
 
 }
