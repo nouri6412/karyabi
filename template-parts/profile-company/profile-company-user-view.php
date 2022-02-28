@@ -6,7 +6,7 @@
             </button>
             <div class="modal-body row m-a0 clearfix">
                 <div class="col-lg-12 col-md-12 p-a0">
-                        <div id="content-user-resume"></div>
+                        <div style="min-height: 650px;" id="content-user-resume"></div>
                         <div class="box-loading">
                             <div class="loading-ajax"></div>
                         </div>
