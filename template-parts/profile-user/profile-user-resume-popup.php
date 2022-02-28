@@ -22,6 +22,7 @@ $date = get_query_var('date');
         </div>
     </div>
     <div class="resume-popup-body">
+        <div class="row"></div>
         <div class="panel panel-info">
             <div class="panel-heading">اطلاعات تماس</div>
             <div class="panel-body">
@@ -29,26 +30,22 @@ $date = get_query_var('date');
                 <div class="user-info"><i class="fa fa-envelope"></i><label class="user-info-label">ایمیل</label><label class="user-info-title"><?php echo isset($user_meta['email']) ? $user_meta['email'][0] : '';  ?></label></div>
                 <div class="user-info"><i class="fa fa-download"></i><label class="user-info-label">لینک رزومه</label><label class="user-info-title"><a target="_blank" href="<?php echo home_url('resume?user_id=' . $user_id); ?>"> اینجا کلیک فرمائید</a></label></div>
                 <div class="user-info"><i class="fa fa-download"></i><label class="user-info-label"> رزومه پیوست شده</label><label class="user-info-title"><a target="_blank" href="<?php echo isset($user_meta['resume-file']) ? $user_meta['resume-file'][0] : '#';  ?>"><?php echo isset($user_meta['resume-file']) ? 'اینجا کلیک فرمائید' : 'آپلود نشده است';  ?></a></label></div>
-
-            </div>
-        </div>
-        <div class="panel panel-info">
-            <div class="panel-heading">وضعیت</div>
-            <div class="panel-body">
-                <div class="user-info">
-                    <label class="col-md-4"> وضعیت</label>
-                    <select onchange="ajax_submit_mbm_change_status_request({
+               <div class="row">
+               <label class="col-md-4"> وضعیت</label>
+                    <select  onchange="ajax_submit_mbm_change_status_request({
                                         'action': 'mbm_change_status_request',
                 'job_id':<?php echo $req_id; ?>,
                 'status':$(this).val(),
-                    })" class="col-md-8">
+                    })" class="col-md-4">
                         <option <?php echo (get_post_meta($req_id, 'status', true) == 0) ? 'selected="selected"' : '' ?> value="0">در انتظار وضعیت</option>
                         <option <?php echo (get_post_meta($req_id, 'status', true) == 1) ? 'selected="selected"' : '' ?> value="1">بررسی شده</option>
                         <option <?php echo (get_post_meta($req_id, 'status', true) == 2) ? 'selected="selected"' : '' ?> value="2">تایید برای مصاحبه</option>
                         <option <?php echo (get_post_meta($req_id, 'status', true) == 3) ? 'selected="selected"' : '' ?> value="3">رد درخواست</option>
                         <option <?php echo (get_post_meta($req_id, 'status', true) == 4) ? 'selected="selected"' : '' ?> value="4">استخدام شده</option>
                     </select>
-                </div>
+                    <div class="col-md-4"></div>
+               </div>
+
             </div>
         </div>
         <div class="panel panel-info">

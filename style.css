@@ -211,7 +211,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 
 .resume-popup .resume-popup-header {
     display: flex;
-    padding: 10px;
+   
 }
 
 .resume-popup .resume-popup-header .resume-popup-header-avatar {
@@ -260,7 +260,7 @@ h1, h2, h3, h4, h5, h6, p, a {
 }
 
 .resume-popup .resume-popup-body .panel-info .panel-body {
-    padding: 15px 15px 5px 5px;
+    padding: 8px 10px 5px 5px;
     border: 1px solid #c1c1c1;
     border-top: 0px;
 }
