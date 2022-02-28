@@ -50,7 +50,7 @@
                                             wp_reset_query();
                                             ?>
                                             <?php
-                                            if ($count == 0 && $user_id > 0) {
+                                            if ($count == 0 && $user_id > 0 && get_the_author_meta('user_type', $user_id) == "user") {
                                             ?>
                                                 <div id="request-result" style="display: none;" class="dzFormMsg error">رزومه ارسال شد</div>
                                                 <div class="box-loading">
@@ -64,10 +64,10 @@
             ,$(this)
             ,$('#request-result')
         )" class="site-button request-btn">درخواست و ارسال رزومه</button>
-                                            <?php } else if ($user_id > 0) { ?>
+                                            <?php } else if ($user_id > 0 && get_the_author_meta('user_type', $user_id) == "user") { ?>
                                                 <div id="request-result" class="dzFormMsg error">رزومه قبلا ارسال شده است</div>
 
-                                            <?php } else if ($user_id == 0) { ?>
+                                            <?php } else if ($user_id == 0|| get_the_author_meta('user_type', $user_id) == "company") { ?>
                                                 <a class="site-button request-btn" href="<?php echo site_url("register"); ?>">درخواست و ارسال رزومه</a>
                                             <?php } ?>
                                         </li>

@@ -57,7 +57,7 @@
 								$user_id = get_current_user_id();
 								$user_type = get_the_author_meta('user_type', $user_id);
 								?>
-								<?php if (!is_user_logged_in() || $user_type != "user") { ?>
+								<?php if (!is_user_logged_in() ) { ?>
 									<a href="<?php echo site_url('register'); ?>" class="site-button"><i class="fa fa-user"></i> ثبت نام کارجو</a>
 									<a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details" class="site-button"><i class="fa fa-lock"></i> ورود کارجو </a>
 									<?php

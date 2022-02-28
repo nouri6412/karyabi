@@ -1,7 +1,8 @@
 <div class="job-bx job-profile">
     <div class="job-bx-title clearfix">
         <h5 class="font-weight-700 pull-left text-uppercase">تغییر رمز عبور</h5>
-        <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
+        <a href="<?php  echo home_url('profile?action='.get_query_var('back_action')) ; ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
+
     </div>
 
         <div class="row">

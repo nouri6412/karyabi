@@ -20,9 +20,8 @@ $the_query = new WP_Query($args);
 <div class="job-bx clearfix">
     <div class="job-bx-title clearfix">
         <h5 class="font-weight-700 pull-left text-uppercase">مدیریت آگهی های من</h5>
-        <div class="float-right">
+        <a href="<?php  echo home_url('profile?action='.get_query_var('back_action')) ; ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
 
-        </div>
     </div>
     <div class="job-cats">
         <ul>
@@ -121,7 +120,7 @@ $the_query = new WP_Query($args);
                     <div>
                         <div class="d-flex">
                             <i class="fal fa-bookmark"></i>
-                            <h4 style="margin-left: 15px;"><?php echo get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></h4>
+                            <h4 style="margin-left: 15px;"><a href="<?php echo get_the_permalink(); ?>"><?php echo get_the_title() . ' / ' . get_the_title(get_post_meta(get_the_ID(), 'cat_id', true)); ?></a></h4>
                             <?php
                             $active = get_post_meta(get_the_ID(), 'active', true);
                             ?>
@@ -136,7 +135,12 @@ $the_query = new WP_Query($args);
             }
             ,'<?php echo 'ads-' . get_the_ID(); ?>'
         )" class="edit ads-btn"> حذف <i class="fa fa-remove m-r5"></i></button>
-                                <a class="btn btn-default" href="<?php echo home_url('profile?action=create-job&job_id=' . get_the_ID()); ?>">ویرایش <i class="fa fa-edit"></i></a>
+                                <div style="display: flex;">
+                                    <a class="btn btn-default" href="<?php echo home_url('profile?action=create-job&job_id=' . get_the_ID()); ?>">ویرایش <i class="fa fa-edit"></i></a>
+                                    <a target="_Blank" class="btn btn-default" href="<?php echo get_the_permalink(); ?>">نمایش آگهی <i class="fa fa-eye"></i></a>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>

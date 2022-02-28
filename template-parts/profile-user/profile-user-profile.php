@@ -4,8 +4,7 @@ $user_meta = get_query_var('user_meta');
 ?>
 <div class="job-bx submit-resume">
     <div class="job-bx-title clearfix">
-        <h5 class="font-weight-700 pull-left text-uppercase">پروفایل کاربر</h5>
-        <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
+        <h5 class="font-weight-700 pull-left text-uppercase">پروفایل کارجو</h5>
     </div>
 
     <div class="row m-b30">

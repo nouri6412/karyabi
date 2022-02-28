@@ -79,6 +79,8 @@ set_query_var('user_meta', $user_meta);
                     <div class="col-xl-9 col-lg-8 m-b30">
                         <?php
                         if ($user_id > 0) {
+                            set_query_var('back_action',get_the_author_meta( 'page_action', $user_id));
+                            update_user_meta($user_id, "page_action", $action);
                             get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
                         } else {
                         ?>

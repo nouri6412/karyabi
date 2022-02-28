@@ -94,17 +94,17 @@
 						</div>
 						<div>
 						<?php if (!is_user_logged_in()) { ?>
-                            <a href="<?php echo home_url('?login=1') ?>" class="site-button">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
+                            <a href="<?php echo home_url('?login=1') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
 
                         <?php } else {
                         ?>
-                            <a href="<?php echo home_url('profile') ?>" class="site-button">برو به پنل کاربری<i class="fa fa-long-arrow-left mr-3"></i></a>
+                            <a href="<?php echo home_url('profile') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
 
                         <?php
                         } ?>
 						</div>
 						<div class="mt-4">
-							<p><?php echo $unit["desc_short"]; ?>
+							<p><a href="<?php echo home_url('register-emp')  ?>">به عنوان کارفرما ثبت نام کنید</a>
 							</p>
 						</div>
 					</div>

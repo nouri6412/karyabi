@@ -11,7 +11,7 @@ if (isset($_GET["job_id"])) {
 <div class="job-bx submit-resume">
     <div class="job-bx-title clearfix">
         <h5 class="font-weight-700 pull-left text-uppercase">ارسال شغل جدید</h5>
-        <a href="#" class="site-button right-arrow button-sm float-right">بازگشت</a>
+        <a href="<?php  echo home_url('profile?action='.get_query_var('back_action')) ; ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
     </div> 
     <form>
         <input id="job_id" name="job_id" type="hidden" value="<?php echo $job_id; ?>" />

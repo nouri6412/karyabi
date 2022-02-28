@@ -22,6 +22,12 @@ function ajax_submit_mbm_register(username, email, pass, re_pas,user_type, eleme
         error += '<br>' + 'تکرار رمز عبور صحیح نمی باشد';
     }
 
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+    if(!strongRegex.test(pass)) {
+        error += '<br>' + 'رمز عبور شما حداقل باید 8 کاراکتر باشد و شامل حداقل یک حرف بزرگ و کوچک انگلیسی و حروف خاص مانند @,$ باشد';
+    }
+ 
     if (error.length > 0) {
         element_error.html(error);
         return;

@@ -38,6 +38,8 @@ $count = $the_query->post_count;
 ?>
 <div class="job-bx-title clearfix">
     <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'درخواست '; ?></h5>
+    <a href="<?php  echo home_url('profile?action='.get_query_var('back_action')) ; ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
+
 </div>
 <div class="row">
     <div class="col-lg-3 col-md-3">
