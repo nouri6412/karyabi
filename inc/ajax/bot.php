@@ -370,36 +370,50 @@ class MyTmpTelegramBot
 
     public function callback_input($user, $text, $chatId)
     {
+        global $wpdb;
         $step = get_the_author_meta('bot_step', $user->ID);
 
         switch ($step) {
             case "user-profile-name": {
-                    global $wpdb;
+                    update_user_meta($user->ID, "user_name", $text);
+                    $wpdb->update(
+                        $wpdb->users,
+                        ['display_name' => $text],
+                        ['ID' => $user->ID]
+                    );
+                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "user-profile-register-name": {
                     $wpdb->update(
                         $wpdb->users,
                         ['display_name' => $text],
                         ['ID' => $user->ID]
                     );
                     update_user_meta($user->ID, "user_name", $text);
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
-                    break;
-                }
-            case "user-profile-register-name": {
-                    update_user_meta($user->ID, "user_name", $text);
                     update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
                     $this->sendMessage($chatId, urlencode("ایمیل را وارد نمائید"));
                     break;
                 }
             case "user-profile-register-email": {
+                if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
+                    update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                    $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                  }
+                  else
+                  {
                     $user1 = get_user_by('login', $text);
                     if ($user1) {
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
                         $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
                     } else {
-                        global $wpdb;
                         $wpdb->update(
                             $wpdb->users,
                             ['user_login' => $text],
+                            ['ID' => $user->ID]
+                        );
+                        $wpdb->update(
+                            $wpdb->users,
                             ['user_nicename' => $text],
                             ['ID' => $user->ID]
                         );
@@ -407,6 +421,7 @@ class MyTmpTelegramBot
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
                         $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
                     }
+                  }
                     break;
                 }
             case "user-profile-register-pass": {
@@ -908,7 +923,7 @@ class MyTmpTelegramBot
     public function user_menu($user, $chatId)
     {
         $step = get_the_author_meta('bot_step', $user->ID);
-        $user1 =  $this->get_login($chatId); 
+        $user1 =  $this->get_login($chatId);
 
         $keyboard = [
             'inline_keyboard' => [
@@ -986,21 +1001,21 @@ class MyTmpTelegramBot
 
     public function company_selected_cat($cat_id, $chatId)
     {
-        
-        $user =  $this->get_login($chatId); 
+
+        $user =  $this->get_login($chatId);
         update_user_meta($user->ID, "cat_id", $cat_id);
         $this->sendMessage($chatId, "اطلاعات ثبت شد");
     }
 
     public function company_job_delete($job_id, $chatId)
     {
-        $user =  $this->get_login($chatId); 
+        $user =  $this->get_login($chatId);
         wp_delete_post($job_id);
         $this->sendMessage($chatId, urlencode("آگهی مورد نظر حذف شد"));
     }
     public function company_request_status($job_id, $chatId, $status)
     {
-        $user =  $this->get_login($chatId); 
+        $user =  $this->get_login($chatId);
         update_post_meta($job_id, 'status', $status);
         $this->sendMessage($chatId, urlencode("وضعیت درخواست تغییر یافت"));
     }
@@ -1150,7 +1165,7 @@ class MyTmpTelegramBot
 
     public function user_job_request($job_id, $chatId)
     {
-        $user =  $this->get_login($chatId); 
+        $user =  $this->get_login($chatId);
         $owner_id = get_post_field('post_author', $job_id);
 
 
