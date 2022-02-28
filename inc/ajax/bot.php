@@ -74,6 +74,11 @@ class MyTmpTelegramBot
             return;
         }
 
+        if (strpos($data, 'company-job-edit-') !== false) {
+            $this->company_job_delete(str_replace('company-job-edit-', "", $data), $chatId);
+            return;
+        }
+
 
         if (strpos($data, 'company-request-job-not-accept-') !== false) {
             $this->company_request_status(str_replace('company-request-job-not-accept-', "", $data), $chatId, 3);
@@ -815,17 +820,14 @@ class MyTmpTelegramBot
                     break;
                 }
             case "company-create-job-email": {
-                if (!filter_var($text, FILTER_VALIDATE_EMAIL))
-                {
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-email');
-                    $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
-                }
-                else
-                {
-                    update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
-                    update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
-                    $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمائید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
-                }
+                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-email');
+                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                    } else {
+                        update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
+                        update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
+                        $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمائید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
+                    }
 
                     break;
                 }
@@ -1106,7 +1108,8 @@ class MyTmpTelegramBot
             $keyboard = [
                 'inline_keyboard' => [
                     [
-                        ['text' => 'حذف آگهی', 'callback_data' => 'company-job-remove-' . get_the_ID()]
+                        ['text' => 'حذف آگهی', 'callback_data' => 'company-job-remove-' . get_the_ID()],
+                        ['text' => 'ویرایش آگهی', 'callback_data' => 'company-job-edit-' . get_the_ID()]
                     ]
                 ]
             ];
