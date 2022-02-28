@@ -75,7 +75,10 @@ class MyTmpTelegramBot
         }
 
         if (strpos($data, 'company-job-edit-') !== false) {
-
+            $id = str_replace('company-job-edit-', "", $data);
+            update_user_meta($user->ID, "create_job_id", $id);
+            update_user_meta($user->ID, "bot_step", 'company-create-job-name-edit');
+            $this->sendMessage($chatId, 'عنوان آگهی را وارد نماپید');
             return;
         }
 
@@ -845,6 +848,23 @@ class MyTmpTelegramBot
             case "company-profile-about": {
                     update_user_meta($user->ID, "desc", $text);
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    break;
+                }
+            case "company-create-job-name-edit": {
+                    $args_post = array(
+                        'ID'           => get_the_author_meta("create_job_id", $user->ID),
+                        'post_title'   => $text,
+                        'meta_input'   => array(
+                            'title' => $text,
+                            'active' => 0,
+                        )
+                    );
+                    $id = wp_update_post($args_post);
+
+                    update_user_meta($user->ID, "create_job_id", $id);
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-email');
+                    $this->sendMessage($chatId, 'ایمیل آگهی را وارد نمائید');
+
                     break;
                 }
             case "company-create-job-name": {
