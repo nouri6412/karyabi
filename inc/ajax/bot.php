@@ -75,7 +75,7 @@ class MyTmpTelegramBot
         }
 
         if (strpos($data, 'company-job-edit-') !== false) {
-            $this->company_job_delete(str_replace('company-job-edit-', "", $data), $chatId);
+
             return;
         }
 
@@ -750,19 +750,69 @@ class MyTmpTelegramBot
 
             case "company-profile-name": {
                     update_user_meta($user->ID, "company_name", $text);
+                    $wpdb->update(
+                        $wpdb->users,
+                        ['display_name' => $text],
+                        ['ID' => $user->ID]
+                    );
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
                     break;
                 }
             case "company-profile-register-name": {
                     update_user_meta($user->ID, "company_name", $text);
+                    $wpdb->update(
+                        $wpdb->users,
+                        ['display_name' => $text],
+                        ['ID' => $user->ID]
+                    );
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
                     $this->sendMessage($chatId, urlencode("ایمیل شرکت را وارد نمائید"));
                     break;
                 }
             case "company-profile-register-email": {
-                    update_user_meta($user->ID, "company_email", $text);
-                    update_user_meta($user->ID, "bot_step", 'company-profile-register-tel');
-                    $this->sendMessage($chatId, urlencode("تلفن را وارد نمائید"));
+                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
+                        update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                    } else {
+                        $user1 = get_user_by('login', $text);
+                        if ($user1) {
+                            update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
+                        } else {
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_login' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_nicename' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            update_user_meta($user->ID, "company_email", $text);
+                            update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
+                            $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
+                        }
+                    }
+                    break;
+                }
+            case "company-profile-register-pass": {
+                    update_user_meta($user->ID, "user_pass_1", $text);
+                    update_user_meta($user->ID, "bot_step", 'company-profile-register-repass');
+                    $this->sendMessage($chatId, urlencode("تکرار رمز عبور را وارد نمائید"));
+                    break;
+                }
+            case "company-profile-register-repass": {
+                    $pass = get_the_author_meta('user_pass_1', $user->ID);
+                    if ($pass == $text) {
+                        wp_set_password($text, $user->ID);
+                        update_user_meta($user->ID, "bot_step", 'company-profile-register-tel');
+                        $this->sendMessage($chatId, urlencode("تلفن را وارد نمائید"));
+                    } else {
+                        update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
+                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
+                    }
+
                     break;
                 }
             case "company-profile-register-tel": {
