@@ -396,32 +396,30 @@ class MyTmpTelegramBot
                     break;
                 }
             case "user-profile-register-email": {
-                if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
-                    update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
-                    $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
-                  }
-                  else
-                  {
-                    $user1 = get_user_by('login', $text);
-                    if ($user1) {
+                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
-                        $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
+                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
                     } else {
-                        $wpdb->update(
-                            $wpdb->users,
-                            ['user_login' => $text],
-                            ['ID' => $user->ID]
-                        );
-                        $wpdb->update(
-                            $wpdb->users,
-                            ['user_nicename' => $text],
-                            ['ID' => $user->ID]
-                        );
-                        update_user_meta($user->ID, "user_e_email", $text);
-                        update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
-                        $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
+                        $user1 = get_user_by('login', $text);
+                        if ($user1) {
+                            update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
+                        } else {
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_login' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_nicename' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            update_user_meta($user->ID, "user_e_email", $text);
+                            update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
+                            $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
+                        }
                     }
-                  }
                     break;
                 }
             case "user-profile-register-pass": {
@@ -518,9 +516,14 @@ class MyTmpTelegramBot
                     break;
                 }
             case "menu-user-create-resume-date": {
-                    update_user_meta($user->ID, "user_date_year", $text);
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-state');
-                    $this->sendMessage($chatId, urlencode("استان را وارد نماپید"));
+                    if (is_numeric($text)) {
+                        update_user_meta($user->ID, "user_date_year", $text);
+                        update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-state');
+                        $this->sendMessage($chatId, urlencode("استان را وارد نماپید"));
+                    } else {
+                        update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-date');
+                        $this->sendMessage($chatId, urlencode("سال تولد را عدد وارد نماپید"));
+                    }
                     break;
                 }
             case "menu-user-create-resume-state": {
@@ -812,10 +815,18 @@ class MyTmpTelegramBot
                     break;
                 }
             case "company-create-job-email": {
+                if (!filter_var($text, FILTER_VALIDATE_EMAIL))
+                {
+                    update_user_meta($user->ID, "bot_step", 'company-create-job-email');
+                    $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                }
+                else
+                {
                     update_post_meta(get_the_author_meta("create_job_id", $user->ID), 'job-email', $text);
                     update_user_meta($user->ID, "bot_step", 'company-create-job-tag');
-
                     $this->sendMessage($chatId, urlencode("تگ و مهارت های موردنیاز شغل را  وارد نمائید با حرف , جدا کنید" . " " . "مثال" . " : " . "php,wordpress"));
+                }
+
                     break;
                 }
             case "company-create-job-tag": {
@@ -898,7 +909,7 @@ class MyTmpTelegramBot
 
     public function login_user($chatid)
     {
-        $user = get_user_by('login', $chatid);
+        $user = $this->get_login($chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
             $this->user_menu($user, $chatid);
@@ -910,7 +921,7 @@ class MyTmpTelegramBot
 
     public function login_company($chatid)
     {
-        $user = get_user_by('login', $chatid);
+        $user = $this->get_login($chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "com");
             $this->company_menu($user, $chatid);
@@ -1290,7 +1301,7 @@ class MyTmpTelegramBot
         );
         $the_query = new WP_Query($args);
         $count = $the_query->post_count;
-        $this->sendMessage($chatId, $count . " " . "درخواست");
+        $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "درخواست همکاری دارید");
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $job_id = get_post_meta(get_the_ID(), 'job_id', true);
@@ -1334,7 +1345,14 @@ class MyTmpTelegramBot
         );
         $the_query = new WP_Query($args);
         $count = $the_query->post_count;
-        $this->sendMessage($chatId, $count . " " . "درخواست");
+        if ($status == 0) {
+            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه بررسی نشده دارید");
+        } else if ($status == 2) {
+            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه تایید شده برای مصاحبه دارید");
+        } else if ($status == 4) {
+            $this->sendMessage($chatId, 'شما' . ' ' . $count . " "  . "رزومه استخدام شده دارید");
+        }
+
         while ($the_query->have_posts()) :
             $the_query->the_post();
             $job_id = get_post_meta(get_the_ID(), 'job_id', true);
