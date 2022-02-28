@@ -8,6 +8,7 @@ $args = array(
     'paged' => $paged,
     'meta_value' => $user_id
 );
+$meta_arg = [];
 
 if (isset($_GET["status"])) {
     $meta_arg = [];
@@ -18,10 +19,17 @@ if (isset($_GET["status"])) {
 }
 
 if (isset($_GET["favorite"])) {
-    $meta_arg = [];
     $meta_arg["relation"] = "AND";
     $meta_arg[] = ["key" => "favorite", "value" => 1, "compare" => "="];
 
+    $args["meta_query"] = $meta_arg;
+}
+
+$job_actipn = '';
+if (isset($_GET["job_id"])) {
+    $job_actipn = '&job_id=' . $_GET["job_id"];
+    $meta_arg["relation"] = "AND";
+    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
     $args["meta_query"] = $meta_arg;
 }
 
@@ -33,12 +41,15 @@ if (isset($_GET["job_id"]) && isset($_GET["status"])) {
     $args["meta_query"] = $meta_arg;
 }
 
+
+
+
 $the_query = new WP_Query($args);
 $count = $the_query->post_count;
 ?>
 <div class="job-bx-title clearfix">
     <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $count . ' ' . 'درخواست '; ?></h5>
-    <a href="<?php  echo home_url('profile?action='.get_query_var('back_action')) ; ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
+    <a href="<?php echo home_url('profile?action=' . get_query_var('back_action')); ?>" class="site-button right-arrow button-sm float-right">بازگشت</a>
 
 </div>
 <div class="row">
@@ -46,10 +57,15 @@ $count = $the_query->post_count;
         <div class="box-filter">
             <ul>
                 <?php
+                $meta_arg = [];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
-                    'meta_value' => $user_id
+                    'meta_value' => $user_id,
+                    'meta_query' => $meta_arg
                 );
                 $the_query_job_0_0 = new WP_Query($args);
                 $count_0_0 = $the_query_job_0_0->post_count;
@@ -58,6 +74,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "favorite", "value" => '1', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -70,6 +89,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "status", "value" => '0', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -82,6 +104,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "status", "value" => '1', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -94,6 +119,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "status", "value" => '2', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -106,6 +134,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "status", "value" => '3', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -118,6 +149,9 @@ $count = $the_query->post_count;
                 $meta_arg = [];
                 $meta_arg["relation"] = "AND";
                 $meta_arg[] = ["key" => "status", "value" => '4', "compare" => "="];
+                if (isset($_GET["job_id"])) {
+                    $meta_arg[] = ["key" => "job_id", "value" => $_GET["job_id"], "compare" => "="];
+                }
                 $args = array(
                     'post_type' => 'request',
                     'meta_key'  => 'owner_id',
@@ -128,19 +162,23 @@ $count = $the_query->post_count;
                 $count_4 = $the_query_job_4->post_count;
 
                 ?>
-                <li class="<?php echo (!isset($_GET["status"])) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request') ?>">همه <span><?php echo $count_0_0;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["favorite"])) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&favorite') ?>">نشان شده ها <span><?php echo $count_0_1;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 0) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=0') ?>"> در انتظار وضعیت<span><?php echo $count_0;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 1) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=1') ?>">بررسی شده<span><?php echo $count_1;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 2) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=2') ?>">تایید برای مصاحبه<span><?php echo $count_2;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 3) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=3') ?>"> رد شده<span><?php echo $count_3;  ?></span></a></li>
-                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 4) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=4') ?>">استخدام شده<span><?php echo $count_4;  ?></span></a></li>
+                <li class="<?php echo (!isset($_GET["status"])) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request' . $job_actipn) ?>">همه <span><?php echo $count_0_0;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["favorite"])) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&favorite=1' . $job_actipn) ?>">نشان شده ها <span><?php echo $count_0_1;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 0) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=0' . $job_actipn) ?>"> در انتظار وضعیت<span><?php echo $count_0;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 1) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=1' . $job_actipn) ?>">بررسی شده<span><?php echo $count_1;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 2) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=2' . $job_actipn) ?>">تایید برای مصاحبه<span><?php echo $count_2;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 3) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=3' . $job_actipn) ?>"> رد شده<span><?php echo $count_3;  ?></span></a></li>
+                <li class="<?php echo (isset($_GET["status"]) && $_GET["status"] == 4) ? 'selected' : ''; ?>"><a href="<?php echo home_url('profile?action=request&status=4' . $job_actipn) ?>">استخدام شده<span><?php echo $count_4;  ?></span></a></li>
             </ul>
         </div>
     </div>
     <div class="col-lg-9 col-md-9">
         <ul class="post-job-bx browse-job-grid post-resume row">
             <?php
+            $count_kol = $the_query->post_count;
+            if ($count_kol == 0) {
+                echo '<p style="text-align: center;width: 100%;">' . 'چیزی برای نمایش وجود ندارد' . '</p>';
+            }
             while ($the_query->have_posts()) :
                 $the_query->the_post();
             ?>
@@ -152,7 +190,7 @@ $count = $the_query->post_count;
                                         'action': 'mbm_user_resume_popup',
                 'user_id':<?php echo get_the_author_meta('ID'); ?>,
                 'req_id':<?php echo get_the_ID(); ?>,
-                'date':'<?php echo get_the_date('',get_the_ID()); ?>'
+                'date':'<?php echo get_the_date('', get_the_ID()); ?>'
                     },'content-user-resume')" href="#"><?php echo  get_the_author_meta('user_name') ?></a></h5>
                                 <p class="m-b5 font-13">
                                     <a href="javascript:void(0);" class="text-primary"><?php echo  get_the_author_meta('user_exp') ?></a>
@@ -183,8 +221,8 @@ $count = $the_query->post_count;
                                         'action': 'mbm_user_resume_popup',
                 'user_id':<?php echo get_the_author_meta('ID'); ?>,
                 'req_id':<?php echo get_the_ID(); ?>,
-                'date':'<?php echo get_the_date('',get_the_ID()); ?>'
-                    },'content-user-resume')" href="#" data-toggle="modal" data-target="#user-details"  class="job-links">
+                'date':'<?php echo get_the_date('', get_the_ID()); ?>'
+                    },'content-user-resume')" href="#" data-toggle="modal" data-target="#user-details" class="job-links">
                             <i class="fa fa-download"></i>
                         </a>
                         <?php if (get_post_meta(get_the_ID(), 'favorite', true) == 1) {  ?>
