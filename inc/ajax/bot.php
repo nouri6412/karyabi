@@ -476,9 +476,11 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'user-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبتنام انجام شد"));
-                    $pass = get_the_author_meta('user_pass', $user->ID);
+                    $pass = get_the_author_meta('user_pass_1', $user->ID);
+                    $user_name = get_the_author_meta('user_e_email', $user->ID);
+                    
                     $text = "اطلاعات ورود به سایت عبارت است از";
-                    $text .= PHP_EOL . "نام کاربری" . " : " . PHP_EOL . $chatId . "_user";
+                    $text .= PHP_EOL . "نام کاربری" . " : " . PHP_EOL . $user_name;
                     $text .= PHP_EOL . "رمز عبور" . " : " . PHP_EOL . $pass;
                     $this->sendMessage($chatId, urlencode($text));
                     $this->user_menu($user, $chatId);
@@ -860,9 +862,11 @@ class MyTmpTelegramBot
                     update_user_meta($user->ID, "tel", $text);
                     update_user_meta($user->ID, "bot_step", 'company-profile-register-finish');
                     $this->sendMessage($chatId, urlencode("ثبت نام انجام شد"));
-                    $pass = get_the_author_meta('company_pass', $user->ID);
+                    $pass = get_the_author_meta('user_pass_1', $user->ID);
+                    $user_name = get_the_author_meta('user_e_email', $user->ID);
+
                     $text = "اطلاعات ورود به سایت عبارت است از";
-                    $text .= PHP_EOL . "نام کاربری" . " : " . PHP_EOL . $chatId . "_com";
+                    $text .= PHP_EOL . "نام کاربری" . " : " . PHP_EOL . $user_name;
                     $text .= PHP_EOL . "رمز عبور" . " : " . PHP_EOL . $pass;
                     $this->sendMessage($chatId, urlencode($text));
                     $this->company_menu($user, $chatId);
