@@ -1008,6 +1008,15 @@ class MyTmpTelegramBot
         $step = get_the_author_meta('bot_step', $user->ID);
         $user1 =  $this->get_login($chatId);
 
+
+        $keyboard = [
+            'keyboard' => [['text' => 'Verify', 'request_contact' => true]]
+        ];
+        $encodedKeyboard = json_encode($keyboard);
+
+       // $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
+
+
         $keyboard = [
             'inline_keyboard' => [
                 [
