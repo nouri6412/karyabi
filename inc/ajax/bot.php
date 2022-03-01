@@ -39,14 +39,21 @@ class MyTmpTelegramBot
     public function message($item)
     {
         if (isset($item['message'])) {
-            $text = $item['message']["text"];
-            $text = strtolower($text);
-            if ($text == "start" || $text == "/start" || $text == "منو" || $text == "menu" || $text == "home") {
-                $this->start_menu($item);
-            } else {
+            if (isset($item['message']["text"])) {
+                $text = $item['message']["text"];
+                $text = strtolower($text);
+                if ($text == "start" || $text == "/start" || $text == "منو" || $text == "menu" || $text == "home") {
+                    $this->start_menu($item);
+                } else {
+                    $chatId = $item['message']['chat']['id'];
+                    $user =  $this->get_login($chatId);
+                    $this->callback_input($user, $item['message']["text"], $chatId);
+                }
+            }
+            if (isset($item['message']['contact'])) {
                 $chatId = $item['message']['chat']['id'];
                 $user =  $this->get_login($chatId);
-                $this->callback_input($user, $item['message']["text"], $chatId);
+                $this->callback_input($user, $item['message']["contact"]["phone_number"], $chatId);
             }
         } else if (isset($item["callback_query"]['message'])) {
             $chatId = $item["callback_query"]['message']['chat']['id'];
@@ -441,7 +448,23 @@ class MyTmpTelegramBot
                     if ($pass == $text) {
                         wp_set_password($text, $user->ID);
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-tel');
-                        $this->sendMessage($chatId, urlencode("تلفن را وارد نمائید"));
+
+                        $keyboard = array(
+                            'keyboard' => array(
+                                array(
+                                    array(
+                                        'text' => "تایید شماره تلفن",
+                                        'request_contact' => true
+                                    )
+                                )
+                            ),
+
+                            'one_time_keyboard' => true,
+                            'resize_keyboard' => true
+                        );
+                        $encodedKeyboard = json_encode($keyboard);
+
+                        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
                     } else {
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
                         $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
@@ -810,7 +833,22 @@ class MyTmpTelegramBot
                     if ($pass == $text) {
                         wp_set_password($text, $user->ID);
                         update_user_meta($user->ID, "bot_step", 'company-profile-register-tel');
-                        $this->sendMessage($chatId, urlencode("تلفن را وارد نمائید"));
+                        $keyboard = array(
+                            'keyboard' => array(
+                                array(
+                                    array(
+                                        'text' => "تایید شماره تلفن",
+                                        'request_contact' => true
+                                    )
+                                )
+                            ),
+
+                            'one_time_keyboard' => true,
+                            'resize_keyboard' => true
+                        );
+                        $encodedKeyboard = json_encode($keyboard);
+
+                        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
                     } else {
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
                         $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
@@ -1007,15 +1045,6 @@ class MyTmpTelegramBot
     {
         $step = get_the_author_meta('bot_step', $user->ID);
         $user1 =  $this->get_login($chatId);
-
-
-        $keyboard = [
-            'keyboard' => [['text' => 'Verify', 'request_contact' => true]]
-        ];
-        $encodedKeyboard = json_encode($keyboard);
-
-       // $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
-
 
         $keyboard = [
             'inline_keyboard' => [
