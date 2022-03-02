@@ -432,15 +432,26 @@ class MyTmpTelegramBot
                             );
                             update_user_meta($user->ID, "user_e_email", $text);
                             update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
-                            $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
+                            $this->sendMessage($chatId, urlencode("برای ورود به پنل کاربری خود از طریق وبسایت کاریابی رمز عبور دلخواه خود را وارد نمایید"));
                         }
                     }
                     break;
                 }
             case "user-profile-register-pass": {
-                    update_user_meta($user->ID, "user_pass_1", $text);
-                    update_user_meta($user->ID, "bot_step", 'user-profile-register-repass');
-                    $this->sendMessage($chatId, urlencode("تکرار رمز عبور را وارد نمائید"));
+                    $uppercase = preg_match('@[A-Z]@', $text);
+                    $lowercase = preg_match('@[a-z]@', $text);
+                    $number    = preg_match('@[0-9]@', $text);
+                    $specialChars = preg_match('@[^\w]@', $text);
+
+                    if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($text) < 8) {
+                        update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
+                        $this->sendMessage($chatId, urlencode("رمز عبور وارد شده حداقل باید دارای یک حروف کوچک و بزرگ و حروف خاص مانند @  باشد و همچنین طول آن نباید کمتر از 8 کاراکتر باشد"));
+                    } else {
+                        update_user_meta($user->ID, "user_pass_1", $text);
+                        update_user_meta($user->ID, "bot_step", 'user-profile-register-repass');
+                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور را وارد نمائید"));
+                    }
+
                     break;
                 }
             case "user-profile-register-repass": {
@@ -478,7 +489,7 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, urlencode("ثبتنام انجام شد"));
                     $pass = get_the_author_meta('user_pass_1', $user->ID);
                     $user_name = get_the_author_meta('user_e_email', $user->ID);
-                    
+
                     $text = "اطلاعات ورود به سایت عبارت است از";
                     $text .= PHP_EOL . "نام کاربری" . " : " . PHP_EOL . $user_name;
                     $text .= PHP_EOL . "رمز عبور" . " : " . PHP_EOL . $pass;
@@ -799,12 +810,12 @@ class MyTmpTelegramBot
                 }
             case "company-profile-register-email": {
                     if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
-                        update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                        update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
                         $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
                     } else {
                         $user1 = get_user_by('login', $text);
                         if ($user1) {
-                            update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
+                            update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
                             $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
                         } else {
                             $wpdb->update(
@@ -819,15 +830,25 @@ class MyTmpTelegramBot
                             );
                             update_user_meta($user->ID, "company_email", $text);
                             update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
-                            $this->sendMessage($chatId, urlencode("رمز عبور را وارد نمائید"));
+                            $this->sendMessage($chatId, urlencode("برای ورود به پنل کاربری خود از طریق وبسایت کاریابی رمز عبور دلخواه خود را وارد نمایید"));
                         }
                     }
                     break;
                 }
             case "company-profile-register-pass": {
-                    update_user_meta($user->ID, "user_pass_1", $text);
-                    update_user_meta($user->ID, "bot_step", 'company-profile-register-repass');
-                    $this->sendMessage($chatId, urlencode("تکرار رمز عبور را وارد نمائید"));
+                    $uppercase = preg_match('@[A-Z]@', $text);
+                    $lowercase = preg_match('@[a-z]@', $text);
+                    $number    = preg_match('@[0-9]@', $text);
+                    $specialChars = preg_match('@[^\w]@', $text);
+
+                    if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($text) < 8) {
+                        update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
+                        $this->sendMessage($chatId, urlencode("رمز عبور وارد شده حداقل باید دارای یک حروف کوچک و بزرگ و حروف خاص مانند @  باشد و همچنین طول آن نباید کمتر از 8 کاراکتر باشد"));
+                    } else {
+                        update_user_meta($user->ID, "user_pass_1", $text);
+                        update_user_meta($user->ID, "bot_step", 'company-profile-register-repass');
+                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور را وارد نمائید"));
+                    }
                     break;
                 }
             case "company-profile-register-repass": {
@@ -852,7 +873,7 @@ class MyTmpTelegramBot
 
                         $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
                     } else {
-                        update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
+                        update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
                         $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
                     }
 
