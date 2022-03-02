@@ -261,7 +261,7 @@ class MyTmpTelegramBot
             case "company-profile-tel": {
 
                     update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, urlencode("تلفن شرکت را وارد نمائید"));
+                    $this->request_phone($chatId);
                     break;
                 }
             case "company-profile-about": {
@@ -273,7 +273,25 @@ class MyTmpTelegramBot
                 };
         }
     }
+    public function request_phone($chatId)
+    {
+        $keyboard = array(
+            'keyboard' => array(
+                array(
+                    array(
+                        'text' => "تایید شماره تلفن",
+                        'request_contact' => true
+                    )
+                )
+            ),
 
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
+        );
+        $encodedKeyboard = json_encode($keyboard);
+
+        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
+    }
     public function user_profile_view($user_id, $chatId)
     {
         $user =  $this->get_login($chatId);
@@ -418,7 +436,7 @@ class MyTmpTelegramBot
                         $user1 = get_user_by('login', $text);
                         if ($user1) {
                             update_user_meta($user->ID, "bot_step", 'user-profile-register-email');
-                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم وجود دارد لطفا ایمیل دیگری وارد نمائید"));
                         } else {
                             $wpdb->update(
                                 $wpdb->users,
@@ -460,25 +478,10 @@ class MyTmpTelegramBot
                         wp_set_password($text, $user->ID);
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-tel');
 
-                        $keyboard = array(
-                            'keyboard' => array(
-                                array(
-                                    array(
-                                        'text' => "تایید شماره تلفن",
-                                        'request_contact' => true
-                                    )
-                                )
-                            ),
-
-                            'one_time_keyboard' => true,
-                            'resize_keyboard' => true
-                        );
-                        $encodedKeyboard = json_encode($keyboard);
-
-                        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
+                        $this->request_phone($chatId);
                     } else {
                         update_user_meta($user->ID, "bot_step", 'user-profile-register-pass');
-                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
+                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را مجددا وارد نمائید"));
                     }
 
                     break;
@@ -554,9 +557,31 @@ class MyTmpTelegramBot
                     break;
                 }
             case "menu-user-create-resume-email": {
-                    update_user_meta($user->ID, "user_e_email", $text);
-                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-date');
-                    $this->sendMessage($chatId, urlencode("سال تولد را وارد نماپید"));
+                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
+                        update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-email');
+                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                    } else {
+                        $user1 = get_user_by('login', $text);
+                        if ($user1) {
+                            update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-email');
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم وجود دارد لطفا ایمیل دیگری وارد نمائید"));
+                        } else {
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_login' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_nicename' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            update_user_meta($user->ID, "user_e_email", $text);
+                            update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-date');
+                            $this->sendMessage($chatId, urlencode("سال تولد را وارد نماپید"));
+                        }
+                    }
+
                     break;
                 }
             case "menu-user-create-resume-date": {
@@ -579,7 +604,7 @@ class MyTmpTelegramBot
             case "menu-user-create-resume-city": {
                     update_user_meta($user->ID, "user_city", $text);
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-tel');
-                    $this->sendMessage($chatId, urlencode("تلفن را وارد نماپید"));
+                    $this->request_phone($chatId);
                     break;
                 }
             case "menu-user-create-resume-tel": {
@@ -794,7 +819,8 @@ class MyTmpTelegramBot
                         ['display_name' => $text],
                         ['ID' => $user->ID]
                     );
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    $this->sendMessage($chatId, "نام شرکت ویرایش شد");
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             case "company-profile-register-name": {
@@ -816,7 +842,7 @@ class MyTmpTelegramBot
                         $user1 = get_user_by('login', $text);
                         if ($user1) {
                             update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
-                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم ورود دارد لطفا ایمیل دیگری وارد نمائید"));
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم وجود دارد لطفا ایمیل دیگری وارد نمائید"));
                         } else {
                             $wpdb->update(
                                 $wpdb->users,
@@ -856,25 +882,10 @@ class MyTmpTelegramBot
                     if ($pass == $text) {
                         wp_set_password($text, $user->ID);
                         update_user_meta($user->ID, "bot_step", 'company-profile-register-tel');
-                        $keyboard = array(
-                            'keyboard' => array(
-                                array(
-                                    array(
-                                        'text' => "تایید شماره تلفن",
-                                        'request_contact' => true
-                                    )
-                                )
-                            ),
-
-                            'one_time_keyboard' => true,
-                            'resize_keyboard' => true
-                        );
-                        $encodedKeyboard = json_encode($keyboard);
-
-                        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
+                        $this->request_phone($chatId);
                     } else {
                         update_user_meta($user->ID, "bot_step", 'company-profile-register-pass');
-                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را از اول وارد نمائید"));
+                        $this->sendMessage($chatId, urlencode("تکرار رمز عبور اشتباه است لطفا رمز عبور را مجددا وارد نمائید"));
                     }
 
                     break;
@@ -894,23 +905,48 @@ class MyTmpTelegramBot
                     break;
                 }
             case "company-profile-email": {
-                    update_user_meta($user->ID, "company_email", $text);
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    if (!filter_var($text, FILTER_VALIDATE_EMAIL)) {
+                        update_user_meta($user->ID, "bot_step", "company-profile-email");
+                        $this->sendMessage($chatId, urlencode("فرمت ایمیل صحیح نمی باشد لطفا بصورت صحیح وارد نمائید"));
+                    } else {
+                        $user1 = get_user_by('login', $text);
+                        if ($user1) {
+                            update_user_meta($user->ID, "bot_step", 'company-profile-register-email');
+                            $this->sendMessage($chatId, urlencode("ایمیل وارد شده در سیستم وجود دارد لطفا ایمیل دیگری وارد نمائید"));
+                        } else {
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_login' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            $wpdb->update(
+                                $wpdb->users,
+                                ['user_nicename' => $text],
+                                ['ID' => $user->ID]
+                            );
+                            update_user_meta($user->ID, "company_email", $text);
+                            $this->sendMessage($chatId, "ایمیل ویرایش شد");
+                            $this->company_menu($user, $chatId);
+                        }
+                    }
                     break;
                 }
             case "company-profile-web": {
                     update_user_meta($user->ID, "web", $text);
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    $this->sendMessage($chatId, "وب سایت ویرایش شد");
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             case "company-profile-tel": {
                     update_user_meta($user->ID, "tel", $text);
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    $this->sendMessage($chatId, "تلفن ویرایش شد");
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             case "company-profile-about": {
                     update_user_meta($user->ID, "desc", $text);
-                    $this->sendMessage($chatId, "اطلاعات ثبت شد");
+                    $this->sendMessage($chatId, " درباره شرکت ویرایش شد");
+                    $this->company_menu($user, $chatId);
                     break;
                 }
             case "company-create-job-name-edit": {
@@ -1097,7 +1133,7 @@ class MyTmpTelegramBot
         $keyboard = [
             'inline_keyboard' => [
                 [
-                    ['text' => 'اطلاعات پروفایل', 'callback_data' => 'menu-company-profile'],
+                    ['text' => 'ویرایش پروفایل', 'callback_data' => 'menu-company-profile'],
                     ['text' => 'ارسال آگهی', 'callback_data' => 'menu-company-create-job'],
                     ['text' => 'آگهی های من', 'callback_data' => 'menu-company-jobs']
                 ],
@@ -1207,7 +1243,6 @@ class MyTmpTelegramBot
         $encodedKeyboard = json_encode($keyboard);
 
         $this->sendMessage($chatId, "اطلاعات پروفایل", "&reply_markup=" . $encodedKeyboard);
-        $this->company_menu($user, $chatId);
     }
 
     public function company_create_job($user, $chatId)
