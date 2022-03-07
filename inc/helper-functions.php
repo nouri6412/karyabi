@@ -92,7 +92,7 @@ function custom_get_salary($ID)
 		$max = get_post_meta($ID, 'max-salary', true);
 	}
 
-	$ret = 'حقوق' . ' ';
+	$ret = 'حقوق بر حسب ساعت' . ' ';
 	if ($min > 0 && $max > 0) {
 		$ret .= 'از' . ' ' . get_post_meta($ID, 'min-salary', true) . ' ' . 'تا' . get_post_meta($ID, 'max-salary', true);
 	} else  if ($min > 0) {
@@ -102,5 +102,6 @@ function custom_get_salary($ID)
 	} else {
 		$ret .= 'توافقی';
 	}
+	$ret .= ' '.'دلار';
 	return $ret;
 }

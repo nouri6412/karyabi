@@ -391,7 +391,7 @@ class MyTmpTelegramBot
 
         if (isset($data->salary)) {
             $desc .= PHP_EOL .  "-----------";
-            $desc .= PHP_EOL .  "حقوق درخواستی " . " : " . $data->salary . " " . 'دلار';
+            $desc .= PHP_EOL .  "حقوق در خواستی بر حسب ساعت " . " : " . $data->salary . " " . 'دلار';
         }
 
         //end prefer
@@ -794,7 +794,7 @@ class MyTmpTelegramBot
 
                     update_user_meta($user->ID, "resume-lang", json_encode($data, JSON_UNESCAPED_UNICODE));
                     update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-prefer');
-                    $this->sendMessage($chatId, urlencode("حقوق درخواستی به دلار"));
+                    $this->sendMessage($chatId, urlencode("حقوق درخواستی به دلار بر حسب ساعت"));
                     break;
                 }
 
@@ -1286,8 +1286,8 @@ class MyTmpTelegramBot
             $desc .= PHP_EOL . "وضعیت آگهی" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
             $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
             $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق" . " : " . get_post_meta(get_the_ID(), 'min-salary', true);
-            $desc .= PHP_EOL . "حداکثر حقوق" . " : " . get_post_meta(get_the_ID(), 'max-salary', true);
+            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true).' '.'دلار';
+            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true).' '.'دلار';
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
             $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
@@ -1446,8 +1446,8 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
             $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق" . " : " . get_post_meta(get_the_ID(), 'min-salary', true);
-            $desc .= PHP_EOL . "حداکثر حقوق" . " : " . get_post_meta(get_the_ID(), 'max-salary', true);
+            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true).' '.'دلار';
+            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true).' '.'دلار';
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
             $desc .= PHP_EOL . "شرح شغل" . " : " . strip_tags(get_post_meta(get_the_ID(), 'desc', true));
 

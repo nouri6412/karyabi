@@ -158,10 +158,10 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h6>حقوق</h6>
+                                <h6>حقوق برای هر ساعت</h6>
                                 <div class="job-time m-t15 m-b10">
                                     <a href="javascript:void(0);"><span><?php
-                                                                        echo custom_get_salary(get_the_ID())
+                                                                        echo custom_get_salary(get_the_ID()).' '.'دلار';
 
                                                                         ?></span></a>
                                 </div>

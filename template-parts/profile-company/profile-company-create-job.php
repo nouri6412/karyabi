@@ -103,13 +103,13 @@ if (isset($_GET["job_id"])) {
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                    <label>حداقل حقوق (دلار):</label>
+                    <label>حداقل حقوق برای هر ساعت (دلار):</label>
                     <input value="<?php echo get_post_meta($job_id, 'min-salary', true) ?>" id="job_min_salary" type="number" class="form-control" placeholder="مثال: 10000">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="form-group">
-                    <label>حداکثر حقوق (دلار):</label>
+                    <label>حداکثر حقوق برای هر ساعت (دلار):</label>
                     <input value="<?php echo get_post_meta($job_id, 'max-salary', true) ?>" id="job_max_salary" type="number" class="form-control" placeholder="مثال: 20000">
                 </div>
             </div>

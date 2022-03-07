@@ -378,7 +378,7 @@ $user_meta = get_user_meta($user_id);
                             $data = json_decode($user_meta["resume-prefer"][0]);
                         }
                         ?>
-                        <p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار' . ' : ';
+                        <p class="m-b0"><i class="fa fa-money"></i> <?php echo 'حداقل حقوق درخواستی به دلار بر حسب ساعت' . ' : ';
                                                                     echo (isset($data->salary)) ? $data->salary : '';  ?></p>
                         <hr>
                         <h5 class="m-b15 prefer-title"><i class="fa fa-list-alt"></i> سطح ارشدیت در زمینه فعالیت</h5>
