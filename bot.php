@@ -1,4 +1,5 @@
 <?php
+
 set_time_limit(60);
 $ex = date('Y-m-d H:i:s');
 
@@ -13,7 +14,7 @@ function task()
     global $index;
     $index++;
     echo $index.'<br>';
-    $str = file_get_contents('http://wordpress-themes.ir/bot');
+   $str = file_get_contents('http://wordpress-themes.ir/bot');
 }
 
 for ($i = 0; $i < 30; $i++) {
