@@ -1080,7 +1080,7 @@ class MyTmpTelegramBot
 
     public function login_user($chatid)
     {
-        $user = $this->get_login($chatid);
+        $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
             $this->user_menu($user, $chatid);
@@ -1092,7 +1092,7 @@ class MyTmpTelegramBot
 
     public function login_company($chatid)
     {
-        $user = $this->get_login($chatid);
+        $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "com");
             $this->company_menu($user, $chatid);
