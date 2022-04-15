@@ -1083,7 +1083,8 @@ class MyTmpTelegramBot
         $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "user");
-            $this->user_menu($user, $chatid);
+            $user1 =  $this->get_login($chatid);
+            $this->user_menu($user1, $chatid);
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارجو ثبت نام نکرده اید'));
@@ -1095,7 +1096,8 @@ class MyTmpTelegramBot
         $user = get_user_by('login', $chatid);
         if ($user) {
             update_user_meta($user->ID, "user_type_login", "com");
-            $this->company_menu($user, $chatid);
+            $user1 =  $this->get_login($chatid);
+            $this->company_menu($user1, $chatid);
         } else {
 
             $this->sendMessage($chatid, urlencode('هنوز به عنوان کارفرما ثبت نام نکرده اید'));
