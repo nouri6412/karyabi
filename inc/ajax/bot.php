@@ -1669,6 +1669,7 @@ class MyTmpTelegramBot
                 $this->sendMessage($chat_id, urlencode("نام و نام خانوادگی را وارد نمائید"));
             } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارجو ثبت نام کرده اید"));
+                $this->run_start_menu($chat_id);
             }
             return;
         }
@@ -1707,6 +1708,7 @@ class MyTmpTelegramBot
                 $this->sendMessage($chat_id, urlencode("نام شرکت را وارد نمائید"));
             } else {
                 $this->sendMessage($chat_id, urlencode("شما قبلا به عنوان کارفرما ثبت نام کرده اید"));
+                $this->run_start_menu($chat_id);
             }
             return;
         }
