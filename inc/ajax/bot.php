@@ -198,37 +198,6 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, "مهارت های شما" . ' : ' . $skills);
                     break;
                 }
-            case "company-profile-name": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, urlencode("نام شرکت را وارد نمائید"));
-                    break;
-                }
-            case "company-profile-email": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, urlencode("ایمیل شرکت را وارد نمائید"));
-                    break;
-                }
-            case "company-profile-web": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, urlencode("وب سایت شرکت را وارد نمائید"));
-                    break;
-                }
-            case "company-profile-cat": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_cat($user, $chatId);
-                    break;
-                }
-            case "company-profile-tel": {
-
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->request_phone($chatId);
-                    break;
-                }
-            case "company-profile-about": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->sendMessage($chatId, urlencode("توضیحاتی درباره شرکت را وارد نمائید"));
-                    break;
-                }
             default: {
                 };
         }
@@ -450,6 +419,37 @@ class MyTmpTelegramBot
             case "رزومه های استخدام شده": {
                     update_user_meta($user->ID, "bot_step", 'رزومه های استخدام شده');
                     $this->company_request_0($user, 4, $chatId);
+                    break;
+                }
+            case "ویرایش نام شرکت": {
+                    update_user_meta($user->ID, "bot_step", 'company-profile-name');
+                    $this->sendMessage($chatId, urlencode("نام شرکت را وارد نمائید"));
+                    break;
+                }
+            case "ویرایش ایمیل": {
+                    update_user_meta($user->ID, "bot_step", 'company-profile-email');
+                    $this->sendMessage($chatId, urlencode("ایمیل شرکت را وارد نمائید"));
+                    break;
+                }
+            case "ویرایش وب سایت": {
+                    update_user_meta($user->ID, "bot_step", 'company-profile-web');
+                    $this->sendMessage($chatId, urlencode("وب سایت شرکت را وارد نمائید"));
+                    break;
+                }
+            case "ویرایش دسته بندی": {
+                    update_user_meta($user->ID, "bot_step", 'company-profile-cat');
+                    $this->company_cat($user, $chatId);
+                    break;
+                }
+            case "ویرایش تلفن": {
+
+                    update_user_meta($user->ID, "bot_step", 'company-profile-tel');
+                    $this->request_phone($chatId);
+                    break;
+                }
+            case "ویرایش درباره شرکت": {
+                    update_user_meta($user->ID, "bot_step", 'company-profile-about');
+                    $this->sendMessage($chatId, urlencode("توضیحاتی درباره شرکت را وارد نمائید"));
                     break;
                 }
             case "user-profile-name": {
@@ -1282,30 +1282,40 @@ class MyTmpTelegramBot
         }
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID), 'callback_data' => 'company-profile-name']
+                    ['text' => 'ویرایش نام شرکت']
                 ],
                 [
-                    ['text' => 'ایمیل' . ' : ' . get_the_author_meta('company_email', $user->ID), 'callback_data' => 'company-profile-email']
+                    ['text' => 'ویرایش ایمیل']
                 ],
                 [
-                    ['text' => 'وب سایت' . ' : ' . get_the_author_meta('web', $user->ID), 'callback_data' => 'company-profile-web']
+                    ['text' => 'ویرایش وب سایت']
                 ],
                 [
-                    ['text' => 'دسته' . ' : ' . $selected_cat, 'callback_data' => 'company-profile-cat']
+                    ['text' => 'ویرایش دسته بندی']
                 ],
                 [
-                    ['text' => 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID), 'callback_data' => 'company-profile-tel']
+                    ['text' => 'ویرایش تلفن']
                 ],
                 [
-                    ['text' => 'درباره شرکت' . ' : ' . get_the_author_meta('desc', $user->ID), 'callback_data' => 'company-profile-about']
+                    ['text' => 'ویرایش درباره شرکت']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, "اطلاعات پروفایل", "&reply_markup=" . $encodedKeyboard);
+        $desc = "اطلاعات پروفایل :";
+        $desc .= PHP_EOL . 'نام شرکت' . ' : ' . get_the_author_meta('company_name', $user->ID);
+        $desc .= PHP_EOL . 'ایمیل' . ' : ' . get_the_author_meta('company_email', $user->ID);
+        $desc .= PHP_EOL . 'وب سایت' . ' : ' . get_the_author_meta('web', $user->ID);
+        $desc .= PHP_EOL . 'دسته بندی' . ' : ' . $selected_cat;
+        $desc .= PHP_EOL . 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID);
+        $desc .= PHP_EOL . 'درباره شرکت' . ' : ' . get_the_author_meta('desc', $user->ID);
+
+        $this->sendMessage($chatId, urlencode($desc), "&reply_markup=" . $encodedKeyboard);
     }
 
     public function company_create_job($user, $chatId)
