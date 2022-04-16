@@ -1314,6 +1314,7 @@ class MyTmpTelegramBot
         $desc .= PHP_EOL . 'دسته بندی' . ' : ' . $selected_cat;
         $desc .= PHP_EOL . 'تلفن' . ' : ' . get_the_author_meta('tel', $user->ID);
         $desc .= PHP_EOL . 'درباره شرکت' . ' : ' . get_the_author_meta('desc', $user->ID);
+        update_user_meta($user->ID, "back_menu", 'ورود کارفرما');
 
         $this->sendMessage($chatId, urlencode($desc), "&reply_markup=" . $encodedKeyboard);
     }
