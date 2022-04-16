@@ -462,6 +462,7 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
                     break;
                 }
+                
             case "user-profile-register-name": {
                     $wpdb->update(
                         $wpdb->users,
