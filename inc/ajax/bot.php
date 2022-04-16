@@ -335,7 +335,7 @@ class MyTmpTelegramBot
         global $wpdb;
         $step = get_the_author_meta('bot_step', $user->ID);
 
-        switch ($step) {
+        switch ($text) {
             case "بازگشت": {
                     update_user_meta($user->ID, "bot_step", '');
 
@@ -462,7 +462,11 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, "اطلاعات ثبت شد");
                     break;
                 }
-                
+        }
+        if ($break) {
+            return;
+        }
+        switch ($step) {
             case "user-profile-register-name": {
                     $wpdb->update(
                         $wpdb->users,
