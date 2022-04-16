@@ -1173,6 +1173,9 @@ class MyTmpTelegramBot
                 [
                     ['text' => 'شغل های پیشنهادی'],
                     ['text' => 'درخواست های من']
+                ],
+                [
+                    ['text' => 'بازگشت']
                 ]
             ],
             'one_time_keyboard' => true,
@@ -1205,6 +1208,9 @@ class MyTmpTelegramBot
                 ],
                 [
                     ['text' => 'رزومه های استخدام شده']
+                ],
+                [
+                    ['text' => 'بازگشت']
                 ]
             ],
             'one_time_keyboard' => true,
@@ -1300,6 +1306,9 @@ class MyTmpTelegramBot
                 ],
                 [
                     ['text' => 'ویرایش درباره شرکت']
+                ],
+                [
+                    ['text' => 'بازگشت']
                 ]
             ],
             'one_time_keyboard' => true,
