@@ -10,7 +10,18 @@
  * @since 1.0.0
  * Template Name: ربات
  */
+$str=file_get_contents("php://input");
+// $myfile = fopen("hook-bot.txt", "w") or die("Unable to open file!");
+// fwrite($myfile, $str);
+// fclose($myfile);
 
+$update = json_decode($str, TRUE,512,JSON_UNESCAPED_UNICODE);
+
+$obj = new MyTmpTelegramBot();
+
+$obj->message($update);
+
+return;
 
 $obj = new MyTmpTelegramBot();
 $id = get_option("telegram_bot_update_id", 0);

@@ -136,49 +136,9 @@ class MyTmpTelegramBot
                     $this->sendMessage($chatId, urlencode("نام و نام خانوادگی را وارد نماپید"));
                     break;
                 }
-            case "menu-company-profile": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_profile($user, $chatId);
-                    break;
-                }
-            case "menu-company-create-job": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_create_job($user, $chatId);
-                    break;
-                }
-            case "menu-company-jobs": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_my_jobs($user, $chatId);
-                    break;
-                }
-            case "menu-company-request-0": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 0, $chatId);
-                    break;
-                }
-            case "menu-company-request-1": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 2, $chatId);
-                    break;
-                }
-            case "menu-company-request-2": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->company_request_0($user, 4, $chatId);
-                    break;
-                }
             case "menu-user-resume": {
                     update_user_meta($user->ID, "bot_step", $data);
                     $this->user_resume($user, $chatId);
-                    break;
-                }
-            case "menu-user-jobs": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_jobs($user, $chatId);
-                    break;
-                }
-            case "menu-user-request": {
-                    update_user_meta($user->ID, "bot_step", $data);
-                    $this->user_requests($user, $chatId);
                     break;
                 }
             case "user-profile-name": {
@@ -290,7 +250,7 @@ class MyTmpTelegramBot
         );
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, urlencode("درخواست شماره"), "&reply_markup=" . $encodedKeyboard);
+        $this->sendMessage($chatId, urlencode("تایید شماره تلفن"), "&reply_markup=" . $encodedKeyboard);
     }
     public function user_profile_view($user_id, $chatId)
     {
@@ -407,6 +367,91 @@ class MyTmpTelegramBot
         $step = get_the_author_meta('bot_step', $user->ID);
 
         switch ($step) {
+            case "بازگشت": {
+                    update_user_meta($user->ID, "bot_step", '');
+
+                    $back_menu = get_the_author_meta('back_menu', $user->ID);
+
+                    if ($back_menu == 'start' || strlen($back_menu) == 0) {
+                        $this->run_start_menu($chatId);
+                    } else {
+                        $this->callback_input($user, $back_menu, $chatId);
+                    }
+
+                    $break = true;
+                    break;
+                }
+            case "ثبت نام فریلنسر": {
+                    $this->register_user($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ثبت نام کارفرما": {
+                    $this->register_company($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ورود فریلنسر": {
+                    $this->login_user($chatId);
+                    $break = true;
+                    break;
+                }
+            case "ورود کارفرما": {
+                    $this->login_company($chatId);
+                    $break = true;
+                    break;
+                }
+            case "مشاهده رزومه": {
+                    $this->user_profile_view($user->ID, $chatId);
+                    $break = true;
+                    break;
+                }
+            case "ساخت رزومه": {
+                    update_user_meta($user->ID, "bot_step", 'menu-user-create-resume-name');
+                    $this->sendMessage($chatId, urlencode("نام و نام خانوادگی را وارد نمایید"));
+                    $break = true;
+                    break;
+                }
+            case "شغل های پیشنهادی": {
+                    update_user_meta($user->ID, "bot_step", 'شغل های پیشنهادی');
+                    $this->user_jobs($user, $chatId);
+                    break;
+                }
+            case "درخواست های من": {
+                    update_user_meta($user->ID, "bot_step", 'درخواست های من');
+                    $this->user_requests($user, $chatId);
+                    break;
+                }
+            case "ویرایش پروفایل": {
+                    update_user_meta($user->ID, "bot_step", 'ویرایش پروفایل');
+                    $this->company_profile($user, $chatId);
+                    break;
+                }
+            case "ارسال آگهی": {
+                    update_user_meta($user->ID, "bot_step", 'ارسال آگهی');
+                    $this->company_create_job($user, $chatId);
+                    break;
+                }
+            case "آگهی های من": {
+                    update_user_meta($user->ID, "bot_step", 'آگهی های من');
+                    $this->company_my_jobs($user, $chatId);
+                    break;
+                }
+            case "رزومه های بررسی نشده": {
+                    update_user_meta($user->ID, "bot_step", 'رزومه های بررسی نشده');
+                    $this->company_request_0($user, 0, $chatId);
+                    break;
+                }
+            case "رزومه های تایید برای مصاحبه": {
+                    update_user_meta($user->ID, "bot_step", 'رزومه های تایید برای مصاحبه');
+                    $this->company_request_0($user, 2, $chatId);
+                    break;
+                }
+            case "رزومه های استخدام شده": {
+                    update_user_meta($user->ID, "bot_step", 'رزومه های استخدام شده');
+                    $this->company_request_0($user, 4, $chatId);
+                    break;
+                }
             case "user-profile-name": {
                     update_user_meta($user->ID, "user_name", $text);
                     $wpdb->update(
@@ -1061,23 +1106,33 @@ class MyTmpTelegramBot
     public function start_menu($item)
     {
         $chatId = $item['message']['chat']['id'];
+
+        $this->run_start_menu($chatId);
+    }
+
+    public function run_start_menu($chatId)
+    {
+
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'ثبت نام کارجو', 'callback_data' => 'register-user'],
-                    ['text' => 'ثبت نام کارفرما', 'callback_data' => 'register-company']
+                    ['text' => 'ثبت نام کارجو'],
+                    ['text' => 'ثبت نام کارفرما']
                 ],
                 [
-                    ['text' => 'ورود کارجو', 'callback_data' => 'login-user'],
-                    ['text' => 'ورود کارفرما', 'callback_data' => 'login-company']
+                    ['text' => 'ورود کارجو'],
+                    ['text' => 'ورود کارفرما']
                 ]
-            ]
+            ],
+
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
-        $this->sendMessage($chatId, "یکی از گزینه های زیر را انتخاب نمائید", "&reply_markup=" . $encodedKeyboard);
-    }
 
+        $this->sendMessage($chatId, "یکی از گزینه های زیر را انتخاب نمایید", "&reply_markup=" . $encodedKeyboard);
+    }
     public function login_user($chatid)
     {
         $user = get_user_by('login', $chatid);
@@ -1110,20 +1165,23 @@ class MyTmpTelegramBot
         $user1 =  $this->get_login($chatId);
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'مشاهده رزومه', 'callback_data' => 'user-profile-view-' . $user1->ID],
-                    ['text' => 'ساخت رزومه', 'callback_data' => 'menu-user-create-resume']
+                    ['text' => 'مشاهده رزومه'],
+                    ['text' => 'ساخت رزومه']
                 ],
                 [
-                    ['text' => 'شغل های پیشنهادی', 'callback_data' => 'menu-user-jobs'],
-                    ['text' => 'درخواست های من', 'callback_data' => 'menu-user-request']
+                    ['text' => 'شغل های پیشنهادی'],
+                    ['text' => 'درخواست های من']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
         update_user_meta($user->ID, "bot_step", "menu");
+        update_user_meta($user->ID, "back_menu", 'start');
 
         $this->sendMessage($chatId, urlencode("منوی کارجو"), "&reply_markup=" . $encodedKeyboard);
     }
@@ -1133,26 +1191,29 @@ class MyTmpTelegramBot
         $step = get_the_author_meta('bot_step', $user->ID);
 
         $keyboard = [
-            'inline_keyboard' => [
+            'keyboard' => [
                 [
-                    ['text' => 'ویرایش پروفایل', 'callback_data' => 'menu-company-profile'],
-                    ['text' => 'ارسال آگهی', 'callback_data' => 'menu-company-create-job'],
-                    ['text' => 'آگهی های من', 'callback_data' => 'menu-company-jobs']
+                    ['text' => 'ویرایش پروفایل'],
+                    ['text' => 'ارسال آگهی'],
+                    ['text' => 'آگهی های من']
                 ],
                 [
-                    ['text' => 'رزومه های بررسی نشده', 'callback_data' => 'menu-company-request-0']
+                    ['text' => 'رزومه های بررسی نشده']
                 ],
                 [
-                    ['text' => 'رزومه های تایید برای مصاحبه', 'callback_data' => 'menu-company-request-1']
+                    ['text' => 'رزومه های تایید برای مصاحبه']
                 ],
                 [
-                    ['text' => 'رزومه های استخدام شده', 'callback_data' => 'menu-company-request-2']
+                    ['text' => 'رزومه های استخدام شده']
                 ]
-            ]
+            ],
+            'one_time_keyboard' => true,
+            'resize_keyboard' => true
         ];
         $encodedKeyboard = json_encode($keyboard);
 
         update_user_meta($user->ID, "bot_step", "menu");
+        update_user_meta($user->ID, "back_menu", 'start');
 
         $this->sendMessage($chatId, urlencode("منوی کارفرما"), "&reply_markup=" . $encodedKeyboard);
     }
@@ -1288,8 +1349,8 @@ class MyTmpTelegramBot
             $desc .= PHP_EOL . "وضعیت آگهی" . " : " . get_the_job_status(get_post_meta(get_the_ID(), 'active', true), false);
             $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
             $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true).' '.'دلار';
-            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true).' '.'دلار';
+            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true) . ' ' . 'دلار';
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
             $desc .= PHP_EOL . "شرح شغل" . " : " . get_post_meta(get_the_ID(), 'desc', true);
 
@@ -1448,8 +1509,8 @@ class MyTmpTelegramBot
             $desc = "";
             $desc .= PHP_EOL . "نوع همکاری" . " : " . get_post_meta(get_the_ID(), 'coop-type', true);
             $desc .= PHP_EOL . "سابقه کاری" . " : " . get_post_meta(get_the_ID(), 'exp', true);
-            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true).' '.'دلار';
-            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true).' '.'دلار';
+            $desc .= PHP_EOL . "حداقل حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'min-salary', true) . ' ' . 'دلار';
+            $desc .= PHP_EOL . "حداکثر حقوق برای هر ساعت" . " : " . get_post_meta(get_the_ID(), 'max-salary', true) . ' ' . 'دلار';
             $desc .= PHP_EOL . "موقعیت مکانی" . " : " . get_post_meta(get_the_ID(), 'address', true);
             $desc .= PHP_EOL . "شرح شغل" . " : " . strip_tags(get_post_meta(get_the_ID(), 'desc', true));
 
