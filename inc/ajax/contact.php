@@ -142,10 +142,11 @@ class Karyabi_Contact_Ajax
         $id=$user->ID+50008512;
 
         if ($user) {
-          //  $message  = '<a href="https://karyabee.ca/register?action=confirm-pass&keynumber=' . $id . '">برای تغییر رمز عبور اینجا کلیک فرمائید</a>';
-            $message  = 'برای تغییر رمز عبور اینجا کلیک فرمائید';
+            $message  = '<a href="https://karyabee.ca/register?action=confirm-pass&keynumber=' . $id . '">برای تغییر رمز عبور اینجا کلیک فرمائید</a>';
+         //   $message  = 'برای تغییر رمز عبور اینجا کلیک فرمائید';
 
             wp_mail(
+                get_the_author_meta('user_email', $user->ID),
                 wp_specialchars_decode(sprintf('فراموشی رمز عبور' . ' ' . get_bloginfo('name'))),
                 $message,
                 array('Content-Type: text/html; charset=UTF-8')

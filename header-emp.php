@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>" />
- 
+
 	<!-- FAVICONS ICON -->
 	<link rel="icon" href="images/favicon.ico" type="<?php echo get_template_directory_uri(); ?>/assets/image/x-icon">
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo get_template_directory_uri(); ?>/assets/images/favicon.png">
@@ -93,15 +93,15 @@
 							</p>
 						</div>
 						<div>
-						<?php if (!is_user_logged_in()) { ?>
-                            <a href="<?php echo home_url('?login=1') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
+							<?php if (!is_user_logged_in()) { ?>
+								<a href="<?php echo home_url('?login=1') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
 
-                        <?php } else {
-                        ?>
-                            <a href="<?php echo home_url('profile') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
+							<?php } else {
+							?>
+								<a href="<?php echo home_url('profile') ?>" class="site-button">ورود به پنل کاربری کارفرما<i class="fa fa-long-arrow-left mr-3"></i></a>
 
-                        <?php
-                        } ?>
+							<?php
+							} ?>
 						</div>
 						<div class="mt-4">
 							<p><a href="<?php echo home_url('register-emp')  ?>">به عنوان کارفرما ثبت نام کنید</a>
@@ -115,6 +115,14 @@
 			<svg version="1.1" id="Layer_1" class="mask-white " x="0px" y="0px" viewBox="0 0 1920 99.4" enable-background="new 0 0 1920 99.4" xml:space="preserve">
 				<path d="M0,99.4h1920V27.6C1291.8-69.2,655.7,128,0,23.9V99.4z"></path>
 			</svg>
+			<div>
+				<?php
+				$unit1 = get_field("unit1");
+				?>
+				<div style="background-image: url(<?php echo $unit1["image"]; ?>);" class="banner-image">
+
+				</div>
+			</div>
 		</header>
 		<!-- header END -->
 		<main class="bg-white pt-4">

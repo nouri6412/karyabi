@@ -1,13 +1,33 @@
 .banner-image{
-    max-width: 864px;
+    width: 864px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 4px 8px 0px, rgba(0, 0, 0, 0.08) 0px 2px 4px 0px;
     height: 140px;
     background-size: cover;
     animation: 150s linear 0s infinite normal none running animatedBackgroundFold;
     -webkit-animation: 150s linear 0s infinite normal none running animatedBackgroundFold;
     margin: 50px auto;
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    z-index: 5;
 }
-
+@media screen and (max-width:767px){
+    .banner-image{
+        width: 99%;
+        height: 100px;
+    }
+}
+@media screen and (min-width:767px) and (max-width:1024px){
+    .banner-image{
+        width: 700px;
+        height: 110px;
+    }
+}
 
 @keyframes animatedBackgroundFold {
     0% {

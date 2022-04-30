@@ -254,7 +254,7 @@ function custom_wp_new_user_notification_email( $wp_new_user_notification_email,
     return $wp_new_user_notification_email;
 }
 
-
+add_filter( 'big_image_size_threshold', '__return_false' );
 remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
 add_action( 'shutdown', function() {
    while ( @ob_end_flush() );

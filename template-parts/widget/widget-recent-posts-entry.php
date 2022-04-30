@@ -6,7 +6,7 @@ $args = array(
 $the_query = new WP_Query($args);
 ?>
 <div class="widget recent-posts-entry">
-    <h6 class="widget-title" style="font-family: pelak;">پست های اخیر</h6>
+    <h6 class="widget-title" style="font-family: pelak;">آخرین مقاله ها</h6>
     <div class="widget-post-bx">
         <?php
         while ($the_query->have_posts()) :
