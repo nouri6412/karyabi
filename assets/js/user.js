@@ -27,7 +27,13 @@ function ajax_submit_mbm_register(username, email, pass, re_pas,user_type, eleme
     if(!strongRegex.test(pass)) {
         error += '<br>' + 'رمز عبور شما حداقل باید 8 کاراکتر باشد و شامل حداقل یک حرف بزرگ و کوچک انگلیسی و حروف خاص مانند @,$ باشد';
     }
- 
+
+    var response = grecaptcha.getResponse();
+    if (response.length == 0) {
+               error += '<br>' + 'هویت سنجی نبودن ربات را انجام دهید';
+
+    }
+
     if (error.length > 0) {
         element_error.html(error);
         return;
@@ -53,7 +59,14 @@ function ajax_submit_mbm_register(username, email, pass, re_pas,user_type, eleme
                     element_error.html(found.html());
                 }
                 else {
-                    element_done.html('<p>' + 'ثبت نام با موفقیت انجام شد. ایمیل تایید فرستاده شد' + '</p>' + '<p>' + 'برای ورود ' + '<a href="' + custom_theme_mbm_object.loginurl + '">' + 'اینجا کلیک فرمائید' + '</a>' + '</p>');
+                    if(user_type=='user')
+                    {
+                        element_done.html('<p>' + 'ثبت شما با موفقیت انجام شد . لطفا برای ورود به پنل کاربری ایمیل خود را تائید نمایید.' + '</p>' + '<p>' +  '<a href="' + custom_theme_mbm_object.loginurl + '">' + 'حساب کارجو دارید؟ وارد شوید' + '</a>' + '</p>');
+                    }
+                    else
+                    {
+                        element_done.html('<p>' + 'ثبت شما با موفقیت انجام شد . لطفا برای ورود به پنل کاربری ایمیل خود را تائید نمایید.' + '</p>' + '<p>' +  '<a href="' + custom_theme_mbm_object.loginurl + '">' + 'حساب کارفرمایی دارید؟ وارد شوید' + '</a>' + '</p>');
+                    }
                 }
             },
             beforeSend: function () {
