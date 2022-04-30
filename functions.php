@@ -236,6 +236,25 @@ function karyabi_admin_active_job()
     }
 }
 
+
+add_filter( 'wp_new_user_notification_email', 'custom_wp_new_user_notification_email', 10, 3 );
+function custom_wp_new_user_notification_email( $wp_new_user_notification_email, $user, $blogname ) {
+ 
+    $user_login = stripslashes( $user->user_login );
+    $user_email = stripslashes( $user->user_email );
+    $login_url  = wp_login_url();
+    $message  = 'با تشکر از ثبت نام شما' . '<br>';
+    $message .= 'کد تایید ' . '<br>';
+    $message .= get_the_author_meta('user_email_code', $user->ID);
+    
+    $wp_new_user_notification_email['subject'] = 'تایید ایمیل سایت'. ' '.$blogname;
+    $wp_new_user_notification_email['headers'] = array('Content-Type: text/html; charset=UTF-8');
+    $wp_new_user_notification_email['message'] = $message;
+ 
+    return $wp_new_user_notification_email;
+}
+
+
 remove_action( 'shutdown', 'wp_ob_end_flush_all', 1 );
 add_action( 'shutdown', function() {
    while ( @ob_end_flush() );

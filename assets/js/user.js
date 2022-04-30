@@ -81,6 +81,25 @@ function ajax_submit_mbm_register(username, email, pass, re_pas,user_type, eleme
 
 }
 
+function ajax_submit_mbm_register_confirm(user_confirm, element_error, element_done) {
+
+    var error = '';
+    element_error.html('');
+    element_done.html('');
+
+    custom_theme_mbm_base_ajax({
+        'action': 'mbm_set_session_confirm',
+        'code': user_confirm
+    }, function (result) {
+        if (result.state == 0) {
+            element_error.html(result.message);
+        }
+        else {
+            element_done.html('ثبت نام شما با موفقیت تایید شد');
+        }
+    });
+}
+
 function ajax_submit_mbm_login(username, pass, element_error, element_done)
 {
     var error = '';

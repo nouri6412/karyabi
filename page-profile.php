@@ -53,6 +53,7 @@ set_query_var('page_action', $action);
 set_query_var('user_type', $user_type);
 set_query_var('user_info', $user_info);
 set_query_var('user_meta', $user_meta);
+$active = get_the_author_meta('active_state', get_current_user_id());
 
 ?>
 <!-- Content -->
@@ -78,12 +79,30 @@ set_query_var('user_meta', $user_meta);
                     </div>
                     <div class="col-xl-9 col-lg-8 m-b30">
                         <?php
+                       
                         if ($user_id > 0) {
-                            set_query_var('back_action',get_the_author_meta( 'page_action', $user_id));
-                            update_user_meta($user_id, "page_action", $action);
-                            get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
-                        } else {
+                            if ($user_id == get_current_user_id() && ($active == 1 || current_user_can('administrator'))) {
+                              
+                                set_query_var('back_action', get_the_author_meta('page_action', $user_id));
+                                update_user_meta($user_id, "page_action", $action);
+                                get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
+                            } else if ($user_id == get_current_user_id() && $active == 0 && !current_user_can('administrator')) {
+                               
                         ?>
+                                <div style="height: 500px;">
+                                    <a href="<?php echo home_url('register?action=verify') ?>"><i class="fa fa-lock"></i> ثبت نام شما تایید نشده است برای تایید ایمیل کلیک فرمائید </a>
+                                </div>
+                            <?php
+                            }
+                            else if($user_id != get_current_user_id() || current_user_can('administrator'))
+                            {
+                              
+                                set_query_var('back_action', get_the_author_meta('page_action', $user_id));
+                                update_user_meta($user_id, "page_action", $action);
+                                get_template_part('template-parts/profile-' . $user_type . '/profile-' . $user_type, $action);
+                            }
+                        } else {
+                            ?>
                             <a href="#" rel="bookmark" data-toggle="modal" data-target="#car-details"><i class="fa fa-lock"></i> لطفا وارد سایت شوید </a>
                         <?php
                         }
