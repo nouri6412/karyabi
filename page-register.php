@@ -16,6 +16,8 @@
 get_header();
 $step_1 = "";
 $step_2 = 'style="display: none;"';
+$step_3 = 'style="display: none;"';
+$step_4 = 'style="display: none;"';
 
 if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 	$step_1 = 'style="display: none;"';
@@ -36,8 +38,15 @@ if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 		$message,
 		array('Content-Type: text/html; charset=UTF-8')
 	);
-} else {
-	$step_2 = 'style="display: none;"';
+} else if (isset($_GET["action"]) && $_GET["action"] == "forget-pass") {
+	$step_1 = 'style="display: none;"';
+	$step_4 = 'style="display: block;"';
+
+} else if (isset($_GET["action"]) && $_GET["action"] == "confirm-pass") {
+	$user_id_1 = $_GET["keynumber"]-50008512;
+	$step_1 = 'style="display: none;"';
+	$step_3 = 'style="display: block;"';
+
 }
 ?>
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -47,7 +56,7 @@ if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 	<div class="section-full content-inner browse-job shop-account">
 		<!-- Product -->
 		<div <?php echo $step_1 ?> class="container">
-		<h2 class="font-weight-700 m-b5">ثبت نام کارجو</h2>
+			<h2 class="font-weight-700 m-b5">ثبت نام کارجو</h2>
 			<div class="row">
 				<div class="col-md-12 m-b30">
 					<div style="border-radius: 15px;    box-shadow: 0 0 10px 0 rgb(46 46 48 / 33%);" class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
@@ -81,26 +90,26 @@ if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 										,$('#pass').val()
 										,$('#re_pass').val()
 										,$('#user_type').val()
-										,$('#dzFormMsg-error-2')
-                                        ,$('#dzFormMsg-doned-2'))
+										,$('#dzFormMsg-error-11')
+                                        ,$('#dzFormMsg-doned-11'))
 										" name="wp-submit" id="wp-submit" class="site-button button-lg outline outline-2">ایجاد حساب</button>
 							</div>
-							<div id="dzFormMsg-error-2" class="dzFormMsg error"></div>
-							<div id="dzFormMsg-doned-2" class="dzFormMsg doned"></div>
+							<div id="dzFormMsg-error-11" class="dzFormMsg error"></div>
+							<div id="dzFormMsg-doned-11" class="dzFormMsg doned"></div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div <?php echo $step_2 ?> class="container">
-		<h2 class="font-weight-700 m-b5">تایید ایمیل</h2>
+			<h2 class="font-weight-700 m-b5">تایید ایمیل</h2>
 			<div class="row">
 				<div class="col-md-12 m-b30">
 					<div style="border-radius: 15px;    box-shadow: 0 0 10px 0 rgb(46 46 48 / 33%);" class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
 						<div class="tab-content">
 							<p class="font-weight-600">کد تایید ایمیل را در کادر زیر وارد نمائید</p>
 							<div class="form-group">
-								<input name="user_confirm" id="user_confirm" required="" class="form-control " placeholder="کد تایید" >
+								<input name="user_confirm" id="user_confirm" required="" class="form-control " placeholder="کد تایید">
 							</div>
 							<div class="text-left">
 								<div class="box-loading">
@@ -119,6 +128,69 @@ if (isset($_GET["action"]) && $_GET["action"] == "verify") {
 				</div>
 			</div>
 		</div>
+		<div <?php echo $step_3 ?> class="container">
+			<h2 class="font-weight-700 m-b5">بازیابی رمز عبور</h2>
+			<div class="row">
+				<div class="col-md-12 m-b30">
+					<div style="border-radius: 15px;    box-shadow: 0 0 10px 0 rgb(46 46 48 / 33%);" class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
+						<div class="tab-content">
+							<p class="font-weight-600">کد تایید ایمیل را در کادر زیر وارد نمائید</p>
+							<div class="form-group">
+								<label class="font-weight-700">رمز عبور</label>
+								<input name="keynumber" id="keynumber" <?php echo $user_id_1 ?> type="hidden">
+
+								<input name="pass1" id="pass1" required="" class="form-control " placeholder="رمز عبور جدید را وارد کنید" type="password">
+							</div>
+							<div class="form-group">
+								<label class="font-weight-700">تکرار رمز عبور</label>
+								<input name="re_pass1" id="re_pass1" required="" class="form-control " placeholder="تکرار رمز عبور را وارد کنید" type="password">
+							</div>
+							<div class="text-left">
+								<div class="box-loading">
+									<div class="loading-ajax"></div>
+								</div>
+								<button onclick="ajax_submit_mbm_forget_pass(
+										 $('#keynumber').val()
+										,$('#pass1').val()
+										,$('#re_pass1').val()
+										,$('#dzFormMsg-error-22')
+                                        ,$('#dzFormMsg-doned-22'))
+										" name="wp-submit" id="wp-submit" class="site-button button-lg outline outline-2">ذخیره</button>
+							</div>
+							<div id="dzFormMsg-error-22" class="dzFormMsg error"></div>
+							<div id="dzFormMsg-doned-22" class="dzFormMsg doned"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div <?php echo $step_4 ?> class="container">
+			<h2 class="font-weight-700 m-b5">بازیابی رمز عبور</h2>
+			<div class="row">
+				<div class="col-md-12 m-b30">
+					<div style="border-radius: 15px;    box-shadow: 0 0 10px 0 rgb(46 46 48 / 33%);" class="p-a30 job-bx max-w500 radius-sm bg-white m-auto">
+						<div class="tab-content">
+							<p class="font-weight-600">ایمیل کاربری خود را وارد نمائید</p>
+							<div class="form-group">
+								<input name="user_email_send" id="user_email_send" required="" class="form-control " placeholder="ایمیل">
+							</div>
+							<div class="text-left">
+								<div class="box-loading">
+									<div class="loading-ajax"></div>
+								</div>
+								<button onclick="ajax_submit_mbm_register_forget_pass_send(
+										$('#user_email_send').val()
+										,$('#dzFormMsg-error-33')
+                                        ,$('#dzFormMsg-doned-33'))
+										" name="wp-submit" id="wp-submit" class="site-button button-lg outline outline-2">ارسال</button>
+							</div>
+							<div id="dzFormMsg-error-33" class="dzFormMsg error"></div>
+							<div id="dzFormMsg-doned-33" class="dzFormMsg doned"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
 		<!-- Product END -->
 	</div>
 	<!-- contact area  END -->

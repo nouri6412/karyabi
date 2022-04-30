@@ -100,6 +100,64 @@ function ajax_submit_mbm_register_confirm(user_confirm, element_error, element_d
     });
 }
 
+function ajax_submit_mbm_register_forget_pass_send(user_confirm, element_error, element_done) {
+
+    var error = '';
+    element_error.html('');
+    element_done.html('');
+
+    custom_theme_mbm_base_ajax({
+        'action': 'mbm_set_forget_pass_send',
+        'user_email': user_confirm
+    }, function (result) {
+        if (result.state == 0) {
+            element_error.html(result.message);
+        }
+        else {
+            element_done.html('لینک تغییر رمز عبور به ایمیل فرستاده شد');
+        }
+    });
+}
+
+function ajax_submit_mbm_forget_pass(keynumber, pass, re_pas, element_error, element_done) {
+
+    var error = '';
+    element_error.html('');
+    element_done.html('');
+
+    if (pass.length == 0) {
+        error += '<br>' + 'رمز عبور نباید خالی بماند';
+    }
+
+    if (pass != re_pas) {
+        error += '<br>' + 'تکرار رمز عبور صحیح نمی باشد';
+    }
+
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+
+    if(!strongRegex.test(pass)) {
+        error += '<br>' + 'رمز عبور شما حداقل باید 8 کاراکتر باشد و شامل حداقل یک حرف بزرگ و کوچک انگلیسی و حروف خاص مانند @,$ باشد';
+    }
+ 
+    if (error.length > 0) {
+        element_error.html(error);
+        return;
+    }
+
+    custom_theme_mbm_base_ajax({
+        'action': 'mbm_set_forget_pass',
+        'keynumber': keynumber,
+        'pass': pass
+    }, function (result) {
+        if (result.state == 0) {
+            element_error.html(result.message);
+        }
+        else {
+            element_done.html('رمز عبور شما با موفقیت  تغییر یافت');
+        }
+    });
+}
+
 function ajax_submit_mbm_login(username, pass, element_error, element_done)
 {
     var error = '';

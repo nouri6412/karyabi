@@ -13,7 +13,7 @@ $data_sosial = get_field("footer-col-1", 'option');
                 <div class="col-lg-6 col-md-6 overlay-primary-dark d-flex p-a0" style="background-image: url(<?php echo $data["image"]; ?>);  background-position:center; background-size:cover;">
                     <div class="form-info text-white align-self-center">
                         <h3 class="m-b15"><?php echo $data["title"]; ?></h3>
-                        <p class="m-b15"><?php echo $data["text"]; ?></p>
+                        <!-- <p class="m-b15"><?php echo $data["text"]; ?></p> -->
                         <ul class="list-inline m-a0">
                             <?php
                             if (isset($data_sosial["sosial"]) && is_array($data_sosial["sosial"])) {
@@ -49,7 +49,7 @@ $data_sosial = get_field("footer-col-1", 'option');
                         </div>
                         <div id="dzFormMsg-error" class="dzFormMsg error"></div>
                         <div id="dzFormMsg-doned" class="dzFormMsg doned"></div>
-
+                        <div><a href="<?php echo  home_url('register?action=forget-pass'); ?>">فراموشی رمز عبور</a></div>
                     </div>
                 </div>
             </div>

@@ -130,7 +130,7 @@ $user_meta = get_query_var('user_meta');
         <div class="col-lg-6 col-md-6">
             <div class="form-group">
                 <label>شهر</label>
-                <input id="company-city" value="<?php echo isset($user_meta['city']) ? $user_meta['city'][0] : '';  ?>" type="text" class="form-control" placeholder="تبریز">
+                <input id="company-city" value="<?php echo isset($user_meta['city']) ? $user_meta['city'][0] : '';  ?>" type="text" class="form-control" placeholder="">
             </div>
         </div>
         <div style="display: none;" class="col-lg-6 col-md-6">

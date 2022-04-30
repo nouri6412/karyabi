@@ -61,14 +61,12 @@ class Karyabi_Contact_Ajax
 
     function register_action($user_id)
     {
-        
-        if(isset($_SESSION["pass"]))
-        {
-            wp_set_password( $_SESSION["pass"], $user_id );
+
+        if (isset($_SESSION["pass"])) {
+            wp_set_password($_SESSION["pass"], $user_id);
         }
 
-        if(isset($_SESSION["user_type"]))
-        {
+        if (isset($_SESSION["user_type"])) {
             update_user_meta($user_id, 'user_type', $_SESSION["user_type"]);
         }
 
@@ -78,17 +76,15 @@ class Karyabi_Contact_Ajax
         update_user_meta($user_id, 'active_state', '0');
     }
 
-   function session()
+    function session()
     {
 
-        if(isset($_POST["pass"]))
-        {
-            $_SESSION['pass'] = $_POST["pass"]; 
+        if (isset($_POST["pass"])) {
+            $_SESSION['pass'] = $_POST["pass"];
         }
 
-        if(isset($_POST["user_type"]))
-        {
-            $_SESSION['user_type'] = $_POST["user_type"]; 
+        if (isset($_POST["user_type"])) {
+            $_SESSION['user_type'] = $_POST["user_type"];
         }
     }
 
@@ -114,6 +110,61 @@ class Karyabi_Contact_Ajax
         ]);
         die();
     }
+
+    function forget_pass()
+    {
+        $user_id = get_current_user_id();
+        $code = "";
+        $state = 1;
+
+
+        wp_set_password($_POST["pass"], $_POST["keynumber"]);
+
+
+        echo json_encode([
+            'state'       => $state,
+            'message'          => 'رمز عبور شما با موفقیت تغییر یافت',
+            'sql'          => "",
+            'max_num_pages' => 1
+        ]);
+        die();
+    }
+
+    function forget_pass_send()
+    {
+        $user_id = get_current_user_id();
+        $code = "";
+        $state = 1;
+
+        $user = get_user_by('email', $_POST["user_email"]);
+
+        $mess = "";
+        $id=$user->ID+50008512;
+
+        if ($user) {
+          //  $message  = '<a href="https://karyabee.ca/register?action=confirm-pass&keynumber=' . $id . '">برای تغییر رمز عبور اینجا کلیک فرمائید</a>';
+            $message  = 'برای تغییر رمز عبور اینجا کلیک فرمائید';
+
+            wp_mail(
+                wp_specialchars_decode(sprintf('فراموشی رمز عبور' . ' ' . get_bloginfo('name'))),
+                $message,
+                array('Content-Type: text/html; charset=UTF-8')
+            );
+        } else {
+            $state = 0;
+            $mess = "ایمیل وارد شده در سایت یافت نشد";
+        }
+
+
+
+        echo json_encode([
+            'state'       => $state,
+            'message'          => $mess,
+            'sql'          => "",
+            'max_num_pages' => 1
+        ]);
+        die();
+    }
 }
 $Karyabi_Contact_Ajax = new Karyabi_Contact_Ajax;
 add_action('wp_ajax_mbm_contact_form', array($Karyabi_Contact_Ajax, 'submit'));
@@ -126,3 +177,11 @@ add_action('user_register', array($Karyabi_Contact_Ajax, 'register_action'));
 
 add_action('wp_ajax_mbm_set_session_confirm', array($Karyabi_Contact_Ajax, 'confirm'));
 add_action('wp_ajax_nopriv_mbm_set_session_confirm', array($Karyabi_Contact_Ajax, 'confirm'));
+
+
+add_action('wp_ajax_mbm_set_forget_pass', array($Karyabi_Contact_Ajax, 'forget_pass'));
+add_action('wp_ajax_nopriv_mbm_set_forget_pass', array($Karyabi_Contact_Ajax, 'forget_pass'));
+
+
+add_action('wp_ajax_mbm_set_forget_pass_send', array($Karyabi_Contact_Ajax, 'forget_pass_send'));
+add_action('wp_ajax_nopriv_mbm_set_forget_pass_send', array($Karyabi_Contact_Ajax, 'forget_pass_send'));
