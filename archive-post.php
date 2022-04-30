@@ -86,11 +86,11 @@ get_header();
 				<div class="col-lg-4 col-md-5 sticky-top">
 					<aside class="side-bar">
 						<?php
-						get_template_part('template-parts/widget/widget', 'search-form');
-						get_template_part('template-parts/widget/widget', 'recent-posts-entry');
-						get_template_part('template-parts/widget/widget', 'our-service');
-						get_template_part('template-parts/widget/widget', 'category');
-						get_template_part('template-parts/widget/widget', 'subscriber');
+		                    get_template_part('template-parts/widget/widget', 'subscriber');
+							// get_template_part('template-parts/widget/widget', 'search-form');
+							 get_template_part('template-parts/widget/widget', 'recent-posts-entry');
+						  //   get_template_part('template-parts/widget/widget', 'our-service');
+							// get_template_part('template-parts/widget/widget', 'category');
 						?>
 					</aside>
 				</div>
